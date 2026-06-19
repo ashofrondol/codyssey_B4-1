@@ -1,0 +1,75 @@
+/* ================================================================
+   form.css — Contact 폼
+   필드 레이아웃, 포커스 링, .has-error 에러 상태 스타일,
+   제출 성공 메시지(.form__success).
+   ================================================================ */
+
+.form {
+  display: grid;
+  gap: var(--space-4);
+  background-color: var(--color-surface);
+  padding: var(--space-6);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+}
+
+.form__field {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.form__field label {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.form__field input,
+.form__field textarea {
+  width: 100%;
+  padding: 0.75rem 0.9rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: inherit;
+  font-size: 0.95rem;
+  transition: border-color var(--t-fast) var(--ease),
+    box-shadow var(--t-fast) var(--ease);
+}
+
+.form__field input:focus,
+.form__field textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(91, 108, 255, 0.18);
+}
+
+.form__field.has-error input,
+.form__field.has-error textarea {
+  border-color: var(--color-danger);
+  box-shadow: 0 0 0 3px rgba(232, 74, 95, 0.15);
+}
+
+.form__error {
+  color: var(--color-danger);
+  font-size: 0.82rem;
+  min-height: 1em;
+}
+
+.form__success {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0.85rem 1rem;
+  background-color: rgba(43, 182, 115, 0.12);
+  color: var(--color-success);
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+}
+
+/* hidden 속성이 display:flex 보다 우선하도록 (제출 전엔 숨김 유지) */
+.form__success[hidden] {
+  display: none;
+}

@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="순수 HTML/CSS/JavaScript로 만든 포트폴리오 웹사이트" />
-  <title>JungSaeYoung | Portfolio</title>
+  <title>JeongSeYoung | Portfolio</title>
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -20,7 +20,24 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
   />
 
+  <!-- 스타일: css/style.css 가 기능별 파일(tokens/base/layout/header/...)을 @import 합니다 -->
   <link rel="stylesheet" href="css/style.css" />
+
+  <!--
+    JavaScript: 기능별로 파일을 분리하고 defer 로 연결합니다.
+    defer 스크립트는 문서 순서대로 실행되므로,
+    공용 설정(config) → 각 기능 모듈 → 초기화(main) 순서로 둡니다.
+  -->
+  <script src="js/config.js" defer></script>
+  <script src="js/theme.js" defer></script>
+  <script src="js/menu.js" defer></script>
+  <script src="js/scroll.js" defer></script>
+  <script src="js/typing.js" defer></script>
+  <script src="js/skills.js" defer></script>
+  <script src="js/reveal.js" defer></script>
+  <script src="js/navspy.js" defer></script>
+  <script src="js/projects.js" defer></script>
+  <script src="js/contact.js" defer></script>
   <script src="js/main.js" defer></script>
 </head>
 <body>
@@ -72,7 +89,7 @@
         <p class="hero__greet">안녕하세요 👋</p>
         <h1 class="hero__title">
           웹을 만드는 학습자<br />
-          <span class="hero__name" id="typed">JungSaeYoung</span>
+          <span class="hero__name" id="typed">JeongSeYoung</span>
           <span class="cursor" aria-hidden="true">|</span>
           입니다.
         </h1>
@@ -110,7 +127,7 @@
           <div class="about__body">
             <p>
               안녕하세요, 웹의 동작 원리를 처음부터 이해하려는
-              <strong>JungSaeYoung</strong> 입니다.
+              <strong>JeongSeYoung</strong> 입니다.
               프레임워크 없이 브라우저와 가장 가까운 도구로
               직접 화면을 만들면서 "이벤트 → 상태 → 렌더링"의
               흐름을 손에 익히고 있습니다.
@@ -118,10 +135,10 @@
             <ul class="about__list">
               <li><i class="fa-solid fa-graduation-cap"></i> Codyssey 학습자</li>
               <li><i class="fa-solid fa-location-dot"></i> Seoul, Korea</li>
-              <li><i class="fa-regular fa-envelope"></i> goobeom@lablup.com</li>
+              <li><i class="fa-regular fa-envelope"></i> ashofrondol@gmail.com</li>
             </ul>
             <a
-              href="https://github.com/JungSaeYoung"
+              href="https://github.com/ashofrondol"
               target="_blank"
               rel="noopener"
               class="btn btn--primary btn--sm"
@@ -221,7 +238,7 @@
 
           <p class="form__success" id="formSuccess" hidden>
             <i class="fa-solid fa-circle-check"></i>
-            메시지가 정상적으로 전송되었습니다.
+            입력하신 내용이 정상적으로 확인되었습니다. 감사합니다!
           </p>
         </form>
       </div>
@@ -231,11 +248,11 @@
   <!-- ============ FOOTER ============ -->
   <footer class="footer">
     <div class="container footer__inner">
-      <p>&copy; <span id="year"></span> JungSaeYoung. All rights reserved.</p>
+      <p>&copy; <span id="year"></span> JeongSeYoung. All rights reserved.</p>
       <ul class="footer__socials" aria-label="소셜 링크">
         <li>
           <a
-            href="https://github.com/JungSaeYoung"
+            href="https://github.com/ashofrondol"
             target="_blank"
             rel="noopener"
             aria-label="GitHub"
@@ -254,7 +271,7 @@
           </a>
         </li>
         <li>
-          <a href="mailto:goobeom@lablup.com" aria-label="Email">
+          <a href="mailto:ashofrondol@gmail.com" aria-label="Email">
             <i class="fa-regular fa-envelope"></i>
           </a>
         </li>

@@ -1,0 +1,45 @@
+/* ================================================================
+   about.css — About 섹션
+   프로필(아바타) + 자기소개 본문. 데스크톱 2컬럼 그리드는
+   responsive.css 의 768px 미디어쿼리에서 적용됩니다.
+   ================================================================ */
+
+.about {
+  display: grid;
+  gap: var(--space-6);
+  align-items: center;
+}
+
+.about__photo {
+  display: grid;
+  place-items: center;
+}
+
+.about__avatar {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 4rem;
+  color: #fff;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  box-shadow: var(--shadow-lg);
+}
+
+.about__body p {
+  color: var(--color-text-soft);
+  margin: 0 0 var(--space-4);
+}
+
+.about__list {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0 0 var(--space-5);
+  color: var(--color-text-soft);
+}
+
+.about__list i {
+  color: var(--color-primary);
+  margin-right: var(--space-2);
+}

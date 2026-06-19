@@ -1,0 +1,66 @@
+/* ================================================================
+   responsive.css — 반응형 (Mobile First → Tablet → Desktop)
+   기본 스타일은 각 파일에서 모바일 기준으로 작성되어 있고,
+   여기서 min-width 미디어쿼리로 태블릿/데스크톱을 확장합니다.
+   접근성을 위한 prefers-reduced-motion 처리도 포함.
+   ※ 이 파일은 cascade 상 마지막에 import 되어야 합니다.
+   ================================================================ */
+
+/* Tablet: 768px 이상 */
+@media (min-width: 768px) {
+  .section {
+    padding: var(--space-12) 0;
+  }
+
+  .nav__menu {
+    display: flex; /* 햄버거 메뉴 없이 펼침 */
+  }
+
+  .nav__menu.is-open {
+    /* 데스크톱에선 정상 inline 표시 */
+    position: static;
+    flex-direction: row;
+    width: auto;
+    padding: 0;
+    background: none;
+    box-shadow: none;
+    border: 0;
+    animation: none;
+  }
+
+  .hamburger {
+    display: none;
+  }
+
+  .about {
+    grid-template-columns: 280px 1fr;
+    gap: var(--space-8);
+  }
+
+  .about__photo {
+    justify-content: flex-start;
+  }
+}
+
+/* Desktop: 1024px 이상 */
+@media (min-width: 1024px) {
+  .container {
+    padding: 0 var(--space-6);
+  }
+
+  .hero__title {
+    font-size: clamp(2.8rem, 4vw + 1rem, 4rem);
+  }
+}
+
+/* 사용자가 모션을 꺼둔 경우 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

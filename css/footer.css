@@ -1,0 +1,45 @@
+/* ================================================================
+   footer.css — Footer
+   저작권 + 소셜 링크 버튼(원형, hover 시 떠오름).
+   ================================================================ */
+
+.footer {
+  padding: var(--space-6) 0;
+  border-top: 1px solid var(--color-border);
+  background-color: var(--color-bg-alt);
+}
+
+.footer__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  text-align: center;
+  color: var(--color-text-soft);
+  font-size: 0.9rem;
+}
+
+.footer__socials {
+  display: flex;
+  gap: var(--space-4);
+  font-size: 1.2rem;
+}
+
+.footer__socials a {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  transition: transform var(--t-fast) var(--ease),
+    color var(--t-fast) var(--ease),
+    border-color var(--t-fast) var(--ease);
+}
+
+.footer__socials a:hover {
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+  transform: translateY(-3px);
+}
