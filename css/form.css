@@ -73,3 +73,20 @@
 .form__success[hidden] {
   display: none;
 }
+
+/* 전송 실패 배너 — 성공 배너와 같은 레이아웃, danger 색상 */
+.form__error-banner {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0.85rem 1rem;
+  background-color: rgba(232, 74, 95, 0.12);
+  color: var(--color-danger);
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+}
+
+.form__error-banner[hidden] {
+  display: none;
+}

@@ -184,7 +184,7 @@
         <tr>
           <td>필수값 누락 · 이메일 형식 오류 시 즉각 피드백이 뜨는가?</td>
           <td>빈 필드/잘못된 이메일에서 필드 바로 아래 즉시 에러 메시지</td>
-          <td>Contact 폼에서 빈 채로 제출/오타 입력. <code>js/contact.js</code>(<code>validateField</code>, <code>isValidEmail</code>)</td>
+          <td>Contact 폼에서 빈 채로 제출/오타 입력. <code>js/contact.js</code>(<code>validate</code>, <code>isValidEmail</code>)</td>
           <td><span class="tag pass">PASS</span></td>
         </tr>
       </tbody>
@@ -446,14 +446,14 @@ setState(partial){
   <!-- ===================== 항목 5 ===================== -->
   <section class="item" id="item5">
     <div class="item-head"><div class="item-num">5</div><h2>보너스 과제</h2></div>
-    <p class="item-sub">선택 과제 구현 현황입니다. (평가지 기준 현재 “미부여”로 표시되어 있으나, 아래 3가지는 실제 구현되어 있습니다 — 시연 시 어필 가능)</p>
+    <p class="item-sub">선택 과제 구현 현황입니다. (평가지 기준 현재 “미부여”로 표시되어 있으나, 아래 4가지는 실제 구현되어 있습니다 — 시연 시 어필 가능)</p>
     <table>
       <thead><tr><th>보너스 항목</th><th>구현</th><th>코드 근거</th></tr></thead>
       <tbody>
         <tr><td>프로젝트 언어별 필터링 (<code>array.filter()</code>)</td><td><span class="tag pass">구현</span></td><td><code>js/projects.js</code> — 언어 필터 버튼 + <code>filter(r =&gt; r.language === activeLang)</code></td></tr>
         <tr><td>타이핑 효과 (Hero 이름 한 글자씩)</td><td><span class="tag pass">구현</span></td><td><code>js/typing.js</code> — <code>setTimeout</code> 한 글자씩</td></tr>
         <tr><td>시스템 다크 모드 감지 (<code>prefers-color-scheme</code>)</td><td><span class="tag pass">구현</span></td><td><code>js/theme.js</code> — 저장값 없을 때 시스템 설정 따름</td></tr>
-        <tr><td>폼 실제 전송 (Formspree / EmailJS)</td><td><span class="tag sev-med">미구현</span></td><td>현재는 <code>console.log</code>로 데이터만 출력 (연동 지점은 <code>js/contact.js</code>에 주석으로 표시)</td></tr>
+        <tr><td>폼 실제 전송 (Formspree)</td><td><span class="tag pass">구현</span></td><td><code>js/contact.js</code> <code>submit()</code>가 <code>CONFIG.CONTACT_ENDPOINT</code>로 <code>fetch</code> POST (전송 중/성공/실패 상태 처리). 폼 ID는 <code>config.js</code>에 설정</td></tr>
       </tbody>
     </table>
   </section>

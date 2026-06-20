@@ -15,6 +15,11 @@
 const CONFIG = {
   // GitHub API 호출에 사용할 본인 계정명(username) — 표시 이름이 아니라 GitHub 핸들
   GITHUB_USERNAME: 'ashofrondol',
+  // Contact 폼 전송 엔드포인트(Formspree).
+  //   formspree.io 가입 → New form → 받은 endpoint 의 폼 ID 로 YOUR_FORM_ID 만 교체.
+  //   예) 'https://formspree.io/f/abcdwxyz'
+  //   ※ 이 폼 ID 는 공개돼도 안전합니다(서버 비밀키 아님). 미설정 시 데모 모드로 동작.
+  CONTACT_ENDPOINT: 'https://formspree.io/f/xykarqqq',
   // 스크롤 탑 버튼이 나타나는 기준 (px)
   SCROLL_TOP_THRESHOLD: 300,
   // 네비 배경이 바뀌는 기준 (px)
