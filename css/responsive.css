@@ -4,63 +4,73 @@
    여기서 min-width 미디어쿼리로 태블릿/데스크톱을 확장합니다.
    접근성을 위한 prefers-reduced-motion 처리도 포함.
    ※ 이 파일은 cascade 상 마지막에 import 되어야 합니다.
+      (모바일 기본값을 화면이 커질 때 덮어써야 하므로 순서가 중요)
    ================================================================ */
 
-/* Tablet: 768px 이상 */
+/* Tablet: 768px 이상 — 화면이 넓어진 시점부터 적용되는 확장 규칙 */
 @media (min-width: 768px) {
+  /* 섹션: 넓은 화면에선 위아래 여백을 키워 콘텐츠에 숨통을 틔움 */
   .section {
-    padding: var(--space-12) 0;
+    padding: var(--space-12) 0; /* 상하 여백을 큰 토큰으로(좌우는 container가 담당) */
   }
 
+  /* 내비 메뉴: 모바일의 접힘 상태를 풀고 가로 막대로 펼침 */
   .nav__menu {
     display: flex; /* 햄버거 메뉴 없이 펼침 */
   }
 
+  /* 모바일에서 .is-open 토글로 붙던 드롭다운 스타일을 태블릿 이상에선 초기화 */
   .nav__menu.is-open {
     /* 데스크톱에선 정상 inline 표시 */
-    position: static;
-    flex-direction: row;
-    width: auto;
-    padding: 0;
-    background: none;
-    box-shadow: none;
-    border: 0;
-    animation: none;
+    position: static;       /* 모바일에서 띄웠던 absolute 배치를 원래 흐름으로 되돌림 */
+    flex-direction: row;    /* 세로로 쌓던 항목을 다시 가로 배열로 */
+    width: auto;            /* 화면 가득 차던 폭을 내용에 맞게 축소 */
+    padding: 0;             /* 드롭다운 패널용 안쪽 여백 제거 */
+    background: none;       /* 패널 배경 제거(막대형이라 면 색 불필요) */
+    box-shadow: none;       /* 떠 있는 패널 그림자 제거 */
+    border: 0;              /* 패널 테두리 제거 */
+    animation: none;        /* 펼침 애니메이션 비활성화(이미 펼친 상태라 불필요) */
   }
 
+  /* 햄버거 버튼: 메뉴가 펼쳐졌으므로 토글 버튼 자체를 숨김 */
   .hamburger {
-    display: none;
+    display: none; /* 태블릿 이상에선 사용하지 않으므로 감춤 */
   }
 
+  /* About 영역: 사진과 본문을 2열로 나눠 가독성 향상 */
   .about {
-    grid-template-columns: 280px 1fr;
-    gap: var(--space-8);
+    grid-template-columns: 280px 1fr; /* 사진은 고정 280px, 본문은 남은 폭 전부 차지 */
+    gap: var(--space-8);              /* 두 열 사이 간격을 넉넉히(토큰) */
   }
 
+  /* About 사진: 2열 배치에선 왼쪽으로 붙여 본문과 자연스럽게 정렬 */
   .about__photo {
-    justify-content: flex-start;
+    justify-content: flex-start; /* 가운데 정렬 대신 시작점(왼쪽)으로 정렬 */
   }
 }
 
-/* Desktop: 1024px 이상 */
+/* Desktop: 1024px 이상 — 가장 넓은 화면용 미세 조정 */
 @media (min-width: 1024px) {
+  /* 컨테이너: 넓은 화면에서 좌우 여백을 줘 내용이 가장자리에 붙지 않게 함 */
   .container {
-    padding: 0 var(--space-6);
+    padding: 0 var(--space-6); /* 좌우 여백만 부여(상하는 0, 토큰으로 통일) */
   }
 
+  /* 히어로 제목: 데스크톱에선 더 큰 폭 안에서 글자 크기를 키움 */
   .hero__title {
-    font-size: clamp(2.8rem, 4vw + 1rem, 4rem);
+    font-size: clamp(2.8rem, 4vw + 1rem, 4rem); /* 최소 2.8rem~최대 4rem 사이에서 뷰포트 폭에 비례해 유동 */
   }
 }
 
-/* 사용자가 모션을 꺼둔 경우 */
+/* 사용자가 모션을 꺼둔 경우 — 접근성: 멀미·어지럼증 유발 애니메이션 억제 */
 @media (prefers-reduced-motion: reduce) {
+  /* 모든 요소와 가상요소에 적용해 사이트 전역의 움직임을 사실상 제거 */
   *,
   *::before,
   *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;      /* 애니메이션을 즉시 끝나게(0 대신 0.01ms로 완료 이벤트는 유지) */
+    animation-iteration-count: 1 !important;    /* 무한 반복 애니메이션을 1회로 제한 */
+    transition-duration: 0.01ms !important;     /* 상태 전환도 즉시 끝나게 해 움직임 제거 */
+    scroll-behavior: auto !important;           /* 부드러운 스크롤을 끄고 즉시 이동으로 */
   }
 }

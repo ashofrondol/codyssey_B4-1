@@ -2,50 +2,61 @@
    layout.css — 레이아웃 헬퍼 (컨테이너 & 섹션 골격)
    페이지 전반에서 재사용하는 가운데 정렬 컨테이너와
    섹션 제목 영역(.section__head) 공통 스타일.
+   ----------------------------------------------------------------
+   설계 원칙: 색·간격·크기를 직접 박지 않고 var(--토큰)으로 받아
+   디자인 시스템과 한 곳에서 일관되게 관리한다(전역 변경이 쉬움).
    ================================================================ */
 
+/* 본문 가로폭을 제한하고 화면 가운데로 모으는 공통 래퍼 */
 .container {
-  width: 100%;
-  max-width: var(--container-max);
-  padding: 0 var(--space-5);
-  margin: 0 auto;
+  width: 100%;                      /* 기본은 부모 폭을 꽉 채움(작은 화면 대응) */
+  max-width: var(--container-max);  /* 단, 한계폭까지만 — 넓은 화면에서 글줄이 너무 길어지지 않게 */
+  padding: 0 var(--space-5);        /* 좌우 안쪽 여백: 가장자리에 콘텐츠가 붙는 것 방지(토큰으로 통일) */
+  margin: 0 auto;                   /* 좌우 auto 로 가로 가운데 정렬 */
 }
 
+/* 컨테이너 변형: 읽기 영역(문의 폼 등)을 더 좁게 묶어 가독성 향상 */
 .container--narrow {
-  max-width: 720px;
+  max-width: 720px;  /* 기본 컨테이너보다 좁은 고정 한계폭(글줄 길이 최적화) */
 }
 
+/* 페이지를 나누는 세로 구획 — 위아래로 넉넉한 간격을 줌 */
 .section {
-  padding: var(--space-10) 0;
+  padding: var(--space-10) 0;  /* 상하만 큰 여백, 좌우는 0(좌우 여백은 .container 가 담당) */
 }
 
+/* 섹션 변형: 인접 섹션과 배경을 달리해 시각적으로 구분 */
 .section--alt {
-  background-color: var(--color-bg-alt);
+  background-color: var(--color-bg-alt);  /* 기본 배경과 다른 보조 배경색(번갈아 띠 효과) */
 }
 
+/* 섹션 머리말 묶음(kicker·제목·설명) — 가운데 정렬 + 아래 본문과 간격 */
 .section__head {
-  text-align: center;
-  margin-bottom: var(--space-8);
+  text-align: center;             /* 머리말 텍스트를 가운데로 */
+  margin-bottom: var(--space-8);  /* 머리말과 아래 콘텐츠 사이 간격 확보 */
 }
 
+/* 제목 위에 붙는 작은 라벨(키커) — 강조용 짧은 머리말 */
 .section__kicker {
-  display: inline-block;
-  font-size: 0.85rem;
-  font-weight: 600;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--color-primary);
-  margin: 0 0 var(--space-2);
+  display: inline-block;          /* 텍스트 폭만큼만 차지(아래 margin·정렬이 자연스럽게 먹도록) */
+  font-size: 0.85rem;             /* 본문보다 작게 — 보조 라벨 느낌 */
+  font-weight: 600;               /* 약간 굵게 해 라벨임을 강조 */
+  letter-spacing: 0.15em;         /* 자간을 넓혀 대문자 라벨의 가독성·격식 부여 */
+  text-transform: uppercase;      /* 모두 대문자로 — 키커 특유의 스타일 */
+  color: var(--color-primary);    /* 브랜드 색으로 시선 유도 */
+  margin: 0 0 var(--space-2);     /* 위·좌·우 여백 제거, 아래만 살짝 띄워 제목과 분리 */
 }
 
+/* 섹션 메인 제목 */
 .section__title {
-  font-size: var(--fs-h2);
-  margin: 0;
-  font-weight: 700;
+  font-size: var(--fs-h2);  /* h2 단계의 타이포 토큰으로 위계 통일 */
+  margin: 0;                /* 제목 기본 바깥 여백 제거 — 간격은 주변 요소가 제어 */
+  font-weight: 700;         /* 굵게 해 섹션의 중심 제목임을 명확히 */
 }
 
+/* 제목 아래 보조 설명 문단 */
 .section__desc {
-  color: var(--color-text-soft);
-  margin: var(--space-3) auto 0;
-  max-width: 560px;
+  color: var(--color-text-soft);    /* 본문보다 옅은 글자색 — 보조 정보임을 표시 */
+  margin: var(--space-3) auto 0;    /* 위로 약간 띄우고, 좌우 auto 로 가운데 정렬 */
+  max-width: 560px;                 /* 한 줄이 길어지지 않도록 폭 제한(가독성) */
 }

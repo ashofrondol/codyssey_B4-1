@@ -12,18 +12,35 @@
      6~11) 섹션별  : hero · about · skills · projects · form · footer
      12) widgets   : 스크롤탑 버튼 · reveal 애니메이션
      13) responsive: 미디어쿼리 (가장 마지막 — 모바일 기본값을 덮어씀)
+
+   ※ @import 규칙은 반드시 다른 규칙보다 위(파일 최상단)에 와야 브라우저가
+     무시하지 않습니다. 그래서 이 파일에는 @import 만 두고 실제 스타일은 안 둡니다.
    ================================================================ */
 
+/* 디자인 토큰(색·간격·반경·그림자·트랜지션 변수) — 가장 먼저 정의해야
+   뒤따르는 모든 파일에서 var(--토큰) 이 값을 해석할 수 있음 */
 @import "tokens.css";
+/* 브라우저 기본값 리셋 + body·a·img 등 기본 요소 스타일(공통 출발선) */
 @import "base.css";
+/* .container 폭 제한과 섹션 상하 여백 등 페이지 전체 골격 */
 @import "layout.css";
+/* 사이트 전역에서 재사용하는 버튼 컴포넌트(.btn 계열) */
 @import "buttons.css";
+/* 상단 고정 헤더와 내비게이션 메뉴 */
 @import "header.css";
+/* 최상단 히어로(인트로) 영역 */
 @import "hero.css";
+/* 소개(About) 섹션 */
 @import "about.css";
+/* 보유 기술(Skills) 섹션 */
 @import "skills.css";
+/* 작업물(Projects) 섹션 */
 @import "projects.css";
+/* 문의(Contact) 폼 — JS(contact.js)의 .has-error·배너 상태와 짝을 이룸 */
 @import "form.css";
+/* 페이지 하단 푸터 */
 @import "footer.css";
+/* 스크롤-탑 버튼, 스크롤 시 나타나는 reveal 애니메이션 등 부가 위젯 */
 @import "widgets.css";
+/* 미디어쿼리 모음 — 맨 마지막에 둬서 위에서 정한 기본값을 화면 폭에 맞게 덮어씀 */
 @import "responsive.css";

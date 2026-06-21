@@ -2,26 +2,33 @@
    typing.js — Hero 이름 타이핑 효과
    #typed 의 텍스트를 비운 뒤 한 글자씩 setTimeout 으로 채워
    타자기처럼 나타나게 합니다.
+
+   흐름:
+     - init() : #typed 요소를 찾아 원래 글자를 기억하고 화면은 비움
+     - tick() : 90ms 간격으로 한 글자씩 늘려 다시 채움(재귀 setTimeout)
+   ※ CSS 애니메이션이 아니라 JS 로 글자 수를 늘려가며 그리는 방식입니다.
    ================================================================ */
 
-'use strict';
+'use strict'; // 엄격 모드: 선언 안 한 변수 사용 등 흔한 실수를 에러로 잡아줌
 
-const Typing = {
+const Typing = {                              // 타이핑 효과 기능 전체를 담는 단일 객체(모듈처럼 사용)
+  // ── 초기화: main.js 의 DOMContentLoaded 시점에 1회 호출 ──
   init() {
-    const target = $('#typed');
-    if (!target) return;
+    const target = $('#typed');               // 타이핑을 보여줄 대상 요소를 찾아 보관
+    if (!target) return;                       // 이 페이지에 대상이 없으면 즉시 종료(방어 코드)
 
-    const fullText = target.textContent.trim();
-    target.textContent = '';
-    let i = 0;
+    const fullText = target.textContent.trim(); // 원래 들어 있던 글자(공백 정리)를 끝까지 기억해 둠
+    target.textContent = '';                   // 화면을 일단 비움 — 빈 상태에서 한 글자씩 채우려고
+    let i = 0;                                  // 현재까지 보여줄 글자 수(0부터 시작)
 
-    const tick = () => {
-      if (i <= fullText.length) {
-        target.textContent = fullText.slice(0, i);
-        i += 1;
-        setTimeout(tick, 90);
+    // ── 한 프레임씩 글자를 늘리는 재귀 함수 ──
+    const tick = () => {                        // 타이머가 부를 함수: 매번 i를 1씩 늘려 다시 그림
+      if (i <= fullText.length) {               // 아직 전체 길이를 다 채우지 못했으면 계속
+        target.textContent = fullText.slice(0, i); // 앞에서부터 i글자만 잘라 화면에 표시
+        i += 1;                                 // 다음 호출 때 한 글자 더 보이도록 증가
+        setTimeout(tick, 90);                   // 90ms 뒤 자기 자신을 다시 호출(타자 치는 간격)
       }
     };
-    tick();
+    tick();                                     // 첫 호출로 타이핑 시작
   },
 };

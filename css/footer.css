@@ -1,45 +1,52 @@
 /* ================================================================
    footer.css — Footer
    저작권 + 소셜 링크 버튼(원형, hover 시 떠오름).
+   색상·간격·모션 값은 모두 전역 디자인 토큰(var(--...))을 써서
+   사이트 전체와 일관되게 유지한다.
    ================================================================ */
 
+/* 푸터 전체 박스 — 본문과 경계를 짓고 한 톤 다른 면으로 분리 */
 .footer {
-  padding: var(--space-6) 0;
-  border-top: 1px solid var(--color-border);
-  background-color: var(--color-bg-alt);
+  padding: var(--space-6) 0;             /* 위아래 넉넉한 여백(좌우는 inner가 담당) */
+  border-top: 1px solid var(--color-border); /* 본문과 푸터를 가르는 옅은 윗선 */
+  background-color: var(--color-bg-alt); /* 본문 배경과 살짝 다른 보조 배경색 */
 }
 
+/* 푸터 내용 묶음 — 저작권/소셜을 세로로 쌓아 가운데 정렬 */
 .footer__inner {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-3);
-  text-align: center;
-  color: var(--color-text-soft);
-  font-size: 0.9rem;
+  display: flex;                      /* 자식들을 플렉스로 배치 */
+  flex-direction: column;            /* 저작권 줄과 소셜 줄을 세로로 쌓음 */
+  align-items: center;               /* 교차축(가로) 가운데 정렬 */
+  gap: var(--space-3);               /* 저작권·소셜 사이 세로 간격(토큰) */
+  text-align: center;                /* 여러 줄일 때도 글자를 가운데로 */
+  color: var(--color-text-soft);     /* 본문보다 옅은 보조 글자색(푸터는 부차 정보) */
+  font-size: 0.9rem;                 /* 본문보다 약간 작게 */
 }
 
+/* 소셜 링크 묶음 — 원형 버튼들을 가로로 나열 */
 .footer__socials {
-  display: flex;
-  gap: var(--space-4);
-  font-size: 1.2rem;
+  display: flex;          /* 아이콘 버튼들을 가로로 배치 */
+  gap: var(--space-4);    /* 버튼 사이 간격(토큰) */
+  font-size: 1.2rem;      /* 아이콘 폰트 크기(원형 안의 아이콘 기준) */
 }
 
+/* 소셜 아이콘 버튼 한 개 — 원형 면에 아이콘을 정중앙 배치 */
 .footer__socials a {
-  display: grid;
-  place-items: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  transition: transform var(--t-fast) var(--ease),
-    color var(--t-fast) var(--ease),
-    border-color var(--t-fast) var(--ease);
+  display: grid;                         /* 1칸 그리드로 만들어 가운데 정렬을 쉽게 */
+  place-items: center;                   /* 그리드 한 칸 안에서 아이콘을 정중앙으로 */
+  width: 40px;                           /* 버튼 지름 고정 */
+  height: 40px;                          /* 정사각형(원형이 되려면 가로=세로) */
+  border-radius: 50%;                    /* 정사각형을 완전한 원으로 */
+  background-color: var(--color-surface); /* 카드/버튼용 면 색(배경과 구분) */
+  border: 1px solid var(--color-border); /* 옅은 테두리로 윤곽 강조 */
+  transition: transform var(--t-fast) var(--ease),   /* hover 떠오름을 부드럽게 */
+    color var(--t-fast) var(--ease),                 /* 아이콘 색 변화도 부드럽게 */
+    border-color var(--t-fast) var(--ease);          /* 테두리색 변화도 부드럽게 */
 }
 
+/* 소셜 버튼 hover — 브랜드색으로 강조하며 살짝 떠오르게 */
 .footer__socials a:hover {
-  color: var(--color-primary);
-  border-color: var(--color-primary);
-  transform: translateY(-3px);
+  color: var(--color-primary);        /* 아이콘을 브랜드색으로 */
+  border-color: var(--color-primary); /* 테두리도 브랜드색으로 맞춰 강조 */
+  transform: translateY(-3px);        /* 위로 3px 띄워 클릭 가능함을 시각적으로 암시 */
 }

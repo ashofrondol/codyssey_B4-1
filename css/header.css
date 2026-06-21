@@ -3,172 +3,191 @@
    - .nav 는 Flexbox (로고 왼쪽, 메뉴·액션 오른쪽)
    - 테마 토글 버튼, 햄버거 버튼(모바일 전용)
    - .nav__menu.is-open 모바일 슬라이드다운 패널
+   - 색상·간격·전환은 전부 디자인 토큰(var(--...))으로 통일
    ================================================================ */
 
+/* 헤더: 스크롤해도 화면 상단에 고정되는 반투명 바 */
 .header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 100;
-  background-color: var(--nav-bg);
-  backdrop-filter: saturate(180%) blur(14px);
-  -webkit-backdrop-filter: saturate(180%) blur(14px);
-  border-bottom: 1px solid transparent;
-  transition: background-color var(--t-base) var(--ease),
-    border-color var(--t-base) var(--ease),
-    box-shadow var(--t-base) var(--ease);
+  position: fixed;                            /* 스크롤과 무관하게 뷰포트에 고정 */
+  top: 0;                                     /* 위쪽에 딱 붙임 */
+  left: 0;                                    /* 왼쪽 끝에서 시작 */
+  width: 100%;                                /* 가로 전체 폭 차지 */
+  z-index: 100;                               /* 본문 콘텐츠 위에 항상 떠 있도록 높은 쌓임 순서 */
+  background-color: var(--nav-bg);            /* 기본 헤더 배경(테마 토큰, 보통 반투명) */
+  backdrop-filter: saturate(180%) blur(14px); /* 뒤 배경을 흐리고 채도를 올려 유리 같은 느낌 */
+  -webkit-backdrop-filter: saturate(180%) blur(14px); /* 사파리/구형 웹킷용 접두사 버전 */
+  border-bottom: 1px solid transparent;       /* 자리만 잡아두고(스크롤 전엔 투명) → 나중에 색만 바꿔 레이아웃 흔들림 방지 */
+  transition: background-color var(--t-base) var(--ease), /* 배경색 변화를 부드럽게 */
+    border-color var(--t-base) var(--ease),   /* 아래 테두리색 변화도 부드럽게 */
+    box-shadow var(--t-base) var(--ease);     /* 그림자 등장도 부드럽게(스크롤 시) */
 }
 
+/* 스크롤되면 추가되는 클래스: 헤더를 더 또렷하게(불투명·테두리·그림자) */
 .header.is-scrolled {
-  background-color: var(--nav-bg-scrolled);
-  border-bottom-color: var(--color-border);
-  box-shadow: var(--shadow-sm);
+  background-color: var(--nav-bg-scrolled);  /* 스크롤 시 더 불투명한 배경으로 교체 */
+  border-bottom-color: var(--color-border);  /* 투명이던 아래 테두리를 보이게(본문과 경계 구분) */
+  box-shadow: var(--shadow-sm);              /* 살짝 떠 있는 느낌의 그림자 추가 */
 }
 
+/* 내비 바: 로고(왼쪽)와 메뉴·액션(오른쪽)을 양 끝으로 벌림 */
 .nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: var(--nav-height);
+  display: flex;                    /* 가로 한 줄 배치 */
+  align-items: center;              /* 세로 가운데 정렬 */
+  justify-content: space-between;   /* 양 끝 정렬(로고 ↔ 액션) */
+  height: var(--nav-height);        /* 헤더 높이를 토큰으로 고정(다른 곳과 일관) */
 }
 
+/* 로고: 아이콘 마크와 텍스트를 나란히 묶음 */
 .nav__logo {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-weight: 700;
-  font-size: 1.05rem;
-  color: var(--color-text);
+  display: inline-flex;       /* 아이콘+글자를 가로로 나란히 */
+  align-items: center;        /* 세로 가운데 정렬 */
+  gap: 0.5rem;                /* 마크와 글자 사이 간격 */
+  font-weight: 700;           /* 굵게(브랜드 강조) */
+  font-size: 1.05rem;         /* 본문보다 조금 큰 글자 */
+  color: var(--color-text);   /* 기본 본문 글자색 */
 }
 
+/* 로고 앞의 사각 마크(이니셜이 들어가는 그라데이션 박스) */
 .nav__logo-mark {
-  display: inline-grid;
-  place-items: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
-  color: #fff;
-  font-size: 0.85rem;
-  font-weight: 700;
+  display: inline-grid;       /* 안쪽 글자를 가운데 두기 위한 그리드 */
+  place-items: center;        /* 가로·세로 모두 가운데 정렬 */
+  width: 32px;                /* 고정 너비(정사각형) */
+  height: 32px;               /* 고정 높이(정사각형) */
+  border-radius: 8px;         /* 모서리 둥글게 */
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent)); /* 브랜드색→포인트색 대각선 그라데이션 */
+  color: #fff;                /* 그라데이션 위라 흰 글자로 대비 확보 */
+  font-size: 0.85rem;         /* 작은 이니셜 글자 */
+  font-weight: 700;           /* 굵게 */
 }
 
+/* 메뉴 목록: 기본(모바일)에서는 숨겨두고, 데스크톱/열림 상태에서만 노출 */
 .nav__menu {
-  display: none; /* 모바일: 숨김 */
-  gap: var(--space-5);
+  display: none;          /* 모바일: 숨김 (햄버거로 토글, .is-open 시 표시) */
+  gap: var(--space-5);    /* 메뉴 항목 사이 간격(토큰) */
 }
 
+/* 메뉴 링크: 호버/활성 시 밑줄이 자라는 효과용 기준 요소 */
 .nav__link {
-  position: relative;
-  font-size: 0.95rem;
-  font-weight: 500;
-  color: var(--color-text-soft);
-  padding: 0.5rem 0;
-  transition: color var(--t-fast) var(--ease);
+  position: relative;                         /* ::after 밑줄을 절대배치할 기준 */
+  font-size: 0.95rem;                         /* 메뉴 글자 크기 */
+  font-weight: 500;                           /* 약간 굵게 */
+  color: var(--color-text-soft);              /* 기본은 흐린 글자색(비활성 느낌) */
+  padding: 0.5rem 0;                           /* 상하 여백으로 클릭 영역 확보 */
+  transition: color var(--t-fast) var(--ease); /* 글자색 변화를 빠르게 부드럽게 */
 }
 
+/* 링크 밑줄: 평소엔 가로로 접혀 있다가(scaleX 0) 호버 시 펼쳐짐 */
 .nav__link::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 2px;
-  background-color: var(--color-primary);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform var(--t-base) var(--ease);
+  content: "";                                  /* 가상요소를 그리기 위한 빈 내용 */
+  position: absolute;                           /* 링크 기준으로 위치 고정 */
+  left: 0;                                      /* 왼쪽 끝부터 */
+  bottom: 0;                                    /* 링크 아래쪽에 배치 */
+  width: 100%;                                  /* 링크 너비만큼 밑줄 */
+  height: 2px;                                  /* 밑줄 두께 */
+  background-color: var(--color-primary);       /* 브랜드색 밑줄 */
+  transform: scaleX(0);                         /* 평소엔 가로 0으로 접어 숨김 */
+  transform-origin: left;                       /* 왼쪽을 기준으로 펼쳐지게(왼→오 방향) */
+  transition: transform var(--t-base) var(--ease); /* 펼침/접힘 애니메이션 */
 }
 
+/* 호버 또는 현재 페이지(.is-active) 링크는 글자색을 진하게 */
 .nav__link:hover,
 .nav__link.is-active {
-  color: var(--color-text);
+  color: var(--color-text);   /* 흐린 글자 → 진한 본문색으로 강조 */
 }
 
+/* 같은 조건에서 밑줄을 가로로 펼쳐 표시 */
 .nav__link:hover::after,
 .nav__link.is-active::after {
-  transform: scaleX(1);
+  transform: scaleX(1);   /* 접혀 있던 밑줄을 100%로 펼침 */
 }
 
+/* 우측 액션 영역: 테마 토글·햄버거 등을 가로로 묶음 */
 .nav__actions {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
+  display: flex;          /* 가로 배치 */
+  align-items: center;    /* 세로 가운데 정렬 */
+  gap: var(--space-3);    /* 버튼 사이 간격(토큰) */
 }
 
+/* 테마(라이트/다크) 토글 버튼: 원형 아이콘 버튼 */
 .theme-toggle {
-  width: 40px;
-  height: 40px;
-  display: grid;
-  place-items: center;
-  border-radius: 50%;
-  background-color: var(--color-bg-alt);
-  border: 1px solid var(--color-border);
-  color: var(--color-text);
-  transition: transform var(--t-fast) var(--ease),
-    background-color var(--t-base) var(--ease);
+  width: 40px;                            /* 원형 버튼 너비 */
+  height: 40px;                           /* 원형 버튼 높이(너비와 동일) */
+  display: grid;                          /* 안쪽 아이콘 가운데 정렬용 */
+  place-items: center;                    /* 가로·세로 가운데 정렬 */
+  border-radius: 50%;                     /* 완전한 원형 */
+  background-color: var(--color-bg-alt);  /* 본문과 살짝 다른 면 색 */
+  border: 1px solid var(--color-border);  /* 옅은 테두리 */
+  color: var(--color-text);               /* 아이콘 색 */
+  transition: transform var(--t-fast) var(--ease), /* 호버 회전 효과를 부드럽게 */
+    background-color var(--t-base) var(--ease);     /* 배경색 변화도 부드럽게 */
 }
 
+/* 토글 호버: 살짝 돌리며 면 색을 바꿔 인터랙션 피드백 제공 */
 .theme-toggle:hover {
-  transform: rotate(20deg);
-  background-color: var(--color-surface);
+  transform: rotate(20deg);               /* 살짝 회전(클릭 가능함을 암시) */
+  background-color: var(--color-surface); /* 호버 시 면 색 변경 */
 }
 
-/* Hamburger (모바일 전용) */
+/* Hamburger (모바일 전용): 막대 3개를 세로로 쌓은 메뉴 버튼 */
 .hamburger {
-  display: inline-flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 5px;
-  width: 40px;
-  height: 40px;
-  padding: 8px;
+  display: inline-flex;       /* 막대들을 담는 컨테이너 */
+  flex-direction: column;     /* 막대를 세로로 쌓음 */
+  justify-content: center;    /* 막대 묶음을 세로 가운데 정렬 */
+  gap: 5px;                   /* 막대 사이 간격 */
+  width: 40px;                /* 버튼 너비(토글과 통일) */
+  height: 40px;               /* 버튼 높이 */
+  padding: 8px;               /* 막대 길이가 padding 안쪽 폭으로 결정됨 */
 }
 
+/* 햄버거 막대 한 줄: X자 변형을 위해 전환 대상 지정 */
 .hamburger span {
-  display: block;
-  width: 100%;
-  height: 2px;
-  background-color: var(--color-text);
-  border-radius: 2px;
-  transition: transform var(--t-base) var(--ease),
-    opacity var(--t-base) var(--ease);
+  display: block;                          /* 블록으로 만들어 너비/높이 지정 가능 */
+  width: 100%;                             /* padding 안쪽 폭만큼 가로 */
+  height: 2px;                             /* 막대 두께 */
+  background-color: var(--color-text);     /* 막대 색(본문 글자색) */
+  border-radius: 2px;                      /* 막대 끝 살짝 둥글게 */
+  transition: transform var(--t-base) var(--ease), /* 회전/이동 변형을 부드럽게 */
+    opacity var(--t-base) var(--ease);     /* 가운데 막대 사라짐도 부드럽게 */
 }
 
+/* 열림(.is-open) 시 위 막대를 아래로 내리고 +45도 회전 → X의 한 획 */
 .hamburger.is-open span:nth-child(1) {
-  transform: translateY(7px) rotate(45deg);
+  transform: translateY(7px) rotate(45deg);   /* 아래로 7px 이동 후 시계방향 회전 */
 }
+/* 가운데 막대는 투명 처리해 사라지게(X 가운데 비움) */
 .hamburger.is-open span:nth-child(2) {
-  opacity: 0;
+  opacity: 0;   /* 가운데 막대 숨김 */
 }
+/* 아래 막대를 위로 올리고 -45도 회전 → X의 나머지 획 */
 .hamburger.is-open span:nth-child(3) {
-  transform: translateY(-7px) rotate(-45deg);
+  transform: translateY(-7px) rotate(-45deg);  /* 위로 7px 이동 후 반시계방향 회전 */
 }
 
-/* 모바일 메뉴 패널 (열렸을 때) */
+/* 모바일 메뉴 패널 (열렸을 때): 헤더 아래로 펼쳐지는 세로 메뉴 */
 .nav__menu.is-open {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
-  position: absolute;
-  top: var(--nav-height);
-  left: 0;
-  width: 100%;
-  padding: var(--space-5);
-  background-color: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
-  box-shadow: var(--shadow-md);
-  animation: slideDown var(--t-base) var(--ease);
+  display: flex;                           /* 숨김(none)을 풀고 표시 */
+  flex-direction: column;                  /* 메뉴 항목을 세로로 쌓음 */
+  gap: var(--space-4);                     /* 항목 사이 간격(토큰) */
+  position: absolute;                      /* 헤더 기준으로 띄워 배치 */
+  top: var(--nav-height);                  /* 헤더 높이만큼 내려서 바로 아래에 붙임 */
+  left: 0;                                 /* 왼쪽 끝부터 */
+  width: 100%;                             /* 화면 가로 전체 */
+  padding: var(--space-5);                 /* 패널 안쪽 여백 */
+  background-color: var(--color-surface);  /* 패널 배경(면 색) */
+  border-bottom: 1px solid var(--color-border); /* 아래 경계선 */
+  box-shadow: var(--shadow-md);            /* 떠 있는 패널 느낌의 그림자 */
+  animation: slideDown var(--t-base) var(--ease); /* 펼쳐질 때 슬라이드 다운 애니메이션 */
 }
 
+/* 패널 등장 애니메이션: 위에서 살짝 내려오며 서서히 나타남 */
 @keyframes slideDown {
   from {
-    opacity: 0;
-    transform: translateY(-8px);
+    opacity: 0;                    /* 시작: 투명 */
+    transform: translateY(-8px);   /* 시작: 살짝 위에서 */
   }
   to {
-    opacity: 1;
-    transform: translateY(0);
+    opacity: 1;                    /* 끝: 완전히 보임 */
+    transform: translateY(0);      /* 끝: 제자리로 내려옴 */
   }
 }

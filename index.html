@@ -1,20 +1,35 @@
+<!--
+  index.html — 포트폴리오 단일 페이지(SPA 형태가 아닌 정적 HTML)
+  구조: <head>(메타/폰트/스타일/스크립트 연결) → <body>(헤더 → main: hero/about/skills/projects/contact → footer → 스크롤탑 버튼)
+  특징: 프레임워크 없이 순수 HTML/CSS/JS 로 구성. 동작 로직은 js/ 폴더의 기능별 모듈이 담당하고,
+        이 문서는 '마크업(구조)'과 'JS가 붙잡을 id/class 후크'만 제공합니다.
+-->
 <!DOCTYPE html>
+<!-- lang="ko": 문서 기본 언어를 한국어로 선언(스크린리더 발음·검색 엔진에 도움) -->
 <html lang="ko">
 <head>
+  <!-- charset: 문자 인코딩(한글 깨짐 방지). <head> 가장 앞에 두는 것이 안전 -->
   <meta charset="UTF-8" />
+  <!-- viewport: 모바일에서 기기 폭에 맞춰 렌더(반응형의 필수 설정) -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- description: 검색 결과 미리보기에 쓰이는 페이지 설명 -->
   <meta name="description" content="순수 HTML/CSS/JavaScript로 만든 포트폴리오 웹사이트" />
+  <!-- 브라우저 탭에 표시되는 문서 제목 -->
   <title>JeongSeYoung | Portfolio</title>
 
   <!-- Google Fonts -->
+  <!-- preconnect: 폰트 서버에 미리 연결을 열어 두어 폰트 로딩 지연을 줄임 -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <!-- gstatic 은 실제 폰트 파일을 받는 서버. 교차 출처라 crossorigin 명시 필요 -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- 본문/제목용 웹폰트(Inter, Noto Sans KR) 불러오기. display=swap: 폰트 로딩 전엔 기본 글꼴로 먼저 표시(깜빡임 최소화) -->
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap"
     rel="stylesheet"
   />
 
   <!-- Font Awesome (아이콘 전용으로만 사용 - 외부 라이브러리 금지 규칙의 예외) -->
+  <!-- 페이지 곳곳의 <i class="fa-..."> 아이콘을 렌더하기 위한 아이콘 폰트 CSS -->
   <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
@@ -28,28 +43,45 @@
     defer 스크립트는 문서 순서대로 실행되므로,
     공용 설정(config) → 각 기능 모듈 → 초기화(main) 순서로 둡니다.
   -->
+  <!-- config.js: 공용 상수($, $$ 헬퍼, GitHub/Contact 엔드포인트 등). 다른 모듈이 의존하므로 가장 먼저 로드 -->
   <script src="js/config.js" defer></script>
+  <!-- theme.js: 다크/라이트 모드 토글 -->
   <script src="js/theme.js" defer></script>
+  <!-- menu.js: 모바일 햄버거 메뉴 열기/닫기 -->
   <script src="js/menu.js" defer></script>
+  <!-- scroll.js: 부드러운 스크롤 · 스크롤탑 버튼 노출 등 스크롤 관련 동작 -->
   <script src="js/scroll.js" defer></script>
+  <!-- typing.js: 히어로 이름(#typed)의 타이핑 애니메이션 -->
   <script src="js/typing.js" defer></script>
+  <!-- skills.js: #skills-list 를 데이터로 동적 렌더 -->
   <script src="js/skills.js" defer></script>
+  <!-- reveal.js: 스크롤 진입 시 요소가 나타나는 등장 효과 -->
   <script src="js/reveal.js" defer></script>
+  <!-- navspy.js: 현재 보고 있는 섹션에 맞춰 네비 링크 활성화(스크롤 스파이) -->
   <script src="js/navspy.js" defer></script>
+  <!-- projects.js: GitHub API 호출 → #projects-container 에 저장소 카드 렌더 -->
   <script src="js/projects.js" defer></script>
+  <!-- contact.js: 문의 폼 검증/전송 처리 -->
   <script src="js/contact.js" defer></script>
+  <!-- main.js: DOMContentLoaded 시점에 각 모듈의 init()을 호출하는 진입점. 의존 모듈 뒤(마지막)에 둠 -->
   <script src="js/main.js" defer></script>
 </head>
 <body>
   <!-- ============ HEADER / NAV ============ -->
+  <!-- 상단 고정 헤더. id="header" 는 스크롤 시 그림자/축소 처리를 위해 JS가 잡는 후크 -->
   <header class="header" id="header">
+    <!-- nav container: 가운데 정렬 폭 제한. aria-label 로 보조기기에 '주 메뉴'임을 알림 -->
     <nav class="nav container" aria-label="주 메뉴">
+      <!-- 로고: 클릭 시 히어로(#hero)로 이동하는 상단 앵커 겸 브랜드 -->
       <a href="#hero" class="nav__logo">
+        <!-- &lt;/&gt; : 화면에 </> 기호를 그대로 보여주기 위한 HTML 이스케이프 -->
         <span class="nav__logo-mark">&lt;/&gt;</span>
         <span>JSY.dev</span>
       </a>
 
+      <!-- 데스크톱 네비 메뉴. id="navMenu" 는 햄버거 토글(menu.js)과 aria-controls 로 연결되는 대상 -->
       <ul class="nav__menu" id="navMenu">
+        <!-- 각 링크의 href 는 해당 섹션 id 로 가는 페이지 내 앵커. navspy.js 가 활성 링크를 표시 -->
         <li><a href="#hero" class="nav__link">Home</a></li>
         <li><a href="#about" class="nav__link">About</a></li>
         <li><a href="#skills" class="nav__link">Skills</a></li>
@@ -57,15 +89,21 @@
         <li><a href="#contact" class="nav__link">Contact</a></li>
       </ul>
 
+      <!-- 우측 액션 영역: 테마 토글 + 햄버거 버튼 -->
       <div class="nav__actions">
+        <!-- 다크 모드 전환 버튼. id=themeToggle(theme.js가 잡음) / aria-label 로 용도 설명 -->
         <button
           type="button"
           class="theme-toggle"
           id="themeToggle"
           aria-label="다크 모드 전환"
         >
+          <!-- 달 아이콘. aria-hidden: 장식용 아이콘이므로 스크린리더에서 숨김 -->
           <i class="fa-solid fa-moon" aria-hidden="true"></i>
         </button>
+        <!-- 햄버거 버튼(모바일 메뉴 토글). id=hamburger(menu.js)
+             aria-expanded=false: 현재 메뉴가 닫힘 상태(열고 닫을 때 JS가 갱신)
+             aria-controls=navMenu: 이 버튼이 제어하는 대상이 navMenu 임을 명시 -->
         <button
           type="button"
           class="hamburger"
@@ -74,6 +112,7 @@
           aria-expanded="false"
           aria-controls="navMenu"
         >
+          <!-- 막대 3줄: CSS로 햄버거 아이콘 모양을 그리기 위한 빈 span 들 -->
           <span></span>
           <span></span>
           <span></span>
@@ -82,61 +121,82 @@
     </nav>
   </header>
 
+  <!-- main: 페이지의 핵심 본문(검색·접근성상 주요 콘텐츠 영역) -->
   <main>
     <!-- ============ HERO ============ -->
+    <!-- 첫 화면 섹션. id="hero" 는 로고/Home 링크의 앵커 목적지 -->
     <section class="hero" id="hero">
+      <!-- hero__inner: 히어로 내용을 container 폭 안에서 정렬 -->
       <div class="container hero__inner">
+        <!-- 인사말(작은 윗줄) -->
         <p class="hero__greet">안녕하세요 👋</p>
+        <!-- 메인 타이틀(h1: 페이지의 대표 제목) -->
         <h1 class="hero__title">
           웹을 만드는 학습자<br />
+          <!-- id="typed": typing.js 가 이 안의 텍스트를 한 글자씩 타이핑 효과로 출력 -->
           <span class="hero__name" id="typed">JeongSeYoung</span>
+          <!-- 깜빡이는 커서 표현. 장식이므로 aria-hidden 으로 읽지 않음 -->
           <span class="cursor" aria-hidden="true">|</span>
           입니다.
         </h1>
+        <!-- 자기소개 한 줄 설명 -->
         <p class="hero__desc">
           HTML · CSS · JavaScript 만으로 동작 원리를 이해하며
           한 줄씩 직접 쌓아 만든 포트폴리오입니다.
         </p>
+        <!-- CTA(행동 유도) 버튼 묶음 -->
         <div class="hero__cta">
+          <!-- 주요 버튼: Projects 섹션으로 이동 -->
           <a href="#projects" class="btn btn--primary">
             <i class="fa-solid fa-folder-open"></i> View Projects
           </a>
+          <!-- 보조 버튼(ghost: 테두리만 있는 스타일): Contact 섹션으로 이동 -->
           <a href="#contact" class="btn btn--ghost">
             <i class="fa-regular fa-envelope"></i> Contact
           </a>
         </div>
       </div>
+      <!-- 아래로 스크롤 유도 화살표(About 섹션으로 이동) -->
       <a href="#about" class="hero__scroll" aria-label="아래로 스크롤">
         <i class="fa-solid fa-chevron-down"></i>
       </a>
     </section>
 
     <!-- ============ ABOUT ============ -->
+    <!-- 소개 섹션. id="about" 는 네비 앵커 목적지 -->
     <section class="section" id="about">
       <div class="container">
+        <!-- 섹션 머리말(분류 라벨 · 제목) — 모든 섹션이 같은 패턴을 공유 -->
         <header class="section__head">
           <p class="section__kicker">01 · About</p>
           <h2 class="section__title">About Me</h2>
         </header>
+        <!-- about: 사진(좌)과 본문(우)으로 나뉜 소개 카드 -->
         <article class="about">
+          <!-- 좌측 아바타 영역 -->
           <div class="about__photo">
+            <!-- 실제 사진 대신 아이콘 아바타. 장식이므로 aria-hidden -->
             <div class="about__avatar" aria-hidden="true">
               <i class="fa-solid fa-user-astronaut"></i>
             </div>
           </div>
+          <!-- 우측 본문(소개 문단 · 정보 목록 · GitHub 버튼) -->
           <div class="about__body">
             <p>
               안녕하세요, 웹의 동작 원리를 처음부터 이해하려는
+              <!-- strong: 의미상 강조(이름 부각) -->
               <strong>JeongSeYoung</strong> 입니다.
               프레임워크 없이 브라우저와 가장 가까운 도구로
               직접 화면을 만들면서 "이벤트 → 상태 → 렌더링"의
               흐름을 손에 익히고 있습니다.
             </p>
+            <!-- 소속/위치/연락처를 아이콘과 함께 보여주는 목록 -->
             <ul class="about__list">
               <li><i class="fa-solid fa-graduation-cap"></i> Codyssey 학습자</li>
               <li><i class="fa-solid fa-location-dot"></i> Seoul, Korea</li>
               <li><i class="fa-regular fa-envelope"></i> ashofrondol@gmail.com</li>
             </ul>
+            <!-- GitHub 프로필 링크. target=_blank: 새 탭 / rel=noopener: 새 탭의 보안·성능 위험 차단 -->
             <a
               href="https://github.com/ashofrondol"
               target="_blank"
@@ -151,12 +211,14 @@
     </section>
 
     <!-- ============ SKILLS ============ -->
+    <!-- 기술 스택 섹션. section--alt: 배경색을 번갈아 주어 섹션 구분 -->
     <section class="section section--alt" id="skills">
       <div class="container">
         <header class="section__head">
           <p class="section__kicker">02 · Skills</p>
           <h2 class="section__title">Tech Stack</h2>
         </header>
+        <!-- id="skills-list": skills.js 가 데이터를 받아 <li> 항목들을 동적으로 채움 -->
         <ul class="skills" id="skills-list">
           <!-- JS에서 동적으로 채워집니다 -->
         </ul>
@@ -164,6 +226,7 @@
     </section>
 
     <!-- ============ PROJECTS (GitHub API) ============ -->
+    <!-- 프로젝트 섹션. GitHub API 응답을 카드로 렌더 -->
     <section class="section" id="projects">
       <div class="container">
         <header class="section__head">
@@ -174,10 +237,12 @@
           </p>
         </header>
 
+        <!-- 언어 필터 영역. role=tablist: 탭 묶음임을 보조기기에 알림. 버튼은 projects.js 가 동적 생성 -->
         <div class="filters" id="filters" role="tablist" aria-label="언어 필터">
           <!-- 언어 필터 버튼 (성공 후 동적 렌더) -->
         </div>
 
+        <!-- 프로젝트 카드가 들어갈 컨테이너. aria-live=polite: 내용이 비동기로 바뀌면 스크린리더에 부담 없이 알림 -->
         <div class="projects" id="projects-container" aria-live="polite">
           <!-- 로딩/성공/에러/빈 상태가 모두 여기에 렌더링됩니다 -->
         </div>
@@ -185,17 +250,25 @@
     </section>
 
     <!-- ============ CONTACT ============ -->
+    <!-- 문의 섹션: id="contact" 는 네비게이션 앵커 이동의 목적지 -->
     <section class="section section--alt" id="contact">
+      <!-- container--narrow: 폼 가독성을 위해 좌우 폭을 좁힌 컨테이너 -->
       <div class="container container--narrow">
+        <!-- 섹션 머리말(분류 라벨 · 제목 · 설명) -->
         <header class="section__head">
-          <p class="section__kicker">04 · Contact</p>
-          <h2 class="section__title">Get in touch</h2>
-          <p class="section__desc">메시지를 남겨주세요. 빠르게 답변드립니다.</p>
+          <p class="section__kicker">04 · Contact</p>      <!-- 작은 분류 라벨 -->
+          <h2 class="section__title">Get in touch</h2>     <!-- 섹션 제목 -->
+          <p class="section__desc">메시지를 남겨주세요. 빠르게 답변드립니다.</p> <!-- 보조 설명 -->
         </header>
 
+        <!-- 문의 폼: novalidate 로 브라우저 기본 검증을 끄고, contact.js 가 직접 검증/전송 처리
+             id="contactForm" 은 contact.js 가 폼을 찾는 기준 -->
         <form class="form" id="contactForm" novalidate>
+          <!-- 이름 칸 -->
           <div class="form__field">
-            <label for="name">이름</label>
+            <label for="name">이름</label> <!-- for="name": 아래 input 의 id 와 짝지어 클릭 영역 연결 -->
+            <!-- input 속성: type=text(일반 텍스트) / id(라벨·JS 연결, errors 키) / name(전송 시 키)
+                 autocomplete=name(브라우저 자동완성 힌트) / placeholder(예시 글자) / required(필수) -->
             <input
               type="text"
               id="name"
@@ -204,11 +277,13 @@
               placeholder="홍길동"
               required
             />
-            <small class="form__error" data-error-for="name"></small>
+            <small class="form__error" data-error-for="name"></small> <!-- 이 칸의 에러 메시지가 들어갈 자리(JS가 채움) -->
           </div>
 
+          <!-- 이메일 칸 -->
           <div class="form__field">
-            <label for="email">이메일</label>
+            <label for="email">이메일</label> <!-- for="email": 아래 input 과 연결 -->
+            <!-- type=email: 이메일 형식 칸 / autocomplete=email: 이메일 자동완성 / 나머지는 위와 동일 -->
             <input
               type="email"
               id="email"
@@ -217,11 +292,13 @@
               placeholder="you@example.com"
               required
             />
-            <small class="form__error" data-error-for="email"></small>
+            <small class="form__error" data-error-for="email"></small> <!-- 이메일 칸 에러 자리 -->
           </div>
 
+          <!-- 메시지 칸 -->
           <div class="form__field">
-            <label for="message">메시지</label>
+            <label for="message">메시지</label> <!-- for="message": 아래 textarea 와 연결 -->
+            <!-- textarea: 여러 줄 입력 / rows=5: 기본 높이 5줄 / name=message(전송 키) / required(필수) -->
             <textarea
               id="message"
               name="message"
@@ -229,20 +306,23 @@
               placeholder="문의하실 내용을 입력해 주세요."
               required
             ></textarea>
-            <small class="form__error" data-error-for="message"></small>
+            <small class="form__error" data-error-for="message"></small> <!-- 메시지 칸 에러 자리 -->
           </div>
 
+          <!-- 제출 버튼: 전송 중에는 contact.js 가 disabled 처리 + 라벨을 스피너로 교체 -->
           <button type="submit" class="btn btn--primary btn--block">
-            <i class="fa-regular fa-paper-plane"></i> 메시지 보내기
+            <i class="fa-regular fa-paper-plane"></i> 메시지 보내기 <!-- 종이비행기 아이콘 + 라벨 -->
           </button>
 
+          <!-- 성공 배너: 평소 hidden, 전송 성공 시 JS 가 hidden 해제(status==='success') -->
           <p class="form__success" id="formSuccess" hidden>
-            <i class="fa-solid fa-circle-check"></i>
+            <i class="fa-solid fa-circle-check"></i>          <!-- 체크 아이콘 -->
             메시지가 정상적으로 전송되었습니다. 감사합니다!
           </p>
 
+          <!-- 실패 배너: 평소 hidden, 전송 실패 시 JS 가 hidden 해제(status==='error') -->
           <p class="form__error-banner" id="formError" hidden>
-            <i class="fa-solid fa-triangle-exclamation"></i>
+            <i class="fa-solid fa-triangle-exclamation"></i> <!-- 경고 아이콘 -->
             전송에 실패했습니다. 잠시 후 다시 시도하거나 직접 이메일로 연락해 주세요.
           </p>
         </form>
@@ -251,11 +331,15 @@
   </main>
 
   <!-- ============ FOOTER ============ -->
+  <!-- 페이지 하단 푸터(저작권 · 소셜 링크) -->
   <footer class="footer">
     <div class="container footer__inner">
+      <!-- 저작권 줄. #year 는 main.js/scroll.js 등에서 현재 연도를 채워 항상 최신으로 보이게 함 -->
       <p>&copy; <span id="year"></span> JeongSeYoung. All rights reserved.</p>
+      <!-- 소셜 링크 목록(아이콘 버튼) -->
       <ul class="footer__socials" aria-label="소셜 링크">
         <li>
+          <!-- GitHub: 새 탭 + noopener. aria-label 로 아이콘만 있는 링크의 용도를 알림 -->
           <a
             href="https://github.com/ashofrondol"
             target="_blank"
@@ -266,6 +350,7 @@
           </a>
         </li>
         <li>
+          <!-- LinkedIn: 새 탭 + noopener -->
           <a
             href="https://www.linkedin.com/"
             target="_blank"
@@ -276,6 +361,7 @@
           </a>
         </li>
         <li>
+          <!-- mailto: 클릭 시 기본 메일 프로그램으로 작성 창을 엶 -->
           <a href="mailto:ashofrondol@gmail.com" aria-label="Email">
             <i class="fa-regular fa-envelope"></i>
           </a>
@@ -285,6 +371,7 @@
   </footer>
 
   <!-- 스크롤 탑 버튼 -->
+  <!-- 맨 위로 이동 버튼. 평소 숨겨졌다가 일정 스크롤 이후 scroll.js 가 노출. id=scrollTop 이 그 후크 -->
   <button
     type="button"
     class="scroll-top"

@@ -1,62 +1,62 @@
 /* ================================================================
    buttons.css — 버튼 컴포넌트
-   .btn 기본형 + primary/ghost/block/sm 변형.
+   .btn 기본형 + primary/ghost/block/sm 변형 + 비활성(:disabled).
    hover + transition 효과 포함.
    ================================================================ */
 
 .btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 0.85rem 1.4rem;
-  border-radius: var(--radius-md);
-  font-weight: 600;
-  font-size: 0.95rem;
-  border: 1px solid transparent;
-  transition: transform var(--t-fast) var(--ease),
-    background-color var(--t-base) var(--ease),
-    box-shadow var(--t-base) var(--ease),
-    color var(--t-base) var(--ease);
-  white-space: nowrap;
+  display: inline-flex;            /* 아이콘+글자를 한 줄에 나란히, 내용 크기만큼만 차지 */
+  align-items: center;             /* 아이콘과 글자를 세로 가운데 정렬 */
+  justify-content: center;         /* 내용을 가로 가운데 정렬 */
+  gap: 0.5rem;                     /* 아이콘과 글자 사이 간격 */
+  padding: 0.85rem 1.4rem;         /* 버튼 안쪽 여백(상하 0.85 / 좌우 1.4rem) */
+  border-radius: var(--radius-md); /* 모서리 둥글게(중간 반경) */
+  font-weight: 600;                /* 글자 굵게 */
+  font-size: 0.95rem;              /* 글자 크기 */
+  border: 1px solid transparent;   /* 투명 테두리(변형에서 색만 채워도 크기 안 변하도록) */
+  transition: transform var(--t-fast) var(--ease), /* 눌림/이동 효과를 부드럽게 */
+    background-color var(--t-base) var(--ease),     /* 배경색 변화 부드럽게 */
+    box-shadow var(--t-base) var(--ease),           /* 그림자 변화 부드럽게 */
+    color var(--t-base) var(--ease);                /* 글자색 변화 부드럽게 */
+  white-space: nowrap;             /* 버튼 글자가 줄바꿈되지 않게 */
 }
 
 .btn--primary {
-  background-color: var(--color-primary);
-  color: #fff;
-  box-shadow: var(--shadow-sm);
+  background-color: var(--color-primary); /* 주 버튼 배경(브랜드색) */
+  color: #fff;                            /* 흰 글자 */
+  box-shadow: var(--shadow-sm);           /* 기본 그림자 */
 }
 
 .btn--primary:hover {
-  background-color: var(--color-primary-hover);
-  box-shadow: var(--shadow-md);
-  transform: translateY(-2px);
+  background-color: var(--color-primary-hover); /* 호버 시 더 진한 브랜드색 */
+  box-shadow: var(--shadow-md);                 /* 그림자 강조 */
+  transform: translateY(-2px);                  /* 살짝 위로 떠오르는 느낌 */
 }
 
 .btn--ghost {
-  background-color: transparent;
-  color: var(--color-text);
-  border-color: var(--color-border);
+  background-color: transparent;     /* 배경 없는 보조 버튼 */
+  color: var(--color-text);          /* 본문 글자색 */
+  border-color: var(--color-border); /* 옅은 테두리만 표시 */
 }
 
 .btn--ghost:hover {
-  border-color: var(--color-primary);
-  color: var(--color-primary);
-  transform: translateY(-2px);
+  border-color: var(--color-primary); /* 호버 시 테두리를 브랜드색으로 */
+  color: var(--color-primary);        /* 글자도 브랜드색으로 */
+  transform: translateY(-2px);        /* 살짝 떠오름 */
 }
 
 .btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  transform: none;
-  box-shadow: var(--shadow-sm);
+  opacity: 0.6;                 /* 흐리게 해서 '못 누름'을 시각적으로 표현 */
+  cursor: not-allowed;          /* 마우스 커서를 금지 표시로 */
+  transform: none;              /* 비활성 중엔 떠오름 효과 제거 */
+  box-shadow: var(--shadow-sm); /* 그림자도 기본으로 고정(호버 강조 무력화) */
 }
 
 .btn--block {
-  width: 100%;
+  width: 100%; /* 가로 전체 폭 버튼(폼 제출 버튼 등) */
 }
 
 .btn--sm {
-  padding: 0.55rem 1rem;
-  font-size: 0.85rem;
+  padding: 0.55rem 1rem; /* 작은 버튼: 안쪽 여백 축소 */
+  font-size: 0.85rem;    /* 작은 버튼: 글자도 작게 */
 }

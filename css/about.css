@@ -2,44 +2,52 @@
    about.css — About 섹션
    프로필(아바타) + 자기소개 본문. 데스크톱 2컬럼 그리드는
    responsive.css 의 768px 미디어쿼리에서 적용됩니다.
+   (이 파일은 모바일 우선: 기본은 1컬럼으로 쌓이고, 넓은 화면에서만
+    좌우 2컬럼으로 펼쳐지므로 여기엔 컬럼 정의가 없습니다.)
    ================================================================ */
 
+/* About 섹션 전체 컨테이너 — 사진 영역과 본문 영역을 담는 그리드 */
 .about {
-  display: grid;
-  gap: var(--space-6);
-  align-items: center;
+  display: grid;            /* 자식(사진/본문)을 그리드로 배치 — 768px에서 2컬럼 전환을 쉽게 하려고 */
+  gap: var(--space-6);      /* 사진과 본문 사이 간격(토큰으로 통일된 넉넉한 여백) */
+  align-items: center;      /* 두 영역의 높이가 달라도 세로 가운데로 맞춰 보기 좋게 */
 }
 
+/* 아바타를 담는 영역 — 동그란 아바타를 칸 안 정중앙에 위치시킴 */
 .about__photo {
-  display: grid;
-  place-items: center;
+  display: grid;            /* place-items 로 손쉽게 중앙 정렬하기 위한 그리드 */
+  place-items: center;      /* 가로·세로 모두 가운데 정렬(아바타가 칸 가운데 오도록) */
 }
 
+/* 원형 프로필 아바타(이니셜/아이콘 표시용 그라데이션 원) */
 .about__avatar {
-  width: 180px;
-  height: 180px;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  font-size: 4rem;
-  color: #fff;
-  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
-  box-shadow: var(--shadow-lg);
+  width: 180px;             /* 고정 지름 — 원이 일정한 크기로 보이도록 */
+  height: 180px;            /* 너비와 같게 두어 완전한 정사각형 → 원 형태 보장 */
+  border-radius: 50%;       /* 모서리를 반지름 50%로 깎아 정사각형을 원으로 만듦 */
+  display: grid;            /* 내부 글자/아이콘 중앙 정렬을 위한 그리드 */
+  place-items: center;      /* 안쪽 콘텐츠(이니셜 등)를 정중앙에 배치 */
+  font-size: 4rem;          /* 원 안 이니셜/아이콘을 크게 — 아바타답게 눈에 띄도록 */
+  color: #fff;              /* 그라데이션 배경 위라 흰색 글자가 대비가 좋음 */
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent)); /* 브랜드 두 색을 대각선으로 섞어 입체감 부여 */
+  box-shadow: var(--shadow-lg); /* 큰 그림자로 카드에서 떠 보이게(시선 집중) */
 }
 
+/* 자기소개 본문 단락 — 읽기 편한 보조 톤과 단락 간격 */
 .about__body p {
-  color: var(--color-text-soft);
-  margin: 0 0 var(--space-4);
+  color: var(--color-text-soft);     /* 제목보다 한 톤 옅은 글자색으로 본문답게 */
+  margin: 0 0 var(--space-4);        /* 위/좌/우 0, 아래만 간격 → 단락 사이만 띄움 */
 }
 
+/* 약력/정보 목록(연락처·역할 등) — 항목을 세로로 정렬 */
 .about__list {
-  display: grid;
-  gap: var(--space-2);
-  margin: 0 0 var(--space-5);
-  color: var(--color-text-soft);
+  display: grid;                     /* 항목들을 줄 단위로 쌓는 그리드 */
+  gap: var(--space-2);               /* 항목 사이 좁은 간격(촘촘한 목록 느낌) */
+  margin: 0 0 var(--space-5);        /* 아래쪽만 여백을 둬 다음 요소와 분리 */
+  color: var(--color-text-soft);     /* 본문과 동일한 보조 글자색으로 통일감 */
 }
 
+/* 목록 항목 앞의 아이콘 — 브랜드색 포인트 + 글자와의 간격 */
 .about__list i {
-  color: var(--color-primary);
-  margin-right: var(--space-2);
+  color: var(--color-primary);       /* 아이콘만 브랜드색으로 강조해 시선 유도 */
+  margin-right: var(--space-2);      /* 아이콘과 뒤따르는 글자 사이 간격 확보 */
 }

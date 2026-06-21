@@ -9,8 +9,8 @@
 
 | 항목         | 링크                                                     |
 | ------------ | -------------------------------------------------------- |
-| 배포 사이트  | `https://ashofrondol.github.io/codyssey_B4-1/` (배포 후 갱신) |
-| GitHub 저장소 | `https://github.com/ashofrondol/codyssey_B4-1` (배포 후 갱신) |
+| 배포 사이트  | `https://ashofrondol.github.io/codyssey_B4-1/` |
+| GitHub 저장소 | `https://github.com/ashofrondol/codyssey_B4-1` |
 
 ---
 

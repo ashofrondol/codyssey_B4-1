@@ -4,45 +4,50 @@
    - .reveal     : Intersection Observer 로 .is-visible 부여 시 등장
    ================================================================ */
 
+/* 맨 위로 가기 버튼 — 화면 우하단에 항상 떠 있는 원형 버튼 */
 .scroll-top {
-  position: fixed;
-  right: var(--space-5);
-  bottom: var(--space-5);
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background-color: var(--color-primary);
-  color: #fff;
-  display: grid;
-  place-items: center;
-  box-shadow: var(--shadow-md);
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(12px);
-  transition: opacity var(--t-base) var(--ease),
-    transform var(--t-base) var(--ease),
-    background-color var(--t-base) var(--ease);
-  z-index: 90;
+  position: fixed;                       /* 스크롤과 무관하게 화면(뷰포트) 기준 고정 */
+  right: var(--space-5);                 /* 오른쪽 가장자리에서 띄우는 간격(디자인 토큰) */
+  bottom: var(--space-5);                /* 아래쪽 가장자리에서 띄우는 간격(우하단 배치) */
+  width: 44px;                           /* 손가락 터치에 무리 없는 최소 크기(가로) */
+  height: 44px;                          /* 정원이 되도록 가로와 같은 높이 */
+  border-radius: 50%;                    /* 모서리를 완전히 둥글려 원형으로 */
+  background-color: var(--color-primary);/* 브랜드색으로 눈에 띄게 */
+  color: #fff;                           /* 아이콘이 잘 보이도록 흰색 */
+  display: grid;                         /* 가운데 정렬을 위해 그리드 컨텍스트 생성 */
+  place-items: center;                   /* 그리드 자식(아이콘)을 가로·세로 모두 중앙에 */
+  box-shadow: var(--shadow-md);          /* 본문 위에 떠 보이도록 중간 세기 그림자 */
+  opacity: 0;                            /* 기본은 투명하게 숨김(스크롤 전 상태) */
+  pointer-events: none;                  /* 숨김 상태에서는 클릭이 통과되도록 비활성 */
+  transform: translateY(12px);           /* 살짝 아래에서 시작 → 나타날 때 위로 올라오는 연출 */
+  transition: opacity var(--t-base) var(--ease),       /* 보임/숨김 전환을 부드럽게 */
+    transform var(--t-base) var(--ease),               /* 위로 올라오는 이동을 부드럽게 */
+    background-color var(--t-base) var(--ease);         /* hover 색 변화도 부드럽게 */
+  z-index: 90;                           /* 본문 콘텐츠보다 위에 떠 있도록 쌓임 순서 확보 */
 }
 
+/* JS 가 스크롤을 감지해 붙이는 노출 상태 — 버튼을 보이고 클릭 가능하게 */
 .scroll-top.is-visible {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translateY(0);
+  opacity: 1;                            /* 완전히 보이게 */
+  pointer-events: auto;                  /* 클릭(맨 위로 이동) 받을 수 있게 활성 */
+  transform: translateY(0);              /* 제자리로 올라와 등장 애니메이션 마무리 */
 }
 
+/* 마우스 호버 — 색을 살짝 진하게 바꿔 상호작용 가능함을 표시 */
 .scroll-top:hover {
-  background-color: var(--color-primary-hover);
+  background-color: var(--color-primary-hover); /* 기본 브랜드색보다 짙은 hover 전용 토큰 */
 }
 
 /* Scroll Animation (Intersection Observer 대상) */
+/* 스크롤 등장 요소의 초기 상태 — 화면에 들어오기 전엔 숨기고 아래로 내려둠 */
 .reveal {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+  opacity: 0;                            /* 처음엔 투명하게(아직 안 보임) */
+  transform: translateY(24px);           /* 아래쪽에서 시작 → 보일 때 위로 떠오르는 효과 */
+  transition: opacity 700ms var(--ease), transform 700ms var(--ease); /* 700ms로 천천히 등장 */
 }
 
+/* 뷰포트에 들어오면 JS 가 붙이는 상태 — 제자리로 떠오르며 나타남 */
 .reveal.is-visible {
-  opacity: 1;
-  transform: translateY(0);
+  opacity: 1;                            /* 완전히 보이게 */
+  transform: translateY(0);              /* 원래 위치로 올라와 등장 완료 */
 }
