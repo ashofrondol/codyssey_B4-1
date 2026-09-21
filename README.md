@@ -416,7 +416,7 @@
 | R1 | 프로젝트 기본 구성 (묶음) | ✅ 충족 | 하위 항목 근거 참조 |
 | R1-1 | `index.html` / `css/` / `js/` / `images/` 역할 분리 | ✅ 충족 | 루트 `index.html`, `css/` 14개, `js/` 11개, `images/` 존재. 단 `images/`에는 자리표시 문서만 있음(`images/README.md:1-3`) |
 | R1-2 | 외부 CSS·JS 를 HTML 에 올바르게 연결 | ✅ 충족 | `index.html:39`(`css/style.css`), `index.html:47-67`(11개 스크립트). 참조 경로 12건 전부 실재 확인(실행 검증 기록 참조) |
-| R1-3 | VS Code + Live Server 개발 환경 구성 | ⬜ 로컬 검증 불가 | 저장소에 `.vscode/` 설정 없음. 대체 증거는 `README.md:117-122` 절차 문서뿐 → **증거 충분성: 보통**. 같은 절에 "`index.html` 을 그대로 브라우저로 열어도 됩니다"(`README.md:122`)가 있어, `file://` 과 `http://` 차이를 묻는 과제 의도(0.8 학습지도)와는 다소 어긋남 |
+| R1-3 | VS Code + Live Server 개발 환경 구성 | ⬜ 로컬 검증 불가 | 저장소에 `.vscode/` 설정 없음. 대체 증거는 `README.md:707-122` 절차 문서뿐 → **증거 충분성: 보통**. 같은 절에 "`index.html` 을 그대로 브라우저로 열어도 됩니다"(`README.md:712`)가 있어, `file://` 과 `http://` 차이를 묻는 과제 의도(0.8 학습지도)와는 다소 어긋남 |
 
 #### R2. HTML 구조 (시맨틱 마크업)
 
@@ -426,7 +426,7 @@
 | R2-1 | `header/nav/main/section/article/footer` 사용 | ✅ 충족 | 파싱 결과 header 5 · nav 1 · main 1 · section 5 · article 1 · footer 1. `index.html:72`(header) `:74`(nav) `:125`(main) `:128,167,215,230,254`(section) `:175`(article) `:335`(footer). 동적 카드도 `<article>`: `js/projects.js:183` |
 | R2-2 | Hero/About/Skills/Projects/Contact/Footer 섹션 + 각 포함 내용 | 🟡 부분 충족 | Hero 인사말·CTA `index.html:132,148-157`, Skills `:222`, Projects `:246`, Contact 폼 `:266`, Footer 저작권+소셜 `:338-369` 모두 있음. **About 의 "프로필 이미지"만 미구현** — 실제 사진 대신 아이콘 아바타(`index.html:177-182`, `css/about.css:23-33`) |
 | R2-3 | 네비게이션 앵커 링크 | ✅ 충족 | `index.html:85-89` 5개 링크 → 섹션 id(`hero/about/skills/projects/contact`)와 전부 매칭됨(파싱 확인) |
-| R2-4 | 모든 이미지에 의미있는 `alt` | 🟡 부분 충족 | 페이지에 `<img>` 가 **0개**라 검증 대상 자체가 없음(파싱 확인). 반면 `README.md:161` 의 스크린샷 3장은 파일 부재로 깨진 이미지. `css/base.css:42-45` 에 img 반응형 기본값만 준비돼 있음 |
+| R2-4 | 모든 이미지에 의미있는 `alt` | 🟡 부분 충족 | 페이지에 `<img>` 가 **0개**라 검증 대상 자체가 없음(파싱 확인). 반면 `README.md:751` 의 스크린샷 3장은 파일 부재로 깨진 이미지. `css/base.css:42-45` 에 img 반응형 기본값만 준비돼 있음 |
 | R2-5 | `<label for>` ↔ input id 연결 | ✅ 충족 | `index.html:269/272`, `:285/287`, `:300/302` — for(`name`,`email`,`message`) 3쌍 모두 id 와 매칭됨(파싱 확인) |
 
 #### R3. CSS 스타일링 (레이아웃 & 반응형)
@@ -464,12 +464,12 @@
 | ID | 요구사항 (요약) | 판정 | 근거 / 비고 |
 | --- | --- | --- | --- |
 | R5 | 인터랙션 (묶음) | ✅ 충족 | 6종 전부 구현 + 임계값 3종 README 명시 |
-| R5-1 | 햄버거 토글 (`classList.toggle`) | ✅ 충족 | `js/menu.js:19-24` — 토글 + `aria-expanded`/`aria-label` 갱신, 링크 클릭 시 자동 닫힘 `:27-35`. 클래스명은 명세 예시 `active` 대신 `is-open`(기법은 동일, `README.md:41` 에 명시) |
+| R5-1 | 햄버거 토글 (`classList.toggle`) | ✅ 충족 | `js/menu.js:19-24` — 토글 + `aria-expanded`/`aria-label` 갱신, 링크 클릭 시 자동 닫힘 `:27-35`. 클래스명은 명세 예시 `active` 대신 `is-open`(기법은 동일, `README.md:631` 에 명시) |
 | R5-2 | 부드러운 스크롤 | ✅ 충족 | JS `js/scroll.js:42-50`(`scrollIntoView({behavior:'smooth'})`) + CSS `css/base.css:18-19`(`scroll-behavior:smooth`, `scroll-padding-top`) |
-| R5-3 | 스크롤 300px↑ 에서 탑 버튼 노출 + README 명시 | ✅ 충족 | 값 `js/config.js:24`(300) → `js/scroll.js:25-28`, 노출 CSS `css/widgets.css:20-34`, 클릭 `js/scroll.js:36-38`. README 명시 `README.md:43`, `README.md:172` |
-| R5-4 | 스크롤 60px↑ 에서 네비 배경 변경 + README 명시 | ✅ 충족 | 값 `js/config.js:26`(60) → `js/scroll.js:24`, 스타일 `css/header.css:26-30`. README 명시 `README.md:44`, `README.md:173` |
+| R5-3 | 스크롤 300px↑ 에서 탑 버튼 노출 + README 명시 | ✅ 충족 | 값 `js/config.js:24`(300) → `js/scroll.js:25-28`, 노출 CSS `css/widgets.css:20-34`, 클릭 `js/scroll.js:36-38`. README 명시 `README.md:633`, `README.md:762` |
+| R5-4 | 스크롤 60px↑ 에서 네비 배경 변경 + README 명시 | ✅ 충족 | 값 `js/config.js:26`(60) → `js/scroll.js:24`, 스타일 `css/header.css:26-30`. README 명시 `README.md:634`, `README.md:763` |
 | R5-5 | 다크 모드 토글 + localStorage 유지 | ✅ 충족 | `js/theme.js:40-44`(토글·저장), `:23,28`(복원), `:49`(`html[data-theme]` 반영), 키 `js/config.js:30` |
-| R5-6 | Intersection Observer threshold 0.2 + README 명시 | ✅ 충족 | `js/config.js:28`(0.2) → `js/reveal.js:30`, 1회 노출 후 `unobserve` `:26`. README 명시 `README.md:46`, `README.md:174` |
+| R5-6 | Intersection Observer threshold 0.2 + README 명시 | ✅ 충족 | `js/config.js:28`(0.2) → `js/reveal.js:30`, 1회 노출 후 `unobserve` `:26`. README 명시 `README.md:636`, `README.md:764` |
 
 #### R6. 폼 UX
 
@@ -505,7 +505,7 @@
 | R8-4 | 성공 상태(카드 리스트) | ✅ 충족 | `js/projects.js:122-125` → `renderCards()` `:156-208` |
 | R8-5 | 에러 문구 + **재시도 버튼** | ✅ 충족 | `js/projects.js:98-109` — "프로젝트를 불러올 수 없습니다." + `#retryBtn` 생성, 클릭 시 `fetchRepos()` 재호출 `:108` |
 | R8-6 | 빈 상태 "표시할 프로젝트가 없습니다" | ✅ 충족 | `js/projects.js:71-74`(상태 전환) `:112-119`(문구). 명세 문구와 동일 |
-| R8-7 | `try/catch` 에러 처리 | ✅ 충족 | `js/projects.js:48,77-80`. **`res.ok` 직접 검사**로 403/404 를 `throw` 하여 catch 로 유도 `:54-62` — 명세 0.9-4 함정 회피 확인. 403 전용 문구 `:56`, README 설명 `README.md:178-184` |
+| R8-7 | `try/catch` 에러 처리 | ✅ 충족 | `js/projects.js:48,77-80`. **`res.ok` 직접 검사**로 403/404 를 `throw` 하여 catch 로 유도 `:54-62` — 명세 0.9-4 함정 회피 확인. 403 전용 문구 `:56`, README 설명 `README.md:768-184` |
 
 #### R9. 상태 관리 패턴
 
@@ -513,23 +513,23 @@
 | --- | --- | --- | --- |
 | R9 | 상태 관리 (묶음) | ✅ 충족 | 3개 모듈이 동일 패턴으로 통일됨 |
 | R9-1 | 이벤트 → 상태 → 화면 흐름이 명확 | ✅ 충족 | 세 모듈 모두 `state` + `setState()`(유일 통로) + `render()`: `js/theme.js:16-58`, `js/projects.js:21-126`, `js/contact.js:23-175`. DOM 을 상태 저장소로 쓰지 않음 |
-| R9-2 | "상태 → 렌더링" 흐름 3가지 이상 | ✅ 충족 | ① 테마 `js/theme.js:40-49` ② API 4상태 `js/projects.js:45-126` ③ 폼 검증 `js/contact.js:39-49,147-174` ④(선택) 언어 필터 `js/projects.js:148-152,159-162`. README 표 `README.md:65-70` |
+| R9-2 | "상태 → 렌더링" 흐름 3가지 이상 | ✅ 충족 | ① 테마 `js/theme.js:40-49` ② API 4상태 `js/projects.js:45-126` ③ 폼 검증 `js/contact.js:39-49,147-174` ④(선택) 언어 필터 `js/projects.js:148-152,159-162`. README 표 `README.md:655-70` |
 
 #### R10. 배포
 
 | ID | 요구사항 (요약) | 판정 | 근거 / 비고 |
 | --- | --- | --- | --- |
 | R10 | 배포 (묶음) | 🟡 부분 충족 | 배포 경로는 갖췄으나 스크린샷 자산 부재 |
-| R10-1 | GitHub Pages 배포 | ⬜ 로컬 검증 불가 | 대체 증거: `.github/workflows/static.yml:1-43`(Actions 기반 Pages 배포, `on.push.branches: ["master"]` 이고 저장소 현재 브랜치도 `master` → 트리거 일치), README URL `README.md:12`. **증거 충분성: 양호**(워크플로 + URL). 실제 Pages 활성화/응답은 네트워크 없이 확인 불가 |
+| R10-1 | GitHub Pages 배포 | ⬜ 로컬 검증 불가 | 대체 증거: `.github/workflows/static.yml:1-43`(Actions 기반 Pages 배포, `on.push.branches: ["master"]` 이고 저장소 현재 브랜치도 `master` → 트리거 일치), README URL `README.md:602`. **증거 충분성: 양호**(워크플로 + URL). 실제 Pages 활성화/응답은 네트워크 없이 확인 불가 |
 | R10-2 | 배포 URL 에서 모든 기능 정상 동작 | ⬜ 로컬 검증 불가 | 정적 경로는 안전: 절대경로(`href="/…"`) 0건, 모든 참조가 상대경로라 `/<repo>/` 서브경로 배포에서도 깨지지 않음(`index.html:39,47-67`, `css/style.css:22-46`). 다만 **배포본에서 동작을 확인했다는 증거(스크린샷·기록)가 저장소에 없음** → 증거 충분성: 부족 |
-| R10-3 | README 에 설명·기술·URL·스크린샷 | 🟡 부분 충족 | 설명 `README.md:1-4`, 사용 기술 `README.md:17-27`, 배포 URL `README.md:8-13`(단 백틱 코드 표기라 클릭 가능한 링크 아님), **스크린샷 `README.md:155-161` 은 `images/screenshot-{desktop,mobile,dark}.png` 를 참조하지만 3개 모두 파일 부재**(실행 검증으로 확인). `images/` 에는 자리표시 `README.md` 만 존재 |
+| R10-3 | README 에 설명·기술·URL·스크린샷 | 🟡 부분 충족 | 설명 `README.md:1-4`, 사용 기술 `README.md:607-27`, 배포 URL `README.md:598-13`(단 백틱 코드 표기라 클릭 가능한 링크 아님), **스크린샷 `README.md:745-161` 은 `images/screenshot-{desktop,mobile,dark}.png` 를 참조하지만 3개 모두 파일 부재**(실행 검증으로 확인). `images/` 에는 자리표시 `README.md` 만 존재 |
 
 #### 제출물 체크리스트 (명세 0.2)
 
 | 항목 | 판정 | 근거 / 비고 |
 | --- | --- | --- |
-| GitHub 저장소 URL | ✅ 충족 | `README.md:13` / `git remote -v` → `https://github.com/ashofrondol/codyssey_B4-1.git` |
-| 배포 사이트 URL (Pages) | ⬜ 로컬 검증 불가 | `README.md:12` 기재(`https://ashofrondol.github.io/codyssey_B4-1/`), 접속 확인 불가 |
+| GitHub 저장소 URL | ✅ 충족 | `README.md:603` / `git remote -v` → `https://github.com/ashofrondol/codyssey_B4-1.git` |
+| 배포 사이트 URL (Pages) | ⬜ 로컬 검증 불가 | `README.md:602` 기재(`https://ashofrondol.github.io/codyssey_B4-1/`), 접속 확인 불가 |
 | 데스크톱/모바일/다크모드 스크린샷 3종 | ❌ 미충족 | `images/` 에 이미지 파일 0개(`ls images/` → `README.md` 뿐), README 링크 3건 모두 깨짐 |
 
 #### 보너스 과제
@@ -544,7 +544,7 @@
 #### 🔍 발견된 격차와 보완 제안
 
 1. **[중요] README 스크린샷 3장이 실제로 없다 (R10-3 · 제출물 체크리스트)**
-   - 무엇이 부족한가: `README.md:161` 이 `images/screenshot-desktop.png` / `-mobile.png` / `-dark.png` 를 참조하는데 `images/` 에는 `README.md` 자리표시 문서만 있다. GitHub 에서 보면 깨진 이미지 3개로 표시된다. 명세는 "데스크톱/모바일/다크모드" 3종을 명시적으로 요구한다.
+   - 무엇이 부족한가: `README.md:751` 이 `images/screenshot-desktop.png` / `-mobile.png` / `-dark.png` 를 참조하는데 `images/` 에는 `README.md` 자리표시 문서만 있다. GitHub 에서 보면 깨진 이미지 3개로 표시된다. 명세는 "데스크톱/모바일/다크모드" 3종을 명시적으로 요구한다.
    - 어떻게 고치는가: 배포 URL 을 열어 (a) 데스크톱 폭, (b) 개발자도구 모바일 폭(예: 390×844), (c) 다크 모드 상태를 각각 캡처해 정확히 그 3개 파일명으로 `images/` 에 넣는다. 파일을 넣고 나면 `images/README.md` 자리표시 문서는 지워도 된다.
 
 2. **[중요] About 의 "프로필 이미지"가 `<img>` 가 아니다 (R2-2 · R2-4)**
@@ -556,10 +556,10 @@
    - 어떻게 고치는가: Pages URL 에서 ① 햄버거 메뉴 ② 다크 모드 새로고침 유지 ③ GitHub API 카드 ④ 폼 검증 4가지를 확인한 스크린샷을 README 에 넣고, 확인 날짜를 한 줄 적는다.
 
 4. **[경미] 배포 URL 이 링크가 아니라 코드 표기다 (R10-3)**
-   - `README.md:12-13` 이 백틱으로 감싸여 있어 클릭이 안 된다. `[https://ashofrondol.github.io/codyssey_B4-1/](https://ashofrondol.github.io/codyssey_B4-1/)` 형태의 마크다운 링크로 바꾸면 채점자가 바로 열 수 있다.
+   - `README.md:602-13` 이 백틱으로 감싸여 있어 클릭이 안 된다. `[https://ashofrondol.github.io/codyssey_B4-1/](https://ashofrondol.github.io/codyssey_B4-1/)` 형태의 마크다운 링크로 바꾸면 채점자가 바로 열 수 있다.
 
 5. **[경미] Live Server 요구(R1-3)의 증거가 문서 한 곳뿐이고, 설명이 과제 의도와 어긋난다**
-   - `README.md:122` 의 "`index.html` 을 그대로 브라우저로 열어도 됩니다"는 `file://` 과 `http://` 의 차이(CORS·오리진)를 체감시키려는 과제 의도(명세 0.8 R1-3 행)와 반대 방향의 안내다. `.vscode/settings.json`(예: `liveServer.settings.port`)을 커밋하고, README 에 "`file://` 로 열면 fetch 가 막힐 수 있어 Live Server 를 권장한다" 한 줄을 덧붙이면 요구와 의도를 모두 만족한다.
+   - `README.md:712` 의 "`index.html` 을 그대로 브라우저로 열어도 됩니다"는 `file://` 과 `http://` 의 차이(CORS·오리진)를 체감시키려는 과제 의도(명세 0.8 R1-3 행)와 반대 방향의 안내다. `.vscode/settings.json`(예: `liveServer.settings.port`)을 커밋하고, README 에 "`file://` 로 열면 fetch 가 막힐 수 있어 Live Server 를 권장한다" 한 줄을 덧붙이면 요구와 의도를 모두 만족한다.
 
 6. **[경미] 보조 문서 `docs/code-guide.html` 에 인라인 `style="…"` 이 다수 있다**
    - 제약 "인라인 스타일 금지"의 대상인 **제출물 `index.html` 에는 인라인 style 이 0건**이고 JS 의 `element.style.*` 직접 조작도 0건이라 본 요구는 지켜졌다. 다만 워크플로가 저장소 전체(`path: '.'`)를 배포하므로 `docs/code-guide.html:169,171,217-233,254-294` 등도 함께 게시된다. 채점자가 저장소 전체를 grep 하면 걸릴 수 있으니, 해당 인라인 스타일을 그 문서의 `<style>` 블록으로 옮겨두면 오해의 소지가 사라진다.
