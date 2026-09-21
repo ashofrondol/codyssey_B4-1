@@ -402,9 +402,19 @@
 ### 0.10 ✅ 과제 수행 점검 (명세 대조)
 
 > 점검 방식: 저장소의 실제 소스를 명세의 요구사항 ID 와 1:1 대조. 판정 근거는 파일 경로로 명시.
-> 대상 저장소: `/home/coder/volume/codyssey_B4-1` (브랜치 `master`, HEAD `97c312a`) — 읽기 전용으로만 점검했다.
+> 대상 저장소: `/home/coder/volume/codyssey_B4-1` (브랜치 `master`, **점검 당시** HEAD `97c312a`) — 최초 점검은 읽기 전용이었다(이후 경과는 아래 ⚠️ 참조).
 
 **종합 판정: 대체로 충족** — 필수 65개 중 충족 57 / 부분 5 / 미충족 0 / 로컬검증불가 3
+
+> **⚠️ 이 점검은 2026-09-21 이후 더 이상 '읽기 전용 기록'이 아니다.** 같은 날 아래 격차 중
+> 3건(4번·5번·7-1번)을 실제로 고쳤고, 코드가 바뀐 만큼 이 절의 `파일:줄번호` 근거도
+> **원본 줄 내용을 대조해** 새 위치로 옮겼다(산술로 밀지 않았다).
+> README 가 README 자신을 가리키던 참조 18건은 줄번호를 버리고 `§ 섹션명` 형태
+> (예: `README.md § 📸 스크린샷`)로 바꿨다 — 줄번호는 편집에 견디지 못하는 좌표이기 때문이다.
+> 그리고 그 두 가지(자기 참조에 줄번호 금지 / § 섹션이 실재할 것)를 `scripts/check.sh` 의
+> 검사로 만들어, 다음에 같은 방식으로 깨지면 CI 가 먼저 알려준다.
+> 판정 자체(충족/부분/미충족 개수)는 달라지지 않았다 — 남은 부분 충족 5건은 모두
+> 스크린샷·프로필 사진 같은 **이미지 자산**이 있어야 풀린다.
 
 핵심만 먼저: **코드 요구(R2~R9)는 사실상 전부 구현돼 있다.** 남은 격차는 전부 "제출물/자산" 쪽이다 —
 ① README 스크린샷 3장이 실제 파일로 존재하지 않아 링크가 깨진다, ② About 의 "프로필 이미지"가 `<img>` 가 아니라 Font Awesome 아이콘이라 페이지에 `<img>` 태그가 0개다, ③ 배포는 워크플로/URL 기재까지만 확인 가능하다.
@@ -416,17 +426,17 @@
 | R1 | 프로젝트 기본 구성 (묶음) | ✅ 충족 | 하위 항목 근거 참조 |
 | R1-1 | `index.html` / `css/` / `js/` / `images/` 역할 분리 | ✅ 충족 | 루트 `index.html`, `css/` 14개, `js/` 11개, `images/` 존재. 단 `images/`에는 자리표시 문서만 있음(`images/README.md:1-3`) |
 | R1-2 | 외부 CSS·JS 를 HTML 에 올바르게 연결 | ✅ 충족 | `index.html:39`(`css/style.css`), `index.html:47-67`(11개 스크립트). 참조 경로 12건 전부 실재 확인(실행 검증 기록 참조) |
-| R1-3 | VS Code + Live Server 개발 환경 구성 | ⬜ 로컬 검증 불가 | 저장소에 `.vscode/` 설정 없음. 대체 증거는 `README.md:707-122` 절차 문서뿐 → **증거 충분성: 보통**. 같은 절에 "`index.html` 을 그대로 브라우저로 열어도 됩니다"(`README.md:712`)가 있어, `file://` 과 `http://` 차이를 묻는 과제 의도(0.8 학습지도)와는 다소 어긋남 |
+| R1-3 | VS Code + Live Server 개발 환경 구성 | ⬜ 로컬 검증 불가 | `.vscode/settings.json`(`liveServer.settings.port: 5500`) + `README.md § ▶️ 로컬 실행 방법` → **증거 충분성: 양호**(2026-09-21 보강). 같은 절 4번이 `file://` 로 열면 오리진이 없어 GitHub API `fetch` 가 막힐 수 있다고 명시해, `file://` 과 `http://` 차이를 묻는 과제 의도(0.8 학습지도)와도 일치한다. 실제 확장 설치 여부만 저장소에서 확인 불가 |
 
 #### R2. HTML 구조 (시맨틱 마크업)
 
 | ID | 요구사항 (요약) | 판정 | 근거 / 비고 |
 | --- | --- | --- | --- |
 | R2 | 시맨틱 마크업 (묶음) | 🟡 부분 충족 | R2-2(프로필 이미지)·R2-4(img 부재)로 감점 |
-| R2-1 | `header/nav/main/section/article/footer` 사용 | ✅ 충족 | 파싱 결과 header 5 · nav 1 · main 1 · section 5 · article 1 · footer 1. `index.html:72`(header) `:74`(nav) `:125`(main) `:128,167,215,230,254`(section) `:175`(article) `:335`(footer). 동적 카드도 `<article>`: `js/projects.js:183` |
+| R2-1 | `header/nav/main/section/article/footer` 사용 | ✅ 충족 | 파싱 결과 header 5 · nav 1 · main 1 · section 5 · article 1 · footer 1. `index.html:72`(header) `:74`(nav) `:125`(main) `:128,167,215,230,254`(section) `:175`(article) `:335`(footer). 동적 카드도 `<article>`: `js/projects.js:203` |
 | R2-2 | Hero/About/Skills/Projects/Contact/Footer 섹션 + 각 포함 내용 | 🟡 부분 충족 | Hero 인사말·CTA `index.html:132,148-157`, Skills `:222`, Projects `:246`, Contact 폼 `:266`, Footer 저작권+소셜 `:338-369` 모두 있음. **About 의 "프로필 이미지"만 미구현** — 실제 사진 대신 아이콘 아바타(`index.html:177-182`, `css/about.css:23-33`) |
 | R2-3 | 네비게이션 앵커 링크 | ✅ 충족 | `index.html:85-89` 5개 링크 → 섹션 id(`hero/about/skills/projects/contact`)와 전부 매칭됨(파싱 확인) |
-| R2-4 | 모든 이미지에 의미있는 `alt` | 🟡 부분 충족 | 페이지에 `<img>` 가 **0개**라 검증 대상 자체가 없음(파싱 확인). 반면 `README.md:751` 의 스크린샷 3장은 파일 부재로 깨진 이미지. `css/base.css:42-45` 에 img 반응형 기본값만 준비돼 있음 |
+| R2-4 | 모든 이미지에 의미있는 `alt` | 🟡 부분 충족 | 페이지에 `<img>` 가 **0개**라 검증 대상 자체가 없음(파싱 확인). 반면 `README.md § 📸 스크린샷` 의 스크린샷 3장은 파일 부재로 깨진 이미지. `css/base.css:42-45` 에 img 반응형 기본값만 준비돼 있음 |
 | R2-5 | `<label for>` ↔ input id 연결 | ✅ 충족 | `index.html:269/272`, `:285/287`, `:300/302` — for(`name`,`email`,`message`) 3쌍 모두 id 와 매칭됨(파싱 확인) |
 
 #### R3. CSS 스타일링 (레이아웃 & 반응형)
@@ -452,24 +462,24 @@
 | R4 | JS 기초 (묶음) | ✅ 충족 | 하위 8개 전부 충족 |
 | R4-1 | `defer` 로 JS 연결 | ✅ 충족 | `index.html:47-67` — `<script>` 11개 **전부** `defer`(파싱: defer 11 / script 11) |
 | R4-2 | `var` 금지, `const`/`let` 만 | ✅ 충족 | `grep -rnE '(^\|[^a-zA-Z_.$])var\s+' js/` → **0건**. 모든 파일 `'use strict'` 선언(예: `js/config.js:12`) |
-| R4-3 | `onclick` 금지, `addEventListener` | ✅ 충족 | HTML 인라인 핸들러 0건(grep `on(click\|submit\|change\|input\|load)=`), `addEventListener` 12건 — `js/menu.js:19`, `js/scroll.js:20,36,43`, `js/contact.js:39,44,52`, `js/theme.js:30`, `js/projects.js:108,149`, `js/main.js:19` |
-| R4-4 | `querySelector` / `querySelectorAll` | ✅ 충족 | 래퍼 정의 `js/config.js:35-37`, 사용처 `js/projects.js:33-34`, `js/navspy.js:18-19`, `js/contact.js:33,35,38` 등 |
-| R4-5 | `textContent` / `innerHTML` 로 내용 변경 | ✅ 충족 | textContent `js/main.js:21`, `js/typing.js:21,27`, `js/contact.js:157` / innerHTML `js/projects.js:90,100,114,137,174`, `js/skills.js:30` |
-| R4-6 | `classList.add/remove/toggle` | ✅ 충족 | toggle `js/menu.js:20-21`·`js/scroll.js:24-28`·`js/navspy.js:28-31`·`js/contact.js:156`, add `js/reveal.js:25`·`js/main.js:26`, remove `js/menu.js:30-31` |
-| R4-7 | `click` · `submit` · `scroll` · `input` 이벤트 | ✅ 충족 | click `js/menu.js:19`, submit `js/contact.js:52`, scroll `js/scroll.js:20`, input `js/contact.js:44` (+ blur `:39` 로 실시간 검증까지) |
-| R4-8 | `event.preventDefault()` | ✅ 충족 | `js/contact.js:53`(폼 새로고침 방지), `js/scroll.js:48`(앵커 점프 방지 후 smooth) |
+| R4-3 | `onclick` 금지, `addEventListener` | ✅ 충족 | HTML 인라인 핸들러 0건(grep `on(click\|submit\|change\|input\|load)=`), `addEventListener` 12건 — `js/menu.js:19,28`, `js/scroll.js:20,36,43`, `js/contact.js:45,50,58`, `js/theme.js:49`, `js/projects.js:121,169`, `js/main.js:19` |
+| R4-4 | `querySelector` / `querySelectorAll` | ✅ 충족 | 래퍼 정의 `js/config.js:35-37`, 사용처 `js/projects.js:33-34`, `js/navspy.js:18-19`, `js/contact.js:39,41,44` 등 |
+| R4-5 | `textContent` / `innerHTML` 로 내용 변경 | ✅ 충족 | textContent `js/main.js:21`, `js/typing.js:21,27`, `js/contact.js:170` / innerHTML `js/projects.js:94,113,127,157,194`, `js/skills.js:30` |
+| R4-6 | `classList.add/remove/toggle` | ✅ 충족 | toggle `js/menu.js:20-21`·`js/scroll.js:24-28`·`js/navspy.js:28-31`·`js/contact.js:169`, add `js/reveal.js:25`·`js/main.js:26`, remove `js/menu.js:30-31` |
+| R4-7 | `click` · `submit` · `scroll` · `input` 이벤트 | ✅ 충족 | click `js/menu.js:19`, submit `js/contact.js:58`, scroll `js/scroll.js:20`, input `js/contact.js:50` (+ blur `:45` 로 실시간 검증까지) |
+| R4-8 | `event.preventDefault()` | ✅ 충족 | `js/contact.js:59`(폼 새로고침 방지), `js/scroll.js:48`(앵커 점프 방지 후 smooth) |
 
 #### R5. 인터랙션 구현
 
 | ID | 요구사항 (요약) | 판정 | 근거 / 비고 |
 | --- | --- | --- | --- |
 | R5 | 인터랙션 (묶음) | ✅ 충족 | 6종 전부 구현 + 임계값 3종 README 명시 |
-| R5-1 | 햄버거 토글 (`classList.toggle`) | ✅ 충족 | `js/menu.js:19-24` — 토글 + `aria-expanded`/`aria-label` 갱신, 링크 클릭 시 자동 닫힘 `:27-35`. 클래스명은 명세 예시 `active` 대신 `is-open`(기법은 동일, `README.md:631` 에 명시) |
+| R5-1 | 햄버거 토글 (`classList.toggle`) | ✅ 충족 | `js/menu.js:19-24` — 토글 + `aria-expanded`/`aria-label` 갱신, 링크 클릭 시 자동 닫힘 `:27-35`. 클래스명은 명세 예시 `active` 대신 `is-open`(기법은 동일, `README.md § ✨ 주요 기능 › 2. 인터랙티브 UI` 에 명시) |
 | R5-2 | 부드러운 스크롤 | ✅ 충족 | JS `js/scroll.js:42-50`(`scrollIntoView({behavior:'smooth'})`) + CSS `css/base.css:18-19`(`scroll-behavior:smooth`, `scroll-padding-top`) |
-| R5-3 | 스크롤 300px↑ 에서 탑 버튼 노출 + README 명시 | ✅ 충족 | 값 `js/config.js:24`(300) → `js/scroll.js:25-28`, 노출 CSS `css/widgets.css:20-34`, 클릭 `js/scroll.js:36-38`. README 명시 `README.md:633`, `README.md:762` |
-| R5-4 | 스크롤 60px↑ 에서 네비 배경 변경 + README 명시 | ✅ 충족 | 값 `js/config.js:26`(60) → `js/scroll.js:24`, 스타일 `css/header.css:26-30`. README 명시 `README.md:634`, `README.md:763` |
-| R5-5 | 다크 모드 토글 + localStorage 유지 | ✅ 충족 | `js/theme.js:40-44`(토글·저장), `:23,28`(복원), `:49`(`html[data-theme]` 반영), 키 `js/config.js:30` |
-| R5-6 | Intersection Observer threshold 0.2 + README 명시 | ✅ 충족 | `js/config.js:28`(0.2) → `js/reveal.js:30`, 1회 노출 후 `unobserve` `:26`. README 명시 `README.md:636`, `README.md:764` |
+| R5-3 | 스크롤 300px↑ 에서 탑 버튼 노출 + README 명시 | ✅ 충족 | 값 `js/config.js:24`(300) → `js/scroll.js:25-28`, 노출 CSS `css/widgets.css:20-34`, 클릭 `js/scroll.js:36-38`. README 명시 `README.md § ✨ 주요 기능 › 1. 반응형 레이아웃`, `README.md § ⚙️ 주요 설정값` |
+| R5-4 | 스크롤 60px↑ 에서 네비 배경 변경 + README 명시 | ✅ 충족 | 값 `js/config.js:26`(60) → `js/scroll.js:24`, 스타일 `css/header.css:26-30`. README 명시 `README.md § ✨ 주요 기능 › 1. 반응형 레이아웃`, `README.md § ⚙️ 주요 설정값` |
+| R5-5 | 다크 모드 토글 + localStorage 유지 | ✅ 충족 | `js/theme.js:59-63`(토글·저장), `:30,47`(복원), `:73`(`html[data-theme]` 반영), 키 `js/config.js:30` |
+| R5-6 | Intersection Observer threshold 0.2 + README 명시 | ✅ 충족 | `js/config.js:28`(0.2) → `js/reveal.js:30`, 1회 노출 후 `unobserve` `:26`. README 명시 `README.md § ✨ 주요 기능 › 2. 인터랙티브 UI`, `README.md § ⚙️ 주요 설정값` |
 
 #### R6. 폼 UX
 
@@ -477,22 +487,22 @@
 | --- | --- | --- | --- |
 | R6 | 폼 UX (묶음) | ✅ 충족 | 하위 5개 전부 충족 |
 | R6-1 | 이름·이메일·메시지 문의 폼 | ✅ 충족 | `index.html:266-310` (`name`/`email`/`message`, `novalidate` 로 직접 검증) |
-| R6-2 | 필수값 검증 | ✅ 충족 | `js/contact.js:129-131` + 전체 검증 `:68-79` |
-| R6-3 | 이메일 형식 검증 | ✅ 충족 | `js/contact.js:132-134`, 정규식 `:141-143` |
-| R6-4 | 에러 메시지를 입력 필드 근처에 표시 | ✅ 충족 | 필드별 슬롯 `index.html:280,295,309`(`<small data-error-for>`), 렌더 `js/contact.js:151-158`, 스타일 `css/form.css:48-58`. `alert()` 미사용 |
-| R6-5 | `preventDefault()` + 성공 메시지 | ✅ 충족 | `js/contact.js:53` + 성공 배너 `index.html:318-321` / `js/contact.js:161-162`, 성공 처리 `:114-123`(리셋·5초 후 자동 숨김) |
+| R6-2 | 필수값 검증 | ✅ 충족 | `js/contact.js:135-137` + 전체 검증 `:74-85` |
+| R6-3 | 이메일 형식 검증 | ✅ 충족 | `js/contact.js:138-140`, 정규식 `:147-149` |
+| R6-4 | 에러 메시지를 입력 필드 근처에 표시 | ✅ 충족 | 필드별 슬롯 `index.html:280,295,309`(`<small data-error-for>`), 렌더 `js/contact.js:164-171`, 스타일 `css/form.css:48-58`. `alert()` 미사용 |
+| R6-5 | `preventDefault()` + 성공 메시지 | ✅ 충족 | `js/contact.js:59` + 성공 배너 `index.html:318-321` / `js/contact.js:174-175`, 성공 처리 `:120-129`(리셋·5초 후 자동 숨김) |
 
 #### R7. ES6+ 문법 & 배열 메서드
 
 | ID | 요구사항 (요약) | 판정 | 근거 / 비고 |
 | --- | --- | --- | --- |
 | R7 | ES6+ (묶음) | ✅ 충족 | 하위 6개 전부 충족(R7-5 선택 포함) |
-| R7-1 | 화살표 함수 | ✅ 충족 | `js/config.js:35-37`, `js/main.js:19,24`, `js/projects.js:68,134,162`, `js/contact.js:72,74` |
-| R7-2 | 템플릿 리터럴로 HTML 생성 | ✅ 충족 | `js/projects.js:182-204`(카드), `:90-94`(로딩) `:100-107`(에러) `:114-118`(빈), `js/skills.js:32-36` |
-| R7-3 | 구조분해 할당 | ✅ 충족 | `js/projects.js:175-182`(name·description·html_url·stargazers_count·forks_count·language), `js/theme.js:48`, `js/contact.js:148`, `js/skills.js:32` |
-| R7-4 | `map` 으로 GitHub 데이터 → 카드 | ✅ 충족 | `js/projects.js:174-205`, 필터 버튼 `:137-146` |
-| R7-5 | `filter` (선택) | ✅ 충족 | `js/projects.js:68`(fork 제외), `:134`(언어 null 제거), `:162`(언어 필터) |
-| R7-6 | `forEach` | ✅ 충족 | `js/main.js:24`, `js/menu.js:27`, `js/contact.js:72,151`, `js/reveal.js:38`, `js/navspy.js:24,27` |
+| R7-1 | 화살표 함수 | ✅ 충족 | `js/config.js:35-37`, `js/main.js:19,24`, `js/projects.js:68,154,182`, `js/contact.js:78,80` |
+| R7-2 | 템플릿 리터럴로 HTML 생성 | ✅ 충족 | `js/projects.js:202-224`(카드), `:94-98`(로딩) `:113-120`(에러) `:127-131`(빈), `js/skills.js:32-36` |
+| R7-3 | 구조분해 할당 | ✅ 충족 | `js/projects.js:195-202`(name·description·html_url·stargazers_count·forks_count·language), `js/theme.js:67`, `js/contact.js:154`, `js/skills.js:32` |
+| R7-4 | `map` 으로 GitHub 데이터 → 카드 | ✅ 충족 | `js/projects.js:194-225`, 필터 버튼 `:157-166` |
+| R7-5 | `filter` (선택) | ✅ 충족 | `js/projects.js:68`(fork 제외), `:154`(언어 null 제거), `:182`(언어 필터) |
+| R7-6 | `forEach` | ✅ 충족 | `js/main.js:24`, `js/menu.js:27`, `js/contact.js:78,164`, `js/reveal.js:38`, `js/navspy.js:24,27` |
 
 #### R8. 비동기 처리 & API 연동
 
@@ -501,50 +511,50 @@
 | R8 | 비동기·API (묶음) | ✅ 충족 | 4상태 + 403 처리까지 구현 |
 | R8-1 | `fetch` + `async/await` | ✅ 충족 | `js/projects.js:45`(async) `:50`(await fetch) `:64`(await json) |
 | R8-2 | `https://api.github.com/users/{id}/repos` | ✅ 충족 | `js/projects.js:49` — `…/users/${CONFIG.GITHUB_USERNAME}/repos?sort=updated&per_page=100`, 계정명 `js/config.js:17`(`ashofrondol`) |
-| R8-3 | 로딩 상태(스피너/문구) | ✅ 충족 | `js/projects.js:88-95` 스피너 + "프로젝트를 불러오는 중입니다...", 스피너 CSS `css/projects.css:171` |
-| R8-4 | 성공 상태(카드 리스트) | ✅ 충족 | `js/projects.js:122-125` → `renderCards()` `:156-208` |
-| R8-5 | 에러 문구 + **재시도 버튼** | ✅ 충족 | `js/projects.js:98-109` — "프로젝트를 불러올 수 없습니다." + `#retryBtn` 생성, 클릭 시 `fetchRepos()` 재호출 `:108` |
-| R8-6 | 빈 상태 "표시할 프로젝트가 없습니다" | ✅ 충족 | `js/projects.js:71-74`(상태 전환) `:112-119`(문구). 명세 문구와 동일 |
-| R8-7 | `try/catch` 에러 처리 | ✅ 충족 | `js/projects.js:48,77-80`. **`res.ok` 직접 검사**로 403/404 를 `throw` 하여 catch 로 유도 `:54-62` — 명세 0.9-4 함정 회피 확인. 403 전용 문구 `:56`, README 설명 `README.md:768-184` |
+| R8-3 | 로딩 상태(스피너/문구) | ✅ 충족 | `js/projects.js:92-99` 스피너 + "프로젝트를 불러오는 중입니다...", 스피너 CSS `css/projects.css:171` |
+| R8-4 | 성공 상태(카드 리스트) | ✅ 충족 | `js/projects.js:135-139` → `renderCards()` `:176-228` |
+| R8-5 | 에러 문구 + **재시도 버튼** | ✅ 충족 | `js/projects.js:102-122` — "프로젝트를 불러올 수 없습니다." + `#retryBtn` 생성, 클릭 시 `fetchRepos()` 재호출 `:121` |
+| R8-6 | 빈 상태 "표시할 프로젝트가 없습니다" | ✅ 충족 | `js/projects.js:71-74`(상태 전환) `:125-132`(문구). 명세 문구와 동일 |
+| R8-7 | `try/catch` 에러 처리 | ✅ 충족 | `js/projects.js:48,77-80`. **`res.ok` 직접 검사**로 403/404 를 `throw` 하여 catch 로 유도 `:54-62` — 명세 0.9-4 함정 회피 확인. 403 전용 문구 `:56`, README 설명 `README.md § ⚠️ GitHub API 레이트 리밋` |
 
 #### R9. 상태 관리 패턴
 
 | ID | 요구사항 (요약) | 판정 | 근거 / 비고 |
 | --- | --- | --- | --- |
 | R9 | 상태 관리 (묶음) | ✅ 충족 | 3개 모듈이 동일 패턴으로 통일됨 |
-| R9-1 | 이벤트 → 상태 → 화면 흐름이 명확 | ✅ 충족 | 세 모듈 모두 `state` + `setState()`(유일 통로) + `render()`: `js/theme.js:16-58`, `js/projects.js:21-126`, `js/contact.js:23-175`. DOM 을 상태 저장소로 쓰지 않음 |
-| R9-2 | "상태 → 렌더링" 흐름 3가지 이상 | ✅ 충족 | ① 테마 `js/theme.js:40-49` ② API 4상태 `js/projects.js:45-126` ③ 폼 검증 `js/contact.js:39-49,147-174` ④(선택) 언어 필터 `js/projects.js:148-152,159-162`. README 표 `README.md:655-70` |
+| R9-1 | 이벤트 → 상태 → 화면 흐름이 명확 | ✅ 충족 | 세 모듈 모두 `state` + `setState()`(유일 통로) + `render()`: `js/theme.js:23-82`, `js/projects.js:21-146`, `js/contact.js:29-188`. DOM 을 상태 저장소로 쓰지 않음 |
+| R9-2 | "상태 → 렌더링" 흐름 3가지 이상 | ✅ 충족 | ① 테마 `js/theme.js:59-73` ② API 4상태 `js/projects.js:45-146` ③ 폼 검증 `js/contact.js:45-55,153-187` ④(선택) 언어 필터 `js/projects.js:168-172,179-182`. README 표 `README.md § ✨ 주요 기능 › 4. 상태 → 렌더링 흐름` |
 
 #### R10. 배포
 
 | ID | 요구사항 (요약) | 판정 | 근거 / 비고 |
 | --- | --- | --- | --- |
 | R10 | 배포 (묶음) | 🟡 부분 충족 | 배포 경로는 갖췄으나 스크린샷 자산 부재 |
-| R10-1 | GitHub Pages 배포 | ⬜ 로컬 검증 불가 | 대체 증거: `.github/workflows/static.yml:1-43`(Actions 기반 Pages 배포, `on.push.branches: ["master"]` 이고 저장소 현재 브랜치도 `master` → 트리거 일치), README URL `README.md:602`. **증거 충분성: 양호**(워크플로 + URL). 실제 Pages 활성화/응답은 네트워크 없이 확인 불가 |
+| R10-1 | GitHub Pages 배포 | ⬜ 로컬 검증 불가 | 대체 증거: `.github/workflows/static.yml` 의 `jobs.deploy`(Actions 기반 Pages 배포, `on.push.branches: ["master"]` 이고 저장소 현재 브랜치도 `master` → 트리거 일치). 같은 파일의 `jobs.check` 가 먼저 돌고, `deploy` 는 `needs: check` 이므로 검사를 통과한 커밋만 배포된다. README URL 은 `README.md § 🌐 배포 URL`. **증거 충분성: 양호**(워크플로 + URL). 실제 Pages 활성화/응답은 네트워크 없이 확인 불가 |
 | R10-2 | 배포 URL 에서 모든 기능 정상 동작 | ⬜ 로컬 검증 불가 | 정적 경로는 안전: 절대경로(`href="/…"`) 0건, 모든 참조가 상대경로라 `/<repo>/` 서브경로 배포에서도 깨지지 않음(`index.html:39,47-67`, `css/style.css:22-46`). 다만 **배포본에서 동작을 확인했다는 증거(스크린샷·기록)가 저장소에 없음** → 증거 충분성: 부족 |
-| R10-3 | README 에 설명·기술·URL·스크린샷 | 🟡 부분 충족 | 설명 `README.md:1-4`, 사용 기술 `README.md:607-27`, 배포 URL `README.md:598-13`(단 백틱 코드 표기라 클릭 가능한 링크 아님), **스크린샷 `README.md:745-161` 은 `images/screenshot-{desktop,mobile,dark}.png` 를 참조하지만 3개 모두 파일 부재**(실행 검증으로 확인). `images/` 에는 자리표시 `README.md` 만 존재 |
+| R10-3 | README 에 설명·기술·URL·스크린샷 | 🟡 부분 충족 | 설명 `README.md` 머리말(제목 + 소개 2줄), 사용 기술 `README.md § 🛠️ 사용 기술`, 배포 URL `README.md § 🌐 배포 URL`(2026-09-21 자동 링크 표기로 수정 — 아래 격차 4번), **스크린샷 `README.md § 📸 스크린샷` 은 `images/screenshot-{desktop,mobile,dark}.png` 를 참조하지만 3개 모두 파일 부재**(실행 검증으로 확인). `images/` 에는 자리표시 `README.md` 만 존재 |
 
 #### 제출물 체크리스트 (명세 0.2)
 
 | 항목 | 판정 | 근거 / 비고 |
 | --- | --- | --- |
-| GitHub 저장소 URL | ✅ 충족 | `README.md:603` / `git remote -v` → `https://github.com/ashofrondol/codyssey_B4-1.git` |
-| 배포 사이트 URL (Pages) | ⬜ 로컬 검증 불가 | `README.md:602` 기재(`https://ashofrondol.github.io/codyssey_B4-1/`), 접속 확인 불가 |
+| GitHub 저장소 URL | ✅ 충족 | `README.md § 🌐 배포 URL` / `git remote -v` → `https://github.com/ashofrondol/codyssey_B4-1.git` |
+| 배포 사이트 URL (Pages) | ⬜ 로컬 검증 불가 | `README.md § 🌐 배포 URL` 기재(`https://ashofrondol.github.io/codyssey_B4-1/`), 접속 확인 불가 |
 | 데스크톱/모바일/다크모드 스크린샷 3종 | ❌ 미충족 | `images/` 에 이미지 파일 0개(`ls images/` → `README.md` 뿐), README 링크 3건 모두 깨짐 |
 
 #### 보너스 과제
 
 | ID | 요구사항 (요약) | 판정 | 근거 / 비고 |
 | --- | --- | --- | --- |
-| B1 | 언어별 프로젝트 필터 (`filter`) | ✅ 충족 | 버튼 렌더 `js/projects.js:129-153`(`Set` 으로 언어 중복 제거), 필터링 `:159-162`, 필터 결과 0건 안내 `:164-171`, 스타일 `css/projects.css:19-41`. R7-5·R9-2 예시4 를 동시에 채움 |
+| B1 | 언어별 프로젝트 필터 (`filter`) | ✅ 충족 | 버튼 렌더 `js/projects.js:149-173`(`Set` 으로 언어 중복 제거), 필터링 `:179-182`, 필터 결과 0건 안내 `:184-191`, 스타일 `css/projects.css:19-41`. R7-5·R9-2 예시4 를 동시에 채움 |
 | B2 | Hero 타이핑 효과 | ✅ 충족 | `js/typing.js:16-33`(90ms 간격 재귀 `setTimeout`), 대상 `index.html:137`, 커서 `index.html:139` + `css/hero.css` 깜빡임 |
-| B3 | 폼 실제 전송 (Formspree/EmailJS) | ✅ 충족 | 엔드포인트 `js/config.js:22`(`https://formspree.io/f/xykarqqq` — 플레이스홀더 아님), POST `js/contact.js:96-110`, 미설정 시 데모 모드 폴백 `:82-91`. 실제 메일 도달 여부는 네트워크 없이 검증 불가 |
-| B4 | 시스템 다크 모드 감지 (`prefers-color-scheme`) | ✅ 충족 | `js/theme.js:24-28` — `matchMedia('(prefers-color-scheme: dark)')` 로 저장값 없을 때 시스템 설정 적용. 다만 CSS 쪽 `@media (prefers-color-scheme: dark)` 는 없고, 시스템 설정이 런타임에 바뀔 때의 `change` 리스너도 없음(최초 1회 판정) |
+| B3 | 폼 실제 전송 (Formspree/EmailJS) | ✅ 충족 | 엔드포인트 `js/config.js:22`(`https://formspree.io/f/xykarqqq` — 플레이스홀더 아님), POST `js/contact.js:102-116`, 미설정 시 데모 모드 폴백 `:88-97`. 실제 메일 도달 여부는 네트워크 없이 검증 불가 |
+| B4 | 시스템 다크 모드 감지 (`prefers-color-scheme`) | ✅ 충족 | `js/theme.js:31-33`(감지) `:47`(적용) — `matchMedia('(prefers-color-scheme: dark)')` 로 저장값 없을 때 시스템 설정 적용. 다만 CSS 쪽 `@media (prefers-color-scheme: dark)` 는 없고, 시스템 설정이 런타임에 바뀔 때의 `change` 리스너도 없음(최초 1회 판정) |
 
 #### 🔍 발견된 격차와 보완 제안
 
 1. **[중요] README 스크린샷 3장이 실제로 없다 (R10-3 · 제출물 체크리스트)**
-   - 무엇이 부족한가: `README.md:751` 이 `images/screenshot-desktop.png` / `-mobile.png` / `-dark.png` 를 참조하는데 `images/` 에는 `README.md` 자리표시 문서만 있다. GitHub 에서 보면 깨진 이미지 3개로 표시된다. 명세는 "데스크톱/모바일/다크모드" 3종을 명시적으로 요구한다.
+   - 무엇이 부족한가: `README.md § 📸 스크린샷` 이 `images/screenshot-desktop.png` / `-mobile.png` / `-dark.png` 를 참조하는데 `images/` 에는 `README.md` 자리표시 문서만 있다. GitHub 에서 보면 깨진 이미지 3개로 표시된다. 명세는 "데스크톱/모바일/다크모드" 3종을 명시적으로 요구한다.
    - 어떻게 고치는가: 배포 URL 을 열어 (a) 데스크톱 폭, (b) 개발자도구 모바일 폭(예: 390×844), (c) 다크 모드 상태를 각각 캡처해 정확히 그 3개 파일명으로 `images/` 에 넣는다. 파일을 넣고 나면 `images/README.md` 자리표시 문서는 지워도 된다.
 
 2. **[중요] About 의 "프로필 이미지"가 `<img>` 가 아니다 (R2-2 · R2-4)**
@@ -556,23 +566,32 @@
    - 어떻게 고치는가: Pages URL 에서 ① 햄버거 메뉴 ② 다크 모드 새로고침 유지 ③ GitHub API 카드 ④ 폼 검증 4가지를 확인한 스크린샷을 README 에 넣고, 확인 날짜를 한 줄 적는다.
 
 4. **[경미] 배포 URL 이 링크가 아니라 코드 표기다 (R10-3)**
-   - `README.md:602-13` 이 백틱으로 감싸여 있어 클릭이 안 된다. `[https://ashofrondol.github.io/codyssey_B4-1/](https://ashofrondol.github.io/codyssey_B4-1/)` 형태의 마크다운 링크로 바꾸면 채점자가 바로 열 수 있다.
+   - ~~`README.md § 🌐 배포 URL` 이 백틱으로 감싸여 있어 클릭이 안 된다.~~ → **해결됨(2026-09-21)**. 두 URL 을 `<https://…>` 자동 링크 표기로 바꿔 채점자가 표에서 바로 열 수 있다.
 
 5. **[경미] Live Server 요구(R1-3)의 증거가 문서 한 곳뿐이고, 설명이 과제 의도와 어긋난다**
-   - `README.md:712` 의 "`index.html` 을 그대로 브라우저로 열어도 됩니다"는 `file://` 과 `http://` 의 차이(CORS·오리진)를 체감시키려는 과제 의도(명세 0.8 R1-3 행)와 반대 방향의 안내다. `.vscode/settings.json`(예: `liveServer.settings.port`)을 커밋하고, README 에 "`file://` 로 열면 fetch 가 막힐 수 있어 Live Server 를 권장한다" 한 줄을 덧붙이면 요구와 의도를 모두 만족한다.
+   - ~~`README.md § ▶️ 로컬 실행 방법` 의 "`index.html` 을 그대로 브라우저로 열어도 됩니다"는 `file://` 과 `http://` 의 차이(CORS·오리진)를 체감시키려는 과제 의도(명세 0.8 R1-3 행)와 반대 방향의 안내다.~~ → **해결됨(2026-09-21)**. `.vscode/settings.json`(`liveServer.settings.port: 5500`)을 추가하고, 같은 절 4번을 "`file://` 로 열면 오리진이 없어 GitHub API `fetch` 가 막힐 수 있으니 Live Server 로 띄우라"로 고쳤다.
 
 6. **[경미] 보조 문서 `docs/code-guide.html` 에 인라인 `style="…"` 이 다수 있다**
    - 제약 "인라인 스타일 금지"의 대상인 **제출물 `index.html` 에는 인라인 style 이 0건**이고 JS 의 `element.style.*` 직접 조작도 0건이라 본 요구는 지켜졌다. 다만 워크플로가 저장소 전체(`path: '.'`)를 배포하므로 `docs/code-guide.html:169,171,217-233,254-294` 등도 함께 게시된다. 채점자가 저장소 전체를 grep 하면 걸릴 수 있으니, 해당 인라인 스타일을 그 문서의 `<style>` 블록으로 옮겨두면 오해의 소지가 사라진다.
 
 7. **[경미] 코드 품질상 눈에 띈 것 2가지 (요구사항 위반은 아님)**
-   - `js/projects.js:197` — 카드 링크의 `href="${html_url}"` 만 `escapeHtml()` 을 거치지 않는다(이름·설명·언어는 `:186,189,194` 에서 이스케이프됨). GitHub 이 주는 값이라 실제 위험은 낮지만, 일관성을 위해 동일하게 감싸는 편이 낫다.
-   - `docs/evaluation-answers.html:232` 가 `index.html` 의 줄 번호(header 28 · nav 29 · main 68 …)를 인용하는데, 이후 주석이 대량 추가되면서 실제 줄 번호(header 72 · nav 74 · main 125 …)와 어긋났다. 구술 평가에서 줄 번호를 짚어 설명하라는 게 과제 목표(명세 0.3)이므로 갱신해두는 편이 안전하다.
+   - ~~`js/projects.js` 카드 링크의 `href="${html_url}"` 만 `escapeHtml()` 을 거치지 않는다~~ → **해결됨(2026-09-21)**. `js/projects.js:217` 이 `href="${escapeHtml(html_url)}"` 로 바뀌어, 이름·설명·언어(`:206,209,214`)와 동일한 처리를 받는다.
+   - ~~`docs/evaluation-answers.html` 이 `index.html` 의 줄 번호(header 28 · nav 29 · main 68 …)를 인용하는데 실제(header 72 · nav 74 · main 125 …)와 어긋났다.~~ → **해결됨(2026-09-21)**. 줄번호 대신 `#header` / `#hero` / `#about` 같은 **id·클래스 좌표**로 바꿨다. 줄번호는 주석 한 줄만 늘어도 거짓이 되지만 id 는 그렇지 않다 — 구술 평가에서 짚을 위치도 id 쪽이 찾기 쉽다.
 
 #### 🧪 실행 검증 기록
 
+> **이 절의 grep 들은 이제 문서가 아니라 검사에 산다.** 아래 2번의 제약 위반 grep 은
+> `scripts/check.sh` 로 옮겨졌고, `.github/workflows/static.yml` 의 `check` job 이 push 마다 실행한다.
+> `deploy` job 은 `needs: check` 이므로 검사를 통과하지 못한 커밋은 배포되지 않는다.
+> 로컬에서도 같은 파일을 그대로 돌릴 수 있다 — `bash scripts/check.sh` (종료 코드 0 = 통과).
+>
+> 검사는 만들고 나서 **한 번씩 일부러 깨뜨려 빨간 불이 뜨는지 확인**했다(빠짐없이 전부,
+> 2026-09-21). 예: `js/` 에 `var` 한 줄 추가 → `FAIL R4-2`, `css/style.css` 의 `@import`
+> 를 없는 파일로 변경 → `FAIL R1-2`, `index.html` 에 Bootstrap CDN 추가 → `FAIL` 2건.
+
 실행한 것 (모두 읽기 전용, 네트워크·설치 없음, 저장소 무변경):
 
-1. 구조 파악 — `find /home/coder/volume/codyssey_B4-1 -not -path '*/.git/*'`, `wc -l` (파일 31개: HTML 1 · CSS 14 · JS 11 · 문서 3 · 워크플로 1)
+1. 구조 파악 — `find /home/coder/volume/codyssey_B4-1 -not -path '*/.git/*'`, `wc -l` (파일 33개: HTML 1 · CSS 14 · JS 11 · 문서 4 · 워크플로 1 · 검사 스크립트 1 · 에디터 설정 1 — 뒤의 둘은 2026-09-21 에 추가)
 2. 제약 위반 grep
    - `grep -rnE '(^|[^a-zA-Z_.$])var\s+[a-zA-Z_$]' js/` → **0건** (R4-2 통과)
    - `grep -rniE 'on(click|submit|change|input|load)\s*=' index.html` → **0건** (R4-3 통과)
@@ -599,8 +618,8 @@
 
 | 항목         | 링크                                                     |
 | ------------ | -------------------------------------------------------- |
-| 배포 사이트  | `https://ashofrondol.github.io/codyssey_B4-1/` |
-| GitHub 저장소 | `https://github.com/ashofrondol/codyssey_B4-1` |
+| 배포 사이트  | <https://ashofrondol.github.io/codyssey_B4-1/> |
+| GitHub 저장소 | <https://github.com/ashofrondol/codyssey_B4-1> |
 
 ---
 
@@ -696,6 +715,12 @@ codyssey_B4-1/
 │   ├── contact.js         # Contact 폼 검증
 │   └── main.js            # 진입점 — DOMContentLoaded 에서 각 모듈 init()
 ├── images/                # (사용 시) 프로필/스크린샷 등 이미지 자산
+├── .vscode/
+│   └── settings.json      # Live Server 포트 등 개발 환경 고정
+├── scripts/
+│   └── check.sh           # 과제 제약 검사 (bash + grep). CI 와 로컬이 같은 파일을 쓴다
+├── .github/workflows/
+│   └── static.yml         # check job(검사) → deploy job(Pages 배포, needs: check)
 └── README.md
 ```
 
@@ -709,7 +734,7 @@ codyssey_B4-1/
 1. VS Code에서 폴더를 엽니다.
 2. **Live Server** 확장을 설치합니다.
 3. `index.html` 우클릭 → **Open with Live Server** 를 선택합니다.
-4. 또는, `index.html` 을 그대로 브라우저로 열어도 됩니다 (단, `file://` 환경에서는 일부 브라우저 정책에 영향을 받을 수 있습니다).
+4. `index.html` 을 `file://` 로 그대로 열면 **오리진이 없어 GitHub API `fetch` 가 브라우저 정책에 막힐 수 있습니다.** Projects 섹션까지 확인하려면 반드시 Live Server(`http://127.0.0.1:5500`)로 띄우세요. 포트 등 설정은 `.vscode/settings.json` 에 들어 있습니다.
 
 > **본인 데이터로 바꾸려면** `js/config.js` 의 `CONFIG.GITHUB_USERNAME` 값을 본인 GitHub 아이디로 변경하세요.
 
@@ -788,6 +813,19 @@ GitHub API는 **인증 없이 호출 시 시간당 60회** 까지만 응답합�
 - [x] ES6+ (`const`/`let`, 화살표 함수, 구조분해, 템플릿 리터럴, `map/filter/forEach`)
 - [x] `fetch` + `async/await` + `try/catch`
 - [x] (보너스) 언어별 필터 / 타이핑 효과 / 시스템 다크 모드 감지
+- [x] 제약을 **실행되는 검사**로 강제 (`scripts/check.sh` 13건 — CI 의 `check` job 이 push 마다 실행)
+- [ ] 스크린샷 3종(데스크톱 / 모바일 / 다크 모드) — `images/` 에 아직 없음
+- [ ] About 프로필 이미지(`<img>` + `alt`) — 현재는 Font Awesome 아이콘 아바타
+
+### 검사 직접 돌려보기
+
+```bash
+bash scripts/check.sh      # 종료 코드 0 이면 통과 (검사 건수는 스크립트가 직접 출력한다)
+```
+
+같은 파일을 `.github/workflows/static.yml` 의 `check` job 이 실행하고,
+`deploy` job 은 `needs: check` 이라 **검사를 통과하지 못한 커밋은 GitHub Pages 에 올라가지 않는다.**
+CI 에서는 앞서 `node --check js/*.js` 로 11개 JS 파일의 문법도 함께 검사한다.
 
 ---
 

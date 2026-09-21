@@ -19,6 +19,12 @@
 'use strict'; // 엄격 모드: 선언 안 한 변수 사용 등 흔한 실수를 에러로 잡아줌
 
 const ContactForm = {                                   // 문의 폼 기능 전체를 담는 단일 객체(모듈처럼 사용)
+  // ── 허용된 제출 상태 ──
+  // render() 가 배너·버튼을 어떻게 그릴지 아는 값은 이 넷뿐이다.
+  // 새 상태를 추가하면서 render() 분기를 빠뜨리면 배너가 전부 숨겨진 채 조용히 넘어가므로,
+  // 목록을 한 곳에 못박고 render() 시작점에서 검사한다.
+  STATUSES: ['idle', 'sending', 'success', 'error'],
+
   // ── 상태(state): 화면이 의존하는 '단일 진실의 원천' ──
   state: {
     errors: { name: '', email: '', message: '' },       // 칸별 에러 메시지('' = 에러 없음/정상)
@@ -146,6 +152,13 @@ const ContactForm = {                                   // 문의 폼 기능 전
   /** state → DOM 렌더 */
   render() {
     const { errors, status } = this.state;              // 현재 state 에서 필요한 값 꺼내기(구조 분해 할당)
+
+    if (this.STATUSES.indexOf(status) === -1) {         // 선언되지 않은 상태로 그리려 하면
+      // 아래 배너 로직은 전부 `status !== 'success'` 같은 부정 비교라,
+      // 모르는 값이 와도 '배너를 전부 숨긴 정상 화면'처럼 보이고 아무도 모른다.
+      // 분기 누락은 버그이므로 화면을 그리기 전에 멈춘다.
+      throw new Error(`ContactForm.render(): 처리할 수 없는 status "${status}" — 허용 값은 ${this.STATUSES.join(' | ')} 입니다.`);
+    }
 
     // 필드별 에러 상태 반영
     Object.keys(errors).forEach((id) => {               // name/email/message 각각에 대해

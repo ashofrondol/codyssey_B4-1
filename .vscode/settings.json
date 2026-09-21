@@ -1,0 +1,10 @@
+{
+  // Live Server 로 열 때의 고정 설정.
+  // index.html 을 file:// 로 직접 열면 오리진이 없어 GitHub API fetch 가
+  // 브라우저 정책에 막힐 수 있다. 이 과제는 http:// 로 띄워서 확인한다.
+  "liveServer.settings.port": 5500,
+  "liveServer.settings.root": "/",
+  "liveServer.settings.CustomBrowser": "chrome",
+  "files.eol": "\n",
+  "files.insertFinalNewline": true
+}

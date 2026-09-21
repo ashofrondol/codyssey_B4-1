@@ -85,6 +85,10 @@ const Projects = {                                       // 프로젝트(저장�
   render() {
     const { status, repos, activeLang, error } = this.state; // 그릴 때 필요한 값들을 state 에서 한 번에 꺼내기
 
+    if (status === 'idle') {                               // (0) 아직 아무것도 시작하지 않은 초기 상태
+      return;                                               // 화면을 건드리지 않는다(스피너도 아직 띄우지 않음)
+    }
+
     if (status === 'loading') {                            // (1) 불러오는 중이면
       this.filtersEl.innerHTML = '';                       // 필터 영역은 아직 보여줄 게 없으니 비움
       this.container.innerHTML = `
@@ -97,10 +101,19 @@ const Projects = {                                       // 프로젝트(저장�
 
     if (status === 'error') {                              // (2) 실패 상태면
       this.filtersEl.innerHTML = '';                       // 필터는 의미 없으니 비움
+      // error 상태인데 메시지가 비어 있으면, 예전에는 ${error || ''} 가 조용히 빈 줄을
+      // 그려서 사용자도 개발자도 '무엇이 실패했는지' 알 수 없었다. 빈 문자열로 덮지 않고
+      // 콘솔에 경고를 남긴 뒤 화면에는 대체 문구를 쓴다(실패는 시끄러워야 고칠 수 있다).
+      if (!error) {                                        // 메시지 없이 error 상태로 들어온 경우
+        console.warn('[Projects] status="error" 인데 error 메시지가 비어 있습니다. setState({ status: "error", error }) 호출부를 확인하세요.');
+      }
+      const detail = error                                 // 화면에 보여줄 상세 문구 결정
+        ? escapeHtml(error)                                // 에러 문구도 다른 값들과 똑같이 이스케이프(일관성·XSS 방지)
+        : '원인을 알 수 없는 오류입니다. 개발자 콘솔을 확인해 주세요.'; // 메시지가 없을 때의 명시적 대체 문구
       this.container.innerHTML = `
         <div class="state-box">
           <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
-          <p>프로젝트를 불러올 수 없습니다.<br/><small>${error || ''}</small></p>
+          <p>프로젝트를 불러올 수 없습니다.<br/><small>${detail}</small></p>
           <button class="btn btn--primary btn--sm" id="retryBtn">
             <i class="fa-solid fa-rotate-right"></i> 다시 시도
           </button>
@@ -122,7 +135,14 @@ const Projects = {                                       // 프로젝트(저장�
     if (status === 'success') {                            // (4) 정상적으로 데이터를 받았으면
       this.renderFilters();                                // 언어 필터 버튼들 그리기
       this.renderCards();                                  // 저장소 카드들 그리기
+      return;                                               // 정상 경로는 여기서 끝(아래 throw 에 닿지 않음)
     }
+
+    // (5) 위 어디에도 해당하지 않는 status — state 주석이 선언한 5가지 밖의 값이다.
+    //     예전에는 여기서 아무 일도 하지 않고 조용히 끝났다. 그래서 status 에 오타를 내거나
+    //     새 상태를 추가하고 분기를 빠뜨리면 '화면만 텅 빈 채 테스트도 콘솔도 조용한' 상태가 됐다.
+    //     분기 누락은 버그이므로 데이터로 삼키지 않고 여기서 멈춘다.
+    throw new Error(`Projects.render(): 처리할 수 없는 status "${status}" — render() 에 분기를 추가하세요.`);
   },
 
   // ── 언어 필터 버튼 렌더 + 클릭 이벤트 연결 ──
@@ -194,7 +214,7 @@ const Projects = {                                       // 프로젝트(저장�
             ${language ? `<span class="card__lang">${escapeHtml(language)}</span>` : ''}
           </div>
           <a
-            href="${html_url}"
+            href="${escapeHtml(html_url)}"
             target="_blank"
             rel="noopener"
             class="card__link"

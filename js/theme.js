@@ -12,6 +12,13 @@
 'use strict'; // 엄격 모드: 선언 안 한 변수 사용 등 흔한 실수를 에러로 잡아줌
 
 const Theme = {                                          // 테마(다크/라이트) 기능 전체를 담는 단일 객체(모듈처럼 사용)
+  // ── 허용된 테마 값 ──
+  // tokens.css 가 실제로 정의하는 테마는 이 둘뿐이다(:root 와 [data-theme="dark"]).
+  // 다른 값이 <html data-theme> 에 들어가면 매칭되는 규칙이 없어 색이 라이트로 보이는데,
+  // 화면만 보고는 '테마가 깨졌다'는 사실을 알 수 없다. 그래서 값을 여기 한 곳에 못박고
+  // init/render 양쪽에서 검사한다.
+  THEMES: ['light', 'dark'],
+
   // ── 상태(state): 화면이 의존하는 '단일 진실의 원천' ──
   state: {
     theme: 'light', // 현재 테마: 'light'(밝은) | 'dark'(어두운) — 기본값은 라이트
@@ -25,7 +32,19 @@ const Theme = {                                          // 테마(다크/라이
       window.matchMedia &&                              // matchMedia 지원 브라우저인지 먼저 확인(구형 대비 방어)
       window.matchMedia('(prefers-color-scheme: dark)').matches; // 시스템 다크 모드면 true
 
-    this.setState({ theme: saved || (systemDark ? 'dark' : 'light') }); // 저장값 우선, 없으면 시스템 설정, 그것도 없으면 라이트
+    // localStorage 는 사용자가 직접 고칠 수 있고 옛 버전의 값이 남아 있을 수도 있다.
+    // 예전에는 saved 가 무엇이든 그대로 썼기 때문에 'dark-blue' 같은 값도 조용히 통과했다.
+    // 모르는 값이면 버리되, 왜 무시했는지는 콘솔에 남긴다(조용히 넘어가지 않는다).
+    const isKnownTheme = this.THEMES.indexOf(saved) !== -1; // 저장값이 아는 테마인지 확인
+    if (saved !== null && !isKnownTheme) {              // 값은 있는데 아는 테마가 아니면
+      console.warn(                                     // 무시한다는 사실과 허용 값을 함께 알림
+        `[Theme] 저장된 테마 "${saved}" 를 알 수 없어 무시합니다. ` +
+        `허용 값: ${this.THEMES.join(' | ')}`
+      );
+    }
+    const restored = isKnownTheme ? saved : null;       // 아는 값일 때만 복원 대상으로 삼음
+
+    this.setState({ theme: restored || (systemDark ? 'dark' : 'light') }); // 저장값 우선, 없으면 시스템 설정, 그것도 없으면 라이트
 
     $('#themeToggle').addEventListener('click', () => this.toggle()); // 토글 버튼 클릭 시 테마 전환 실행
   },
@@ -46,6 +65,11 @@ const Theme = {                                          // 테마(다크/라이
   /** state → DOM 렌더 */
   render() {
     const { theme } = this.state;                       // 현재 state 에서 theme 값 꺼내기(구조 분해 할당)
+    if (this.THEMES.indexOf(theme) === -1) {            // 아는 테마가 아니면 DOM 에 반영하기 전에 멈춤
+      // 여기까지 모르는 값이 왔다면 setState 호출부가 잘못된 것이다.
+      // 그대로 setAttribute 하면 '색이 이상한데 원인은 안 보이는' 상태가 되므로 실패시킨다.
+      throw new Error(`Theme.render(): 알 수 없는 theme "${theme}" — 허용 값은 ${this.THEMES.join(' | ')} 입니다.`);
+    }
     document.documentElement.setAttribute('data-theme', theme); // <html>에 data-theme 지정 → tokens.css 변수가 해당 테마 값으로 전환
 
     const icon = $('#themeToggle i');                   // 토글 버튼 안의 아이콘(<i>) 요소 찾기
