@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="590" viewBox="0 0 880 590" role="img" aria-labelledby="title desc">
+<title id="title">Flexbox 와 Grid — 한 줄 배치와 칸 배치</title>
+<desc id="desc">왼쪽은 네비게이션 막대로, display: flex 가 로고·메뉴·테마 버튼을 가로 한 줄에 놓고 justify-content: space-between 이 남는 공간을 사이사이에 나눈다. 오른쪽은 1280px 화면의 프로젝트 카드 격자로, repeat(auto-fit, minmax(280px, 1fr)) 가 콘텐츠 폭 1056px 에서 336px 짜리 열 3개를 만들고 카드 12장을 4행에 넣는다. 아래 띠는 카드가 1장일 때 auto-fit 은 빈 트랙을 0px 로 접어 카드를 1056px 로 늘리고, auto-fill 은 336px 칸 3개를 그대로 두는 실측 차이다.</desc>
+<style>
+  text{font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR","Noto Sans CJK KR",sans-serif;font-size:15px;fill:#1D1F23}
+  .bg{fill:#FFFFFF}
+  .ts{font-size:13px;fill:#5B6069}
+  .th{font-size:17px;font-weight:700}
+  .tb{font-weight:700}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,Menlo,Consolas,"Noto Sans Mono CJK KR",monospace;font-size:13.5px}
+  .box{fill:#F4F3EF;stroke:#9A9CA3;stroke-width:1.5}
+  .zone{fill:#FAF9F6;stroke:#C9C6BE;stroke-width:1.2;stroke-dasharray:5 4}
+  .blue{fill:#E7EFF9;stroke:#1F5FAD;stroke-width:1.6}
+  .green{fill:#E6F4EC;stroke:#1B7F4B;stroke-width:1.6}
+  .orange{fill:#FCEFE0;stroke:#B25E09;stroke-width:1.6}
+  .red{fill:#FCEBEA;stroke:#B42318;stroke-width:1.6}
+  .purple{fill:#F1EAFB;stroke:#6E3FB0;stroke-width:1.6}
+  .yellow{fill:#FFF3C4;stroke:#A07800;stroke-width:1.6}
+  .c-blue{fill:#1F5FAD}.c-green{fill:#1B7F4B}.c-orange{fill:#B25E09}.c-red{fill:#B42318}.c-purple{fill:#6E3FB0}.c-muted{fill:#5B6069}
+  .ln{stroke:#6B7078;stroke-width:1.6;fill:none}
+  .ln-blue{stroke:#1F5FAD}.ln-green{stroke:#1B7F4B}.ln-red{stroke:#B42318}.ln-orange{stroke:#B25E09}.ln-purple{stroke:#6E3FB0}
+  .dash{stroke-dasharray:6 5}
+  .ah{fill:#6B7078}.ah-blue{fill:#1F5FAD}.ah-green{fill:#1B7F4B}.ah-red{fill:#B42318}.ah-orange{fill:#B25E09}.ah-purple{fill:#6E3FB0}
+  @media (prefers-color-scheme:dark){
+    text{fill:#E8E6E1}
+    .bg{fill:#1A1C20}
+    .ts{fill:#A9A69F}
+    .box{fill:#24262B;stroke:#6B6E76}
+    .zone{fill:#1F2125;stroke:#43464D}
+    .blue{fill:#1B2940;stroke:#7FB0F0}
+    .green{fill:#16281E;stroke:#5FC98E}
+    .orange{fill:#2E2215;stroke:#E8A05A}
+    .red{fill:#301A18;stroke:#F08A80}
+    .purple{fill:#251C33;stroke:#C3A0F0}
+    .yellow{fill:#2E2812;stroke:#E3C45C}
+    .c-blue{fill:#9CC4F5}.c-green{fill:#7ED3A3}.c-orange{fill:#EDB27A}.c-red{fill:#F4A39B}.c-purple{fill:#D2B8F4}.c-muted{fill:#A9A69F}
+    .ln{stroke:#8D9098}
+    .ln-blue{stroke:#7FB0F0}.ln-green{stroke:#5FC98E}.ln-red{stroke:#F08A80}.ln-orange{stroke:#E8A05A}.ln-purple{stroke:#C3A0F0}
+    .ah{fill:#8D9098}.ah-blue{fill:#7FB0F0}.ah-green{fill:#5FC98E}.ah-red{fill:#F08A80}.ah-orange{fill:#E8A05A}.ah-purple{fill:#C3A0F0}
+  }
+</style>
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="ah" d="M0,0 L10,5 L0,10 z"/></marker>
+  <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="ah-blue" d="M0,0 L10,5 L0,10 z"/></marker>
+  <marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="ah-red" d="M0,0 L10,5 L0,10 z"/></marker>
+  <marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="ah-green" d="M0,0 L10,5 L0,10 z"/></marker>
+  <marker id="arrow-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="ah-orange" d="M0,0 L10,5 L0,10 z"/></marker>
+  <marker id="arrow-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="ah-purple" d="M0,0 L10,5 L0,10 z"/></marker>
+</defs>
+<rect class="bg" x="0" y="0" width="880" height="590"/>
+<defs><marker id="arrow-blue-s" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path class="ah-blue" d="M0,0 L10,5 L0,10 z"/></marker></defs>
+<text x="24" y="34" class="th">Flexbox 와 Grid — 한 줄 배치와 칸 배치</text>
+<text x="24" y="56" class="ts">파랑 = 축·계산 · 초록 = 카드가 들어간 칸 · 주황 = 두 방식이 달라지는 곳</text>
+<text x="24" y="92" class="th">Flexbox — 한 줄</text>
+<text x="228" y="118" text-anchor="middle" class="ts c-blue">space-between 이 남는 공간을 나눔</text>
+<rect class="box" x="24" y="128" width="408" height="48" rx="8"/>
+<rect class="box" x="32" y="138" width="62" height="28" rx="5"/>
+<text x="63" y="157" text-anchor="middle" class="ts tb">JSY.dev</text>
+<rect class="box" x="130.5" y="138" width="229" height="28" rx="5"/>
+<text x="245.0" y="157" text-anchor="middle" class="ts">Home About Skills Projects Contact</text>
+<rect class="box" x="396.0" y="138" width="28" height="28" rx="5"/>
+<text x="410.0" y="158.5" text-anchor="middle">☾</text>
+<line class="ln ln-blue" x1="98" y1="152" x2="126.5" y2="152" marker-end="url(#arrow-blue-s)" marker-start="url(#arrow-blue-s)"/>
+<line class="ln ln-blue" x1="363.5" y1="152" x2="392.0" y2="152" marker-end="url(#arrow-blue-s)" marker-start="url(#arrow-blue-s)"/>
+<line class="ln ln-blue" x1="32" y1="192" x2="420" y2="192" marker-end="url(#arrow-blue)"/>
+<text x="32" y="212" class="ts c-blue">주축(가로) — 아이템이 이 방향으로 한 줄로 선다</text>
+<rect class="box" x="24" y="228" width="300" height="74" rx="8"/>
+<text x="38" y="250" class="mono">.nav { display: flex;</text>
+<text x="54" y="270" class="mono">justify-content: space-between;</text>
+<text x="54" y="290" class="mono">align-items: center }</text>
+<text x="24" y="322" class="ts">header.css:33-38</text>
+<text x="24" y="346" class="ts">아이템 폭은 내용대로, 남는 공간만 나눈다</text>
+<text x="464" y="92" class="th">Grid — 행과 열</text>
+<line class="ln ln-blue" x1="466" y1="110" x2="790" y2="110" marker-end="url(#arrow-blue-s)" marker-start="url(#arrow-blue-s)"/>
+<rect class="bg" x="576.0" y="93" width="104" height="32" rx="0"/>
+<text x="628.0" y="114" text-anchor="middle" class="mono c-blue">콘텐츠 1056px</text>
+<text x="512.0" y="138" text-anchor="middle" class="mono">336px</text>
+<text x="628.0" y="138" text-anchor="middle" class="mono">336px</text>
+<text x="744.0" y="138" text-anchor="middle" class="mono">336px</text>
+<rect class="green" x="464" y="148" width="96" height="26" rx="5"/>
+<rect class="green" x="580" y="148" width="96" height="26" rx="5"/>
+<rect class="green" x="696" y="148" width="96" height="26" rx="5"/>
+<text x="804" y="166" class="ts">1행</text>
+<rect class="green" x="464" y="182" width="96" height="26" rx="5"/>
+<rect class="green" x="580" y="182" width="96" height="26" rx="5"/>
+<rect class="green" x="696" y="182" width="96" height="26" rx="5"/>
+<text x="804" y="200" class="ts">2행</text>
+<rect class="green" x="464" y="216" width="96" height="26" rx="5"/>
+<rect class="green" x="580" y="216" width="96" height="26" rx="5"/>
+<rect class="green" x="696" y="216" width="96" height="26" rx="5"/>
+<text x="804" y="234" class="ts">3행</text>
+<rect class="green" x="464" y="250" width="96" height="26" rx="5"/>
+<rect class="green" x="580" y="250" width="96" height="26" rx="5"/>
+<rect class="green" x="696" y="250" width="96" height="26" rx="5"/>
+<text x="804" y="268" class="ts">4행</text>
+<line class="ln ln-blue" x1="570.0" y1="279" x2="570.0" y2="288"/>
+<text x="570.0" y="304" text-anchor="middle" class="ts c-blue">gap 24px</text>
+<rect class="blue" x="464" y="316" width="392" height="54" rx="8"/>
+<text x="478" y="338" class="mono">열 수 = floor((1056 + 24) / (280 + 24)) = 3</text>
+<text x="478" y="358" class="mono">열 폭 = (1056 − 2×24) / 3 = 336px</text>
+<text x="464" y="392" class="mono tb">repeat(auto-fit, minmax(280px, 1fr))</text>
+<text x="720" y="392" class="ts">projects.css:46</text>
+<rect class="zone" x="24" y="414" width="832" height="158" rx="12"/>
+<text x="40" y="442" class="th">카드가 1장일 때 (HTML 필터, 실측)</text>
+<text x="40" y="472" class="mono tb">auto-fit</text>
+<text x="112" y="472" class="mono">→ 트랙 1056px 0px 0px</text>
+<text x="292" y="472" class="ts">(이 저장소)</text>
+<rect class="green" x="44" y="486" width="368" height="40" rx="6"/>
+<text x="228" y="511" text-anchor="middle" class="ts tb c-green">카드 1장이 1056px 전체</text>
+<rect class="orange" style="fill:none" x="38" y="480" width="380" height="52" rx="9"/>
+<text x="40" y="552" class="ts c-orange">빈 칸 2개를 0px 로 접고 카드가 늘어남</text>
+<text x="448" y="472" class="mono tb">auto-fill</text>
+<text x="528" y="472" class="mono">→ 트랙 336px 336px 336px</text>
+<rect class="green" x="452" y="486" width="120" height="40" rx="6"/>
+<text x="512.0" y="511" text-anchor="middle" class="ts tb c-green">카드 336px</text>
+<rect class="zone" x="584" y="486" width="120" height="40" rx="6"/>
+<text x="644.0" y="511" text-anchor="middle" class="ts">빈 칸 336px</text>
+<rect class="zone" x="716" y="486" width="120" height="40" rx="6"/>
+<text x="776.0" y="511" text-anchor="middle" class="ts">빈 칸 336px</text>
+<rect class="orange" style="fill:none" x="578" y="480" width="264" height="52" rx="9"/>
+<text x="448" y="552" class="ts c-orange">빈 칸이 그대로 남아 카드는 한 칸 크기</text>
+</svg>

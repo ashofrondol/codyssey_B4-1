@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="688" viewBox="0 0 880 688" role="img" aria-labelledby="title desc">
+<title id="title">과제 전체 구조 — 브라우저 한 번의 방문과 배포 경로</title>
+<desc id="desc">브라우저가 GitHub Pages 에서 index.html, CSS 1개, JS 11개를 받는다. JS 는 config.js, 기능 모듈 9개, main.js 순서로 실행되고, 모듈이 localStorage, GitHub REST API, Formspree 와 이야기한다. 아래 띠는 git push 뒤 check job 을 통과한 커밋만 deploy job 이 게시하는 길이다.</desc>
+<style>
+  text{font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR","Noto Sans CJK KR",sans-serif;font-size:15px;fill:#1D1F23}
+  .bg{fill:#FFFFFF}
+  .ts{font-size:13px;fill:#5B6069}
+  .th{font-size:17px;font-weight:700}
+  .tb{font-weight:700}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,Menlo,Consolas,"Noto Sans Mono CJK KR",monospace;font-size:13.5px}
+  .box{fill:#F4F3EF;stroke:#9A9CA3;stroke-width:1.5}
+  .zone{fill:#FAF9F6;stroke:#C9C6BE;stroke-width:1.2;stroke-dasharray:5 4}
+  .blue{fill:#E7EFF9;stroke:#1F5FAD;stroke-width:1.6}
+  .green{fill:#E6F4EC;stroke:#1B7F4B;stroke-width:1.6}
+  .orange{fill:#FCEFE0;stroke:#B25E09;stroke-width:1.6}
+  .red{fill:#FCEBEA;stroke:#B42318;stroke-width:1.6}
+  .purple{fill:#F1EAFB;stroke:#6E3FB0;stroke-width:1.6}
+  .yellow{fill:#FFF3C4;stroke:#A07800;stroke-width:1.6}
+  .c-blue{fill:#1F5FAD}.c-green{fill:#1B7F4B}.c-orange{fill:#B25E09}.c-red{fill:#B42318}.c-purple{fill:#6E3FB0}.c-muted{fill:#5B6069}
+  .ln{stroke:#6B7078;stroke-width:1.6;fill:none}
+  .ln-blue{stroke:#1F5FAD}.ln-green{stroke:#1B7F4B}.ln-red{stroke:#B42318}.ln-orange{stroke:#B25E09}.ln-purple{stroke:#6E3FB0}
+  .dash{stroke-dasharray:6 5}
+  .ah{fill:#6B7078}.ah-blue{fill:#1F5FAD}.ah-green{fill:#1B7F4B}.ah-red{fill:#B42318}.ah-orange{fill:#B25E09}.ah-purple{fill:#6E3FB0}
+  @media (prefers-color-scheme:dark){
+    text{fill:#E8E6E1}
+    .bg{fill:#1A1C20}
+    .ts{fill:#A9A69F}
+    .box{fill:#24262B;stroke:#6B6E76}
+    .zone{fill:#1F2125;stroke:#43464D}
+    .blue{fill:#1B2940;stroke:#7FB0F0}
+    .green{fill:#16281E;stroke:#5FC98E}
+    .orange{fill:#2E2215;stroke:#E8A05A}
+    .red{fill:#301A18;stroke:#F08A80}
+    .purple{fill:#251C33;stroke:#C3A0F0}
+    .yellow{fill:#2E2812;stroke:#E3C45C}
+    .c-blue{fill:#9CC4F5}.c-green{fill:#7ED3A3}.c-orange{fill:#EDB27A}.c-red{fill:#F4A39B}.c-purple{fill:#D2B8F4}.c-muted{fill:#A9A69F}
+    .ln{stroke:#8D9098}
+    .ln-blue{stroke:#7FB0F0}.ln-green{stroke:#5FC98E}.ln-red{stroke:#F08A80}.ln-orange{stroke:#E8A05A}.ln-purple{stroke:#C3A0F0}
+    .ah{fill:#8D9098}.ah-blue{fill:#7FB0F0}.ah-green{fill:#5FC98E}.ah-red{fill:#F08A80}.ah-orange{fill:#E8A05A}.ah-purple{fill:#C3A0F0}
+  }
+</style>
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="ah" d="M0,0 L10,5 L0,10 z"/></marker>
+  <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="ah-blue" d="M0,0 L10,5 L0,10 z"/></marker>
+  <marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="ah-red" d="M0,0 L10,5 L0,10 z"/></marker>
+  <marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="ah-green" d="M0,0 L10,5 L0,10 z"/></marker>
+  <marker id="arrow-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="ah-orange" d="M0,0 L10,5 L0,10 z"/></marker>
+  <marker id="arrow-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="ah-purple" d="M0,0 L10,5 L0,10 z"/></marker>
+</defs>
+<rect class="bg" x="0" y="0" width="880" height="688"/>
+<text class="th" x="24" y="34">브라우저 한 번의 방문과 배포 경로</text>
+<text class="ts" x="24" y="58"><tspan class="c-blue">파랑 = 요청·실행 순서</tspan> · <tspan class="c-purple">보라 = 브라우저 저장소</tspan> · <tspan class="c-green">초록 = 검사 통과·배포</tspan> · 회색 = 외부 CSS 불러오기</text>
+
+<!-- 브라우저 -->
+<rect class="box" x="24" y="140" width="160" height="92" rx="10"/>
+<text x="104" y="168" text-anchor="middle" class="tb">사용자 브라우저</text>
+<text x="104" y="192" text-anchor="middle" class="ts">Chrome · 화면 폭(px)</text>
+<text x="104" y="214" text-anchor="middle" class="mono">390 / 768 / 1280</text>
+
+<!-- 정적 파일 zone -->
+<rect class="zone" x="216" y="80" width="392" height="448" rx="12"/>
+<text x="232" y="104" class="tb">GitHub Pages 가 보내 주는 정적 파일</text>
+<text x="232" y="124" class="mono">https://ashofrondol.github.io/codyssey_B4-1/</text>
+
+<rect class="box" x="236" y="140" width="352" height="52" rx="10"/>
+<text x="412" y="161" text-anchor="middle" class="mono tb">index.html</text>
+<text x="412" y="181" text-anchor="middle" class="ts">구조 · header · nav · main(section 5) · footer</text>
+
+<rect class="box" x="236" y="204" width="352" height="52" rx="10"/>
+<text x="412" y="225" text-anchor="middle" class="mono tb">css/style.css</text>
+<text x="412" y="245" text-anchor="middle" class="ts">&#64;import 13개 · tokens → … → responsive</text>
+
+<text x="412" y="282" text-anchor="middle" class="ts c-blue">script defer ×11 · 위에서 아래로, 문서 순서대로 실행</text>
+
+<rect class="blue" x="236" y="292" width="352" height="52" rx="10"/>
+<text x="412" y="313" text-anchor="middle" class="mono tb c-blue">config.js</text>
+<text x="412" y="333" text-anchor="middle" class="ts">공용 도구 · CONFIG · $ · $$ · escapeHtml</text>
+
+<line class="ln ln-blue" x1="412" y1="344" x2="412" y2="360" marker-end="url(#arrow-blue)"/>
+
+<rect class="blue" x="236" y="364" width="352" height="76" rx="10"/>
+<text x="412" y="385" text-anchor="middle" class="tb c-blue">기능 모듈 9개</text>
+<text x="412" y="407" text-anchor="middle" class="mono">theme · menu · scroll · typing · skills</text>
+<text x="412" y="427" text-anchor="middle" class="mono">reveal · navspy · projects · contact</text>
+
+<line class="ln ln-blue" x1="412" y1="440" x2="412" y2="456" marker-end="url(#arrow-blue)"/>
+
+<rect class="blue" x="236" y="460" width="352" height="52" rx="10"/>
+<text x="412" y="481" text-anchor="middle" class="mono tb c-blue">main.js</text>
+<text x="412" y="501" text-anchor="middle" class="ts">DOMContentLoaded → init() ×9</text>
+
+<!-- 브라우저 → zone -->
+<line class="ln ln-blue" x1="184" y1="166" x2="212" y2="166" marker-end="url(#arrow-blue)"/>
+<text x="200" y="156" text-anchor="middle" class="ts c-blue">요청</text>
+
+<!-- 오른쪽 세로 칸 -->
+<rect class="box" x="648" y="140" width="208" height="52" rx="10"/>
+<text x="752" y="161" text-anchor="middle" class="ts">Google Fonts · Font Awesome</text>
+<text x="752" y="181" text-anchor="middle" class="ts">(허용된 외부 CSS)</text>
+<line class="ln" x1="588" y1="166" x2="644" y2="166" marker-end="url(#arrow)"/>
+
+<rect class="purple" x="648" y="240" width="208" height="72" rx="10"/>
+<text x="752" y="262" text-anchor="middle" class="tb c-purple">localStorage</text>
+<text x="752" y="283" text-anchor="middle" class="mono">portfolio-theme</text>
+<text x="752" y="302" text-anchor="middle" class="ts">테마 선택 기억 (theme)</text>
+
+<rect class="box" x="648" y="328" width="208" height="116" rx="10"/>
+<text x="752" y="350" text-anchor="middle" class="tb">GitHub REST API</text>
+<text x="752" y="370" text-anchor="middle" class="ts">저장소 목록 (projects)</text>
+<text x="752" y="392" text-anchor="middle" class="mono">GET /users/ashofrondol</text>
+<text x="752" y="412" text-anchor="middle" class="mono">/repos?sort=updated</text>
+<text x="752" y="432" text-anchor="middle" class="mono">&amp;per_page=100</text>
+
+<rect class="box" x="648" y="460" width="208" height="92" rx="10"/>
+<text x="752" y="482" text-anchor="middle" class="tb">Formspree</text>
+<text x="752" y="502" text-anchor="middle" class="ts">문의 보내기 (contact)</text>
+<text x="752" y="523" text-anchor="middle" class="mono">POST formspree.io</text>
+<text x="752" y="542" text-anchor="middle" class="mono">/f/xykarqqq</text>
+
+<!-- 모듈 → 외부 -->
+<path class="ln ln-purple" d="M588,376 H620 V276 H644" marker-end="url(#arrow-purple)"/>
+<line class="ln ln-blue" x1="588" y1="400" x2="644" y2="400" marker-end="url(#arrow-blue)"/>
+<path class="ln ln-blue" d="M588,428 H620 V506 H644" marker-end="url(#arrow-blue)"/>
+
+<!-- 하단 배포 띠 -->
+<text x="24" y="584" class="ts">배포 경로 (.github/workflows/static.yml)</text>
+<rect class="box" x="24" y="596" width="168" height="68" rx="10"/>
+<text x="108" y="622" text-anchor="middle" class="tb">개발자</text>
+<text x="108" y="646" text-anchor="middle" class="mono">git push master</text>
+
+<rect class="green" x="228" y="596" width="220" height="68" rx="10"/>
+<text x="338" y="616" text-anchor="middle" class="tb c-green">check job</text>
+<text x="338" y="636" text-anchor="middle" class="mono">node --check ×11</text>
+<text x="338" y="655" text-anchor="middle" class="mono">scripts/check.sh 13건</text>
+
+<rect class="green" x="484" y="596" width="152" height="68" rx="10"/>
+<text x="560" y="622" text-anchor="middle" class="tb c-green">deploy job</text>
+<text x="560" y="646" text-anchor="middle" class="mono">needs: check</text>
+
+<line class="ln" x1="192" y1="630" x2="224" y2="630" marker-end="url(#arrow)"/>
+<line class="ln ln-green" x1="448" y1="630" x2="480" y2="630" marker-end="url(#arrow-green)"/>
+<line class="ln ln-green" x1="560" y1="596" x2="560" y2="532" marker-end="url(#arrow-green)"/>
+<rect class="bg" x="484" y="549" width="152" height="27"/>
+<text x="560" y="568" text-anchor="middle" class="ts c-green">통과한 커밋만 게시</text>
+
+</svg>

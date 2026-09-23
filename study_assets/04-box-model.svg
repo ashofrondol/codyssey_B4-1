@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="626" viewBox="0 0 820 626" role="img" aria-labelledby="title desc">
+<title id="title">카드 한 장의 박스 모델과 box-sizing</title>
+<desc id="desc">위: 1280px 화면에서 카드 한 장의 폭 336px 는 테두리 1px, 안쪽 여백 24px, 내용 286px, 안쪽 여백 24px, 테두리 1px 의 합이다. 아래: 390px 화면에서 .container 는 border-box 일 때 24+342+24=390px 로 화면에 딱 맞지만, content-box 였다면 24+390+24=438px 가 되어 내용 390 중 마지막 24px 와 오른쪽 여백 24px, 합쳐 48px 가 화면 밖으로 넘쳐 가로 스크롤이 생긴다(실측).</desc>
+<style>
+  text{font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR","Noto Sans CJK KR",sans-serif;font-size:15px;fill:#1D1F23}
+  .bg{fill:#FFFFFF}
+  .ts{font-size:13px;fill:#5B6069}
+  .th{font-size:17px;font-weight:700}
+  .tb{font-weight:700}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,Menlo,Consolas,"Noto Sans Mono CJK KR",monospace;font-size:13.5px}
+  .box{fill:#F4F3EF;stroke:#9A9CA3;stroke-width:1.5}
+  .zone{fill:#FAF9F6;stroke:#C9C6BE;stroke-width:1.2;stroke-dasharray:5 4}
+  .blue{fill:#E7EFF9;stroke:#1F5FAD;stroke-width:1.6}
+  .green{fill:#E6F4EC;stroke:#1B7F4B;stroke-width:1.6}
+  .orange{fill:#FCEFE0;stroke:#B25E09;stroke-width:1.6}
+  .red{fill:#FCEBEA;stroke:#B42318;stroke-width:1.6}
+  .purple{fill:#F1EAFB;stroke:#6E3FB0;stroke-width:1.6}
+  .yellow{fill:#FFF3C4;stroke:#A07800;stroke-width:1.6}
+  .c-blue{fill:#1F5FAD}.c-green{fill:#1B7F4B}.c-orange{fill:#B25E09}.c-red{fill:#B42318}.c-purple{fill:#6E3FB0}.c-muted{fill:#5B6069}
+  .ln{stroke:#6B7078;stroke-width:1.6;fill:none}
+  .ln-blue{stroke:#1F5FAD}.ln-green{stroke:#1B7F4B}.ln-red{stroke:#B42318}.ln-orange{stroke:#B25E09}.ln-purple{stroke:#6E3FB0}
+  .dash{stroke-dasharray:6 5}
+  .ah{fill:#6B7078}.ah-blue{fill:#1F5FAD}.ah-green{fill:#1B7F4B}.ah-red{fill:#B42318}.ah-orange{fill:#B25E09}.ah-purple{fill:#6E3FB0}
+  @media (prefers-color-scheme:dark){
+    text{fill:#E8E6E1}
+    .bg{fill:#1A1C20}
+    .ts{fill:#A9A69F}
+    .box{fill:#24262B;stroke:#6B6E76}
+    .zone{fill:#1F2125;stroke:#43464D}
+    .blue{fill:#1B2940;stroke:#7FB0F0}
+    .green{fill:#16281E;stroke:#5FC98E}
+    .orange{fill:#2E2215;stroke:#E8A05A}
+    .red{fill:#301A18;stroke:#F08A80}
+    .purple{fill:#251C33;stroke:#C3A0F0}
+    .yellow{fill:#2E2812;stroke:#E3C45C}
+    .c-blue{fill:#9CC4F5}.c-green{fill:#7ED3A3}.c-orange{fill:#EDB27A}.c-red{fill:#F4A39B}.c-purple{fill:#D2B8F4}.c-muted{fill:#A9A69F}
+    .ln{stroke:#8D9098}
+    .ln-blue{stroke:#7FB0F0}.ln-green{stroke:#5FC98E}.ln-red{stroke:#F08A80}.ln-orange{stroke:#E8A05A}.ln-purple{stroke:#C3A0F0}
+    .ah{fill:#8D9098}.ah-blue{fill:#7FB0F0}.ah-green{fill:#5FC98E}.ah-red{fill:#F08A80}.ah-orange{fill:#E8A05A}.ah-purple{fill:#C3A0F0}
+  }
+</style>
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="ah" d="M0,0 L10,5 L0,10 z"/></marker>
+  <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="ah-blue" d="M0,0 L10,5 L0,10 z"/></marker>
+  <marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="ah-red" d="M0,0 L10,5 L0,10 z"/></marker>
+  <marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="ah-green" d="M0,0 L10,5 L0,10 z"/></marker>
+  <marker id="arrow-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="ah-orange" d="M0,0 L10,5 L0,10 z"/></marker>
+  <marker id="arrow-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="ah-purple" d="M0,0 L10,5 L0,10 z"/></marker>
+</defs>
+<rect class="bg" x="0" y="0" width="820" height="626"/>
+<text class="th" x="24" y="34">① 카드 한 장 (1280px 화면) · <tspan class="mono">box-sizing: border-box</tspan></text>
+<rect class="zone" x="24" y="52" width="512" height="212" rx="12"/>
+<text x="40" y="72" class="ts">margin 0 (바깥 여백 없음)</text>
+<rect class="box" x="40" y="82" width="480" height="168" rx="12"/>
+<text x="56" y="102" class="tb">border 1px</text><text x="146" y="102" class="mono">var(--color-border)</text>
+<rect class="bg" x="56" y="112" width="448" height="126" rx="8"/>
+<rect class="ln" x="56" y="112" width="448" height="126" rx="8"/>
+<text x="70" y="132" class="tb">padding 24px</text><text x="176" y="132" class="mono">var(--space-5)</text>
+<rect class="yellow" x="96" y="144" width="368" height="80" rx="6"/>
+<text x="280" y="178" text-anchor="middle" class="tb">content 286px</text>
+<text x="280" y="202" text-anchor="middle" class="ts">저장소 이름 · 설명 · 언어 · 링크</text>
+<line class="ln" x1="44" y1="286" x2="516" y2="286" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+<line class="ln" x1="40" y1="272" x2="40" y2="300"/><line class="ln" x1="520" y1="272" x2="520" y2="300"/>
+<rect class="bg" x="140" y="270" width="280" height="30"/>
+<text x="280" y="291" text-anchor="middle" class="mono tb">336px = 1 + 24 + 286 + 24 + 1</text>
+<rect class="box" x="560" y="82" width="236" height="168" rx="10"/>
+<text x="576" y="108" class="tb">크기에 안 들어가는 것</text>
+<text x="576" y="136" class="mono">box-shadow: 0 1px 2px</text>
+<text x="576" y="156" class="mono">rgba(20, 24, 40, 0.06)</text>
+<text x="576" y="182" class="mono">border-radius: 12px</text>
+<text x="576" y="208" class="ts">그림자·둥근 모서리는</text>
+<text x="576" y="228" class="ts">폭 336px 계산과 무관</text>
+<text x="560" y="288" class="mono ts">css/projects.css:52-63</text>
+<text class="th" x="24" y="336">② 390px 화면의 <tspan class="mono">.container { width: 100%; padding: 0 24px }</tspan></text>
+<text x="48" y="382" class="tb c-green">border-box (이 저장소)</text>
+<rect class="green" x="48.0" y="392" width="33.6" height="36"/>
+<text x="64.8" y="415" text-anchor="middle" class="mono">24</text>
+<rect class="green" x="81.6" y="392" width="478.8" height="36"/>
+<text x="321.0" y="415" text-anchor="middle" class="mono">342</text>
+<rect class="green" x="560.4" y="392" width="33.6" height="36"/>
+<text x="577.2" y="415" text-anchor="middle" class="mono">24</text>
+<text x="608" y="408" class="mono tb c-green">= 390px</text>
+<text x="608" y="426" class="ts c-green">✓ 문서 폭 390 (스크롤 없음)</text>
+<text x="48" y="466" class="tb c-red">content-box 였다면</text>
+<rect class="box" x="48.0" y="476" width="33.6" height="36"/>
+<rect class="box" x="81.6" y="476" width="512.4" height="36"/>
+<rect class="red" x="594.0" y="476" width="33.6" height="36"/>
+<rect class="red" x="627.6" y="476" width="33.6" height="36"/>
+<text x="64.8" y="499" text-anchor="middle" class="mono">24</text>
+<text x="354.6" y="499" text-anchor="middle" class="mono">내용 390</text>
+<text x="644.4" y="499" text-anchor="middle" class="mono">24</text>
+<text x="671" y="499" class="mono tb c-red">= 438px</text>
+<text x="610.8" y="530" text-anchor="middle" class="ts c-red">내용</text>
+<text x="644.4" y="530" text-anchor="middle" class="ts c-red">여백</text>
+<line class="ln ln-red" x1="597.0" y1="546" x2="658.2" y2="546" marker-start="url(#arrow-red)" marker-end="url(#arrow-red)"/>
+<text x="661" y="570" text-anchor="end" class="ts c-red">넘친 48px = 내용 중 24 + 오른쪽 여백 24 → 가로 스크롤 (실측 scrollWidth 438)</text>
+<line class="ln dash" x1="594.0" y1="358" x2="594.0" y2="516"/>
+<text x="586.0" y="382" text-anchor="end" class="ts">화면 끝 390px ▸</text>
+<text x="24" y="606" class="mono ts">css/base.css:10-14 (* { box-sizing: border-box }) · css/layout.css:11-16</text>
+
+</svg>

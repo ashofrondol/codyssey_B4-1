@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="508" viewBox="0 0 880 508" role="img" aria-labelledby="title desc">
+<title id="title">threshold 0.2 의 뜻과 긴 섹션 결함</title>
+<desc id="desc">IntersectionObserver 의 threshold 0.2 는 요소 자기 높이의 20% 가 화면에 보일 때를 뜻한다. 1280×800 화면에서 566.75px 짜리 #about 은 15% 보일 때는 그대로 투명하고 29% 보이면 is-visible 이 붙는다. 375×553 화면에서는 3047px 짜리 #projects 가 최대 18.1% 만 보여 끝까지 투명하게 남는다(실측).</desc>
+<style>
+  text{font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR","Noto Sans CJK KR",sans-serif;font-size:15px;fill:#1D1F23}
+  .bg{fill:#FFFFFF}
+  .ts{font-size:13px;fill:#5B6069}
+  .th{font-size:17px;font-weight:700}
+  .tb{font-weight:700}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,Menlo,Consolas,"Noto Sans Mono CJK KR",monospace;font-size:13.5px}
+  .box{fill:#F4F3EF;stroke:#9A9CA3;stroke-width:1.5}
+  .zone{fill:#FAF9F6;stroke:#C9C6BE;stroke-width:1.2;stroke-dasharray:5 4}
+  .blue{fill:#E7EFF9;stroke:#1F5FAD;stroke-width:1.6}
+  .green{fill:#E6F4EC;stroke:#1B7F4B;stroke-width:1.6}
+  .orange{fill:#FCEFE0;stroke:#B25E09;stroke-width:1.6}
+  .red{fill:#FCEBEA;stroke:#B42318;stroke-width:1.6}
+  .purple{fill:#F1EAFB;stroke:#6E3FB0;stroke-width:1.6}
+  .yellow{fill:#FFF3C4;stroke:#A07800;stroke-width:1.6}
+  .c-blue{fill:#1F5FAD}.c-green{fill:#1B7F4B}.c-orange{fill:#B25E09}.c-red{fill:#B42318}.c-purple{fill:#6E3FB0}.c-muted{fill:#5B6069}
+  .ln{stroke:#6B7078;stroke-width:1.6;fill:none}
+  .ln-blue{stroke:#1F5FAD}.ln-green{stroke:#1B7F4B}.ln-red{stroke:#B42318}.ln-orange{stroke:#B25E09}.ln-purple{stroke:#6E3FB0}
+  .dash{stroke-dasharray:6 5}
+  .ah{fill:#6B7078}.ah-blue{fill:#1F5FAD}.ah-green{fill:#1B7F4B}.ah-red{fill:#B42318}.ah-orange{fill:#B25E09}.ah-purple{fill:#6E3FB0}
+  @media (prefers-color-scheme:dark){
+    text{fill:#E8E6E1}
+    .bg{fill:#1A1C20}
+    .ts{fill:#A9A69F}
+    .box{fill:#24262B;stroke:#6B6E76}
+    .zone{fill:#1F2125;stroke:#43464D}
+    .blue{fill:#1B2940;stroke:#7FB0F0}
+    .green{fill:#16281E;stroke:#5FC98E}
+    .orange{fill:#2E2215;stroke:#E8A05A}
+    .red{fill:#301A18;stroke:#F08A80}
+    .purple{fill:#251C33;stroke:#C3A0F0}
+    .yellow{fill:#2E2812;stroke:#E3C45C}
+    .c-blue{fill:#9CC4F5}.c-green{fill:#7ED3A3}.c-orange{fill:#EDB27A}.c-red{fill:#F4A39B}.c-purple{fill:#D2B8F4}.c-muted{fill:#A9A69F}
+    .ln{stroke:#8D9098}
+    .ln-blue{stroke:#7FB0F0}.ln-green{stroke:#5FC98E}.ln-red{stroke:#F08A80}.ln-orange{stroke:#E8A05A}.ln-purple{stroke:#C3A0F0}
+    .ah{fill:#8D9098}.ah-blue{fill:#7FB0F0}.ah-green{fill:#5FC98E}.ah-red{fill:#F08A80}.ah-orange{fill:#E8A05A}.ah-purple{fill:#C3A0F0}
+  }
+</style>
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="ah" d="M0,0 L10,5 L0,10 z"/></marker>
+  <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="ah-blue" d="M0,0 L10,5 L0,10 z"/></marker>
+  <marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="ah-red" d="M0,0 L10,5 L0,10 z"/></marker>
+  <marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="ah-green" d="M0,0 L10,5 L0,10 z"/></marker>
+  <marker id="arrow-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="ah-orange" d="M0,0 L10,5 L0,10 z"/></marker>
+  <marker id="arrow-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="ah-purple" d="M0,0 L10,5 L0,10 z"/></marker>
+</defs>
+<rect class="bg" x="0" y="0" width="880" height="508"/>
+<text class="th" x="24" y="34">threshold 0.2 의 뜻과 긴 섹션 결함</text>
+<text class="ts" x="24" y="56">20% 의 기준은 화면이 아니라 요소 자기 높이 · 초록 = 화면에 보이는 부분 · 주황 선 = 요소 높이의 20% · 빨강 = 결함</text>
+<text class="th" x="24" y="88">정상: #about (1280×800 화면)</text>
+<text class="tb" x="60" y="112">A. 조금 들어옴</text>
+<rect class="box" x="60" y="120" width="100" height="160" rx="4"/>
+<text class="ts" x="110" y="142" text-anchor="middle">화면 800px</text>
+<rect class="zone" x="68" y="263.0" width="84" height="113.4"/>
+<rect class="green" x="68" y="263.0" width="84" height="17.0"/>
+<rect class="ln" x="60" y="120" width="100" height="160" rx="4"/>
+<text class="mono" x="110" y="333.2" text-anchor="middle">#about</text>
+<line class="ln ln-orange" x1="54" y1="285.7" x2="166" y2="285.7"/>
+<text class="ts c-orange" x="50" y="290.2" text-anchor="end">20%</text>
+<text class="ts c-green" x="170" y="267.5">15% 보임</text>
+<text class="ts" x="170" y="285.5">(약 85px)</text>
+<line class="ln" x1="110" y1="380.4" x2="110" y2="396" marker-end="url(#arrow)"/>
+<rect class="box" x="32" y="400" width="188" height="56" rx="8"/>
+<text class="mono" x="46" y="422">section reveal</text>
+<text class="ts" x="46" y="444">is-visible 없음 → opacity 0</text>
+<text class="tb" x="276" y="112">B. 조금 더 들어옴</text>
+<rect class="box" x="276" y="120" width="100" height="160" rx="4"/>
+<text class="ts" x="326" y="142" text-anchor="middle">화면 800px</text>
+<rect class="zone" x="284" y="247.2" width="84" height="113.4"/>
+<rect class="green" x="284" y="247.2" width="84" height="32.8"/>
+<rect class="ln" x="276" y="120" width="100" height="160" rx="4"/>
+<text class="mono" x="326" y="325.3" text-anchor="middle">#about</text>
+<line class="ln ln-orange" x1="270" y1="269.9" x2="382" y2="269.9"/>
+<text class="ts c-orange" x="266" y="274.4" text-anchor="end">20%</text>
+<text class="ts c-green" x="386" y="259.6">29% 보임</text>
+<text class="ts" x="386" y="277.6">(약 164px)</text>
+<line class="ln" x1="326" y1="364.6" x2="326" y2="396" marker-end="url(#arrow)"/>
+<rect class="green" x="248" y="400" width="188" height="56" rx="8"/>
+<text class="mono" x="262" y="422">section reveal</text>
+<text class="mono tb c-green" x="262" y="444">is-visible</text>
+<text class="ts" x="352" y="444">→ opacity 1</text>
+<text class="th" x="472" y="88">결함: #projects (375×553 화면)</text>
+<rect class="zone" x="480" y="108" width="96" height="304.7"/>
+<text class="mono" x="528" y="138" text-anchor="middle">#projects</text>
+<text class="mono" x="528" y="158" text-anchor="middle">3047px</text>
+<rect class="red" x="480" y="184" width="96" height="55.3"/>
+<rect class="ln" x="472" y="184" width="112" height="55.3" rx="4"/>
+<text class="ts" x="528" y="216.2" text-anchor="middle">화면 553px</text>
+<text class="ts" x="528" y="352.7" text-anchor="middle">(화면 밖)</text>
+<path class="ln ln-orange" d="M590,184 L598,184 L598,244.9 L590,244.9"/>
+<text class="ts c-orange" x="608" y="206">20% = 약 609px 필요</text>
+<text class="ts" x="608" y="226">화면은 553px 뿐</text>
+<text class="mono tb" x="608" y="284">553 ÷ 3047 = 18.1% &lt; 20%</text>
+<rect class="red" x="608" y="298" width="248" height="58" rx="8"/>
+<text class="ts c-red" x="622" y="322">끝까지 스크롤해도 is-visible 이</text>
+<text class="ts c-red" x="622" y="342">안 붙음 → 섹션 전체 투명 (실측)</text>
+<text class="ts" x="608" y="382">발생 조건: 섹션 높이 &gt; 화면 높이 × 5</text>
+<text class="ts" x="608" y="402">360×560 도 재현 · 375×667 은 정상</text>
+<text class="mono" x="24" y="488">navspy.js:36 rootMargin: '-40% 0px -55% 0px'</text>
+<text class="ts" x="340" y="488">→ 800px 화면에서 320~360px 띠(40px)만 판정</text>
+
+</svg>

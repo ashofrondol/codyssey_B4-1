@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="548" viewBox="0 0 880 548" role="img" aria-labelledby="title desc">
+<title id="title">클릭 한 번의 전파와 한 요소의 리스너 2개</title>
+<desc id="desc">메뉴 링크를 클릭하면 click 이벤트가 window 에서 링크까지 내려왔다가(캡처) 링크에서(타깃) 다시 window 까지 올라간다(버블). 이 링크에는 menu.js:28 과 scroll.js:43 의 click 리스너 2개가 addEventListener 로 함께 붙어 있고, onclick 속성으로 두 번 대입했다면 먼저 것이 사라져 하나만 남는다.</desc>
+<style>
+  text{font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR","Noto Sans CJK KR",sans-serif;font-size:15px;fill:#1D1F23}
+  .bg{fill:#FFFFFF}
+  .ts{font-size:13px;fill:#5B6069}
+  .th{font-size:17px;font-weight:700}
+  .tb{font-weight:700}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,Menlo,Consolas,"Noto Sans Mono CJK KR",monospace;font-size:13.5px}
+  .box{fill:#F4F3EF;stroke:#9A9CA3;stroke-width:1.5}
+  .zone{fill:#FAF9F6;stroke:#C9C6BE;stroke-width:1.2;stroke-dasharray:5 4}
+  .blue{fill:#E7EFF9;stroke:#1F5FAD;stroke-width:1.6}
+  .green{fill:#E6F4EC;stroke:#1B7F4B;stroke-width:1.6}
+  .orange{fill:#FCEFE0;stroke:#B25E09;stroke-width:1.6}
+  .red{fill:#FCEBEA;stroke:#B42318;stroke-width:1.6}
+  .purple{fill:#F1EAFB;stroke:#6E3FB0;stroke-width:1.6}
+  .yellow{fill:#FFF3C4;stroke:#A07800;stroke-width:1.6}
+  .c-blue{fill:#1F5FAD}.c-green{fill:#1B7F4B}.c-orange{fill:#B25E09}.c-red{fill:#B42318}.c-purple{fill:#6E3FB0}.c-muted{fill:#5B6069}
+  .ln{stroke:#6B7078;stroke-width:1.6;fill:none}
+  .ln-blue{stroke:#1F5FAD}.ln-green{stroke:#1B7F4B}.ln-red{stroke:#B42318}.ln-orange{stroke:#B25E09}.ln-purple{stroke:#6E3FB0}
+  .dash{stroke-dasharray:6 5}
+  .ah{fill:#6B7078}.ah-blue{fill:#1F5FAD}.ah-green{fill:#1B7F4B}.ah-red{fill:#B42318}.ah-orange{fill:#B25E09}.ah-purple{fill:#6E3FB0}
+  @media (prefers-color-scheme:dark){
+    text{fill:#E8E6E1}
+    .bg{fill:#1A1C20}
+    .ts{fill:#A9A69F}
+    .box{fill:#24262B;stroke:#6B6E76}
+    .zone{fill:#1F2125;stroke:#43464D}
+    .blue{fill:#1B2940;stroke:#7FB0F0}
+    .green{fill:#16281E;stroke:#5FC98E}
+    .orange{fill:#2E2215;stroke:#E8A05A}
+    .red{fill:#301A18;stroke:#F08A80}
+    .purple{fill:#251C33;stroke:#C3A0F0}
+    .yellow{fill:#2E2812;stroke:#E3C45C}
+    .c-blue{fill:#9CC4F5}.c-green{fill:#7ED3A3}.c-orange{fill:#EDB27A}.c-red{fill:#F4A39B}.c-purple{fill:#D2B8F4}.c-muted{fill:#A9A69F}
+    .ln{stroke:#8D9098}
+    .ln-blue{stroke:#7FB0F0}.ln-green{stroke:#5FC98E}.ln-red{stroke:#F08A80}.ln-orange{stroke:#E8A05A}.ln-purple{stroke:#C3A0F0}
+    .ah{fill:#8D9098}.ah-blue{fill:#7FB0F0}.ah-green{fill:#5FC98E}.ah-red{fill:#F08A80}.ah-orange{fill:#E8A05A}.ah-purple{fill:#C3A0F0}
+  }
+</style>
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="ah" d="M0,0 L10,5 L0,10 z"/></marker>
+  <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="ah-blue" d="M0,0 L10,5 L0,10 z"/></marker>
+  <marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="ah-red" d="M0,0 L10,5 L0,10 z"/></marker>
+  <marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="ah-green" d="M0,0 L10,5 L0,10 z"/></marker>
+  <marker id="arrow-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="ah-orange" d="M0,0 L10,5 L0,10 z"/></marker>
+  <marker id="arrow-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="ah-purple" d="M0,0 L10,5 L0,10 z"/></marker>
+</defs>
+<rect class="bg" x="0" y="0" width="880" height="548"/>
+<text class="th" x="24" y="34">클릭 한 번의 전파와 한 요소의 리스너 2개</text>
+<text class="ts" x="24" y="56">링크를 누르면 이벤트가 위에서 내려왔다가(①) 링크에 닿고(②) 다시 올라간다(③)</text>
+<rect class="box" x="116" y="80" width="244" height="30" rx="8"/>
+<text class="mono" x="238" y="100" text-anchor="middle">window</text>
+<line class="ln" x1="238" y1="110" x2="238" y2="122"/>
+<rect class="box" x="116" y="122" width="244" height="30" rx="8"/>
+<text class="mono" x="238" y="142" text-anchor="middle">document</text>
+<line class="ln" x1="238" y1="152" x2="238" y2="164"/>
+<rect class="box" x="116" y="164" width="244" height="30" rx="8"/>
+<text class="mono" x="238" y="184" text-anchor="middle">html</text>
+<line class="ln" x1="238" y1="194" x2="238" y2="206"/>
+<rect class="box" x="116" y="206" width="244" height="30" rx="8"/>
+<text class="mono" x="238" y="226" text-anchor="middle">body</text>
+<line class="ln" x1="238" y1="236" x2="238" y2="248"/>
+<rect class="box" x="116" y="248" width="244" height="30" rx="8"/>
+<text class="mono" x="238" y="268" text-anchor="middle">header#header</text>
+<line class="ln" x1="238" y1="278" x2="238" y2="290"/>
+<rect class="box" x="116" y="290" width="244" height="30" rx="8"/>
+<text class="mono" x="238" y="310" text-anchor="middle">nav.nav</text>
+<line class="ln" x1="238" y1="320" x2="238" y2="332"/>
+<rect class="box" x="116" y="332" width="244" height="30" rx="8"/>
+<text class="mono" x="238" y="352" text-anchor="middle">ul#navMenu</text>
+<line class="ln" x1="238" y1="362" x2="238" y2="374"/>
+<rect class="box" x="116" y="374" width="244" height="30" rx="8"/>
+<text class="mono" x="238" y="394" text-anchor="middle">li</text>
+<line class="ln" x1="238" y1="404" x2="238" y2="416"/>
+<rect class="yellow" x="116" y="416" width="244" height="30" rx="8"/>
+<text class="mono tb" x="238" y="436" text-anchor="middle">a.nav__link[href=&quot;#about&quot;]</text>
+<!-- ① 캡처 -->
+<path class="ln ln-blue dash" d="M96,86 L96,431 L111,431" marker-end="url(#arrow-blue)"/>
+<text class="tb c-blue" x="24" y="240">① 캡처</text>
+<text class="ts" x="24" y="260">위 → 아래</text>
+<!-- ③ 버블 -->
+<path class="ln ln-blue" d="M361,424 L384,424 L384,88" marker-end="url(#arrow-blue)"/>
+<text class="tb c-blue" x="394" y="240">③ 버블</text>
+<text class="ts" x="394" y="260">아래 → 위</text>
+<!-- ② 타깃 -->
+<text class="tb" x="238" y="470" text-anchor="middle">② 타깃 = 클릭한 링크</text>
+<!-- 타깃 → 리스너 -->
+<path class="ln ln-green" d="M361,438 L464,438 L464,150 L480,150" marker-end="url(#arrow-green)"/>
+
+<rect class="green" x="484" y="80" width="372" height="164" rx="10"/>
+<text class="th c-green" x="500" y="108">이 링크의 click 리스너 2개 (실측)</text>
+<text class="mono tb" x="500" y="142">menu.js:28</text>
+<text class="ts" x="616" y="142">열린 메뉴 닫기</text>
+<text class="mono tb" x="500" y="176">scroll.js:43</text>
+<text class="ts" x="616" y="176">기본 점프 막고 부드럽게 이동</text>
+<text class="mono" x="500" y="200">event.preventDefault()</text>
+<text class="mono" x="500" y="222">scrollIntoView({ behavior: 'smooth', … })</text>
+
+<rect class="red" x="484" y="268" width="372" height="128" rx="10"/>
+<text class="th c-red" x="500" y="296">onclick 속성이라면</text>
+<text class="mono" x="500" y="326">a.onclick = 닫기;</text>
+<text class="ts c-red" x="648" y="326">← 덮어써짐</text>
+<text class="mono" x="500" y="350">a.onclick = 스크롤;</text>
+<text class="ts" x="500" y="380">→ 슬롯 1개 → 먼저 것이 조용히 사라짐</text>
+
+<text class="ts" x="24" y="506">그 밖의 리스너:</text>
+<text class="mono" x="120" y="506">window: scroll 1개 (scroll.js:20) · document: DOMContentLoaded 1개 (main.js:19)</text>
+<text class="ts" x="24" y="532">점선 = 캡처(기본 등록은 버블 단계) · 파랑 = 이벤트 이동 · 초록 = 실행되는 리스너 · 빨강 = 덮어써지는 핸들러 · 노랑 = 타깃</text>
+
+</svg>

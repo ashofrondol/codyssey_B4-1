@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="452" viewBox="0 0 880 452" role="img" aria-labelledby="title desc">
+<title id="title">스크립트를 붙이는 세 가지 방법 — 시간 축으로 보기</title>
+<desc id="desc">세 줄의 시간 막대로 script 태그를 붙이는 방법을 비교한다. 속성이 없으면 내려받는 동안과 실행하는 동안 HTML 파싱이 멈추고, defer 는 파싱과 나란히 내려받은 뒤 파싱이 끝나면 문서 순서대로 실행하고 DOMContentLoaded 로 이어지며, async 는 도착하는 즉시 파싱을 잠깐 멈추고 실행해 순서가 보장되지 않는다.</desc>
+<style>
+  text{font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR","Noto Sans CJK KR",sans-serif;font-size:15px;fill:#1D1F23}
+  .bg{fill:#FFFFFF}
+  .ts{font-size:13px;fill:#5B6069}
+  .th{font-size:17px;font-weight:700}
+  .tb{font-weight:700}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,Menlo,Consolas,"Noto Sans Mono CJK KR",monospace;font-size:13.5px}
+  .box{fill:#F4F3EF;stroke:#9A9CA3;stroke-width:1.5}
+  .zone{fill:#FAF9F6;stroke:#C9C6BE;stroke-width:1.2;stroke-dasharray:5 4}
+  .blue{fill:#E7EFF9;stroke:#1F5FAD;stroke-width:1.6}
+  .green{fill:#E6F4EC;stroke:#1B7F4B;stroke-width:1.6}
+  .orange{fill:#FCEFE0;stroke:#B25E09;stroke-width:1.6}
+  .red{fill:#FCEBEA;stroke:#B42318;stroke-width:1.6}
+  .purple{fill:#F1EAFB;stroke:#6E3FB0;stroke-width:1.6}
+  .yellow{fill:#FFF3C4;stroke:#A07800;stroke-width:1.6}
+  .c-blue{fill:#1F5FAD}.c-green{fill:#1B7F4B}.c-orange{fill:#B25E09}.c-red{fill:#B42318}.c-purple{fill:#6E3FB0}.c-muted{fill:#5B6069}
+  .ln{stroke:#6B7078;stroke-width:1.6;fill:none}
+  .ln-blue{stroke:#1F5FAD}.ln-green{stroke:#1B7F4B}.ln-red{stroke:#B42318}.ln-orange{stroke:#B25E09}.ln-purple{stroke:#6E3FB0}
+  .dash{stroke-dasharray:6 5}
+  .ah{fill:#6B7078}.ah-blue{fill:#1F5FAD}.ah-green{fill:#1B7F4B}.ah-red{fill:#B42318}.ah-orange{fill:#B25E09}.ah-purple{fill:#6E3FB0}
+  @media (prefers-color-scheme:dark){
+    text{fill:#E8E6E1}
+    .bg{fill:#1A1C20}
+    .ts{fill:#A9A69F}
+    .box{fill:#24262B;stroke:#6B6E76}
+    .zone{fill:#1F2125;stroke:#43464D}
+    .blue{fill:#1B2940;stroke:#7FB0F0}
+    .green{fill:#16281E;stroke:#5FC98E}
+    .orange{fill:#2E2215;stroke:#E8A05A}
+    .red{fill:#301A18;stroke:#F08A80}
+    .purple{fill:#251C33;stroke:#C3A0F0}
+    .yellow{fill:#2E2812;stroke:#E3C45C}
+    .c-blue{fill:#9CC4F5}.c-green{fill:#7ED3A3}.c-orange{fill:#EDB27A}.c-red{fill:#F4A39B}.c-purple{fill:#D2B8F4}.c-muted{fill:#A9A69F}
+    .ln{stroke:#8D9098}
+    .ln-blue{stroke:#7FB0F0}.ln-green{stroke:#5FC98E}.ln-red{stroke:#F08A80}.ln-orange{stroke:#E8A05A}.ln-purple{stroke:#C3A0F0}
+    .ah{fill:#8D9098}.ah-blue{fill:#7FB0F0}.ah-green{fill:#5FC98E}.ah-red{fill:#F08A80}.ah-orange{fill:#E8A05A}.ah-purple{fill:#C3A0F0}
+  }
+</style>
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="ah" d="M0,0 L10,5 L0,10 z"/></marker>
+  <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="ah-blue" d="M0,0 L10,5 L0,10 z"/></marker>
+  <marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="ah-red" d="M0,0 L10,5 L0,10 z"/></marker>
+  <marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="ah-green" d="M0,0 L10,5 L0,10 z"/></marker>
+  <marker id="arrow-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="ah-orange" d="M0,0 L10,5 L0,10 z"/></marker>
+  <marker id="arrow-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="ah-purple" d="M0,0 L10,5 L0,10 z"/></marker>
+</defs>
+<rect class="bg" x="0" y="0" width="880" height="452"/>
+<text class="th" x="24" y="34">스크립트를 붙이는 세 가지 방법 — 시간 축으로 보기</text>
+<text class="ts" x="24" y="56">왼쪽에서 오른쪽으로 시간이 흐른다 · 막대 길이는 예시(실측 시간 아님)</text>
+
+<!-- 레인 1: 속성 없음 -->
+<text class="mono tb" x="24" y="98">&lt;script src&gt;</text>
+<text class="ts" x="24" y="118">속성 없음</text>
+<rect class="box" x="200" y="82" width="152" height="26" rx="4"/>
+<text class="ts" x="276" y="100" text-anchor="middle">HTML 파싱</text>
+<rect class="orange" x="352" y="82" width="160" height="26" rx="4"/>
+<text class="ts c-orange" x="432" y="100" text-anchor="middle">파싱 멈춤</text>
+<rect class="box" x="512" y="82" width="344" height="26" rx="4"/>
+<text class="ts" x="684" y="100" text-anchor="middle">HTML 파싱 (이어서)</text>
+<rect class="blue" x="352" y="114" width="104" height="26" rx="4"/>
+<text class="ts c-blue" x="404" y="132" text-anchor="middle">내려받기</text>
+<rect class="green" x="456" y="114" width="56" height="26" rx="4"/>
+<text class="ts c-green" x="484" y="132" text-anchor="middle">실행</text>
+<text class="ts" x="856" y="160" text-anchor="end">받는 동안과 실행하는 동안 모두 파싱이 멈춘다 → 첫 화면이 늦어진다</text>
+
+<!-- 레인 2: defer -->
+<text class="mono tb" x="24" y="218">&lt;script src defer&gt;</text>
+<text class="ts" x="24" y="238">이 저장소 · 11개</text>
+<rect class="box" x="200" y="202" width="440" height="26" rx="4"/>
+<text class="ts" x="420" y="220" text-anchor="middle">HTML 파싱 — 멈추지 않는다</text>
+<rect class="blue" x="240" y="234" width="200" height="26" rx="4"/>
+<text class="ts c-blue" x="340" y="252" text-anchor="middle">내려받기 (파싱과 나란히)</text>
+<rect class="green" x="648" y="234" width="136" height="26" rx="4"/>
+<text class="ts c-green" x="716" y="252" text-anchor="middle">문서 순서대로 실행</text>
+<line class="ln dash" x1="800" y1="196" x2="800" y2="266"/>
+<text class="ts" x="856" y="284" text-anchor="end">config.js → 기능 모듈 9개 → main.js · 그다음 DOMContentLoaded(점선) → init() ×9</text>
+
+<!-- 레인 3: async -->
+<text class="mono tb" x="24" y="338">&lt;script src async&gt;</text>
+<text class="ts" x="24" y="358">비교용 (안 씀)</text>
+<rect class="box" x="200" y="322" width="240" height="26" rx="4"/>
+<text class="ts" x="320" y="340" text-anchor="middle">HTML 파싱</text>
+<rect class="orange" x="440" y="322" width="56" height="26" rx="4"/>
+<text class="ts c-orange" x="468" y="340" text-anchor="middle">멈춤</text>
+<rect class="box" x="496" y="322" width="360" height="26" rx="4"/>
+<text class="ts" x="676" y="340" text-anchor="middle">HTML 파싱 (이어서)</text>
+<rect class="blue" x="240" y="354" width="200" height="26" rx="4"/>
+<text class="ts c-blue" x="340" y="372" text-anchor="middle">내려받기 (파싱과 나란히)</text>
+<rect class="green" x="440" y="354" width="56" height="26" rx="4"/>
+<text class="ts c-green" x="468" y="372" text-anchor="middle">실행</text>
+<text class="ts" x="856" y="400" text-anchor="end">도착하는 즉시 실행 — 여러 개면 먼저 도착한 것부터라 순서가 보장되지 않는다</text>
+
+<text class="ts" x="24" y="436">회색 = HTML 파싱 · 파랑 = 스크립트 내려받기 · 초록 = 실행 · 주황 = 파싱이 멈춘 구간 · 점선 = DOMContentLoaded</text>
+</svg>

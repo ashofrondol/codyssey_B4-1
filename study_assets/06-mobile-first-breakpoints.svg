@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="690" viewBox="0 0 880 690" role="img" aria-labelledby="title desc">
+<title id="title">모바일 퍼스트와 브레이크포인트</title>
+<desc id="desc">위쪽은 화면 폭 축 위에 규칙이 적용되는 범위를 쌓은 막대다. 기본 규칙은 모든 폭에, @media (min-width: 768px) 규칙은 768px 이상에, @media (min-width: 1024px) 규칙은 1024px 이상에 덧붙는다. 아래쪽은 390px, 768px, 1280px 에서 실제로 측정한 배치를 단순화한 와이어프레임으로, 768px 부터 메뉴가 펼쳐지고 About 이 두 칸이 되며, 카드는 1열 342px, 2열 348px, 3열 336px 이 된다.</desc>
+<style>
+  text{font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR","Noto Sans CJK KR",sans-serif;font-size:15px;fill:#1D1F23}
+  .bg{fill:#FFFFFF}
+  .ts{font-size:13px;fill:#5B6069}
+  .th{font-size:17px;font-weight:700}
+  .tb{font-weight:700}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,Menlo,Consolas,"Noto Sans Mono CJK KR",monospace;font-size:13.5px}
+  .box{fill:#F4F3EF;stroke:#9A9CA3;stroke-width:1.5}
+  .zone{fill:#FAF9F6;stroke:#C9C6BE;stroke-width:1.2;stroke-dasharray:5 4}
+  .blue{fill:#E7EFF9;stroke:#1F5FAD;stroke-width:1.6}
+  .green{fill:#E6F4EC;stroke:#1B7F4B;stroke-width:1.6}
+  .orange{fill:#FCEFE0;stroke:#B25E09;stroke-width:1.6}
+  .red{fill:#FCEBEA;stroke:#B42318;stroke-width:1.6}
+  .purple{fill:#F1EAFB;stroke:#6E3FB0;stroke-width:1.6}
+  .yellow{fill:#FFF3C4;stroke:#A07800;stroke-width:1.6}
+  .c-blue{fill:#1F5FAD}.c-green{fill:#1B7F4B}.c-orange{fill:#B25E09}.c-red{fill:#B42318}.c-purple{fill:#6E3FB0}.c-muted{fill:#5B6069}
+  .ln{stroke:#6B7078;stroke-width:1.6;fill:none}
+  .ln-blue{stroke:#1F5FAD}.ln-green{stroke:#1B7F4B}.ln-red{stroke:#B42318}.ln-orange{stroke:#B25E09}.ln-purple{stroke:#6E3FB0}
+  .dash{stroke-dasharray:6 5}
+  .ah{fill:#6B7078}.ah-blue{fill:#1F5FAD}.ah-green{fill:#1B7F4B}.ah-red{fill:#B42318}.ah-orange{fill:#B25E09}.ah-purple{fill:#6E3FB0}
+  @media (prefers-color-scheme:dark){
+    text{fill:#E8E6E1}
+    .bg{fill:#1A1C20}
+    .ts{fill:#A9A69F}
+    .box{fill:#24262B;stroke:#6B6E76}
+    .zone{fill:#1F2125;stroke:#43464D}
+    .blue{fill:#1B2940;stroke:#7FB0F0}
+    .green{fill:#16281E;stroke:#5FC98E}
+    .orange{fill:#2E2215;stroke:#E8A05A}
+    .red{fill:#301A18;stroke:#F08A80}
+    .purple{fill:#251C33;stroke:#C3A0F0}
+    .yellow{fill:#2E2812;stroke:#E3C45C}
+    .c-blue{fill:#9CC4F5}.c-green{fill:#7ED3A3}.c-orange{fill:#EDB27A}.c-red{fill:#F4A39B}.c-purple{fill:#D2B8F4}.c-muted{fill:#A9A69F}
+    .ln{stroke:#8D9098}
+    .ln-blue{stroke:#7FB0F0}.ln-green{stroke:#5FC98E}.ln-red{stroke:#F08A80}.ln-orange{stroke:#E8A05A}.ln-purple{stroke:#C3A0F0}
+    .ah{fill:#8D9098}.ah-blue{fill:#7FB0F0}.ah-green{fill:#5FC98E}.ah-red{fill:#F08A80}.ah-orange{fill:#E8A05A}.ah-purple{fill:#C3A0F0}
+  }
+</style>
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="ah" d="M0,0 L10,5 L0,10 z"/></marker>
+  <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="ah-blue" d="M0,0 L10,5 L0,10 z"/></marker>
+  <marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="ah-red" d="M0,0 L10,5 L0,10 z"/></marker>
+  <marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="ah-green" d="M0,0 L10,5 L0,10 z"/></marker>
+  <marker id="arrow-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="ah-orange" d="M0,0 L10,5 L0,10 z"/></marker>
+  <marker id="arrow-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="ah-purple" d="M0,0 L10,5 L0,10 z"/></marker>
+</defs>
+<rect class="bg" x="0" y="0" width="880" height="690"/>
+<text x="24" y="34" class="th">모바일 퍼스트 — 폭이 넓어질수록 규칙이 덧쌓인다</text>
+<text x="24" y="56" class="ts">위: 각 규칙이 켜지는 폭 범위 · 아래: 세 폭에서 실측한 배치 (테두리 색 = 그 칸을 바꾼 규칙)</text>
+<rect class="orange" x="692.8" y="72" width="163.20000000000005" height="60" rx="6"/>
+<text x="774.4" y="107" text-anchor="middle" class="ts tb c-orange">1024px 이상</text>
+<text x="516" y="90" text-anchor="end" class="mono tb c-orange">@media (min-width: 1024px)</text>
+<text x="516" y="108" text-anchor="end" class="ts">responsive.css:53 · .container 좌우 32px</text>
+<text x="516" y="126" text-anchor="end" class="ts">제목 clamp(2.8rem, 4vw + 1rem, 4rem)</text>
+<rect class="green" x="529.6" y="140" width="326.4" height="60" rx="6"/>
+<text x="611.2" y="175" text-anchor="middle" class="ts tb c-green">768px 이상</text>
+<text x="516" y="158" text-anchor="end" class="mono tb c-green">@media (min-width: 768px)</text>
+<text x="516" y="176" text-anchor="end" class="ts">responsive.css:11 · 메뉴 flex · 햄버거 none</text>
+<text x="516" y="194" text-anchor="end" class="ts">About 280px 1fr · .section 96px</text>
+<rect class="blue" x="40" y="208" width="816.0" height="64" rx="6"/>
+<text x="54" y="229" class="tb c-blue">기본 규칙 (쿼리 밖) — 모든 폭</text>
+<text x="54" y="248" class="mono">.nav__menu { display: none }</text>
+<text x="54" y="265" class="ts">햄버거 보임 · .section 64px · .container 좌우 24px</text>
+<line class="ln" x1="40" y1="292" x2="856.0" y2="292"/>
+<line class="ln" x1="40.0" y1="286" x2="40.0" y2="298"/>
+<text x="40.0" y="314" text-anchor="start" class="mono">0</text>
+<line class="ln" x1="288.6" y1="286" x2="288.6" y2="298"/>
+<text x="288.6" y="314" text-anchor="middle" class="mono">390</text>
+<line class="ln" x1="529.6" y1="286" x2="529.6" y2="298"/>
+<text x="529.6" y="314" text-anchor="middle" class="mono">768</text>
+<line class="ln" x1="692.8" y1="286" x2="692.8" y2="298"/>
+<text x="692.8" y="314" text-anchor="middle" class="mono">1024</text>
+<line class="ln" x1="856.0" y1="286" x2="856.0" y2="298"/>
+<text x="856.0" y="314" text-anchor="end" class="mono">1280 px</text>
+<line class="ln dash" x1="529.6" y1="66" x2="529.6" y2="286"/>
+<line class="ln dash" x1="692.8" y1="66" x2="692.8" y2="286"/>
+<rect class="blue" x="24" y="332" width="16" height="12" rx="3"/>
+<text x="46" y="343" class="ts">기본 규칙</text>
+<rect class="green" x="130" y="332" width="16" height="12" rx="3"/>
+<text x="152" y="343" class="ts">768px 에서 추가</text>
+<rect class="orange" x="276" y="332" width="16" height="12" rx="3"/>
+<text x="298" y="343" class="ts">1024px 에서 추가</text>
+<rect class="box" x="430" y="332" width="16" height="12" rx="3"/>
+<text x="452" y="343" class="ts">회색 칸 = 기본 그대로</text>
+<line class="ln dash" x1="606" y1="338" x2="634" y2="338"/>
+<text x="640" y="343" class="ts">브레이크포인트 경계</text>
+<text x="24" y="372" class="mono tb">390px</text>
+<rect class="zone" x="24" y="380" width="124" height="240" rx="10"/>
+<rect class="box" x="34" y="390" width="104" height="30" rx="6"/>
+<text x="172" y="372" class="mono tb">768px</text>
+<rect class="zone" x="172" y="380" width="310" height="240" rx="10"/>
+<rect class="box" x="182" y="390" width="290" height="30" rx="6"/>
+<text x="506" y="372" class="mono tb">1280px</text>
+<rect class="zone" x="506" y="380" width="350" height="240" rx="10"/>
+<rect class="box" x="516" y="390" width="330" height="30" rx="6"/>
+<text x="42" y="410" class="ts">로고</text>
+<text x="108" y="410" text-anchor="middle">☾</text>
+<text x="128" y="410" text-anchor="middle">☰</text>
+<text x="190" y="410" class="ts">로고</text>
+<rect class="green" x="220" y="391.5" width="225" height="27" rx="5"/>
+<text x="332.5" y="410" text-anchor="middle" class="ts">Home About Skills Projects Contact</text>
+<text x="460" y="410" text-anchor="middle">☾</text>
+<text x="524" y="410" class="ts">로고</text>
+<rect class="green" x="568.5" y="391.5" width="225" height="27" rx="5"/>
+<text x="681.0" y="410" text-anchor="middle" class="ts">Home About Skills Projects Contact</text>
+<text x="834" y="410" text-anchor="middle">☾</text>
+<rect class="box" x="34.0" y="430" width="104" height="26" rx="5"/>
+<text x="86.0" y="448" text-anchor="middle" class="ts">제목 35.5px</text>
+<rect class="box" x="262.0" y="430" width="130" height="26" rx="5"/>
+<text x="327.0" y="448" text-anchor="middle" class="ts">제목 54.4px</text>
+<rect class="orange" x="616.0" y="430" width="130" height="26" rx="5"/>
+<text x="681.0" y="448" text-anchor="middle" class="ts">제목 64px</text>
+<rect class="box" x="34" y="466" width="104" height="28" rx="5"/>
+<text x="86" y="485" text-anchor="middle" class="ts">About 342px</text>
+<rect class="green" x="182" y="466" width="118" height="28" rx="5"/>
+<text x="241.0" y="485" text-anchor="middle" class="ts">About 280px</text>
+<rect class="green" x="308" y="466" width="164" height="28" rx="5"/>
+<text x="390.0" y="485" text-anchor="middle" class="ts">본문 392px</text>
+<rect class="green" x="516" y="466" width="89" height="28" rx="5"/>
+<text x="560.5" y="485" text-anchor="middle" class="ts">About 280px</text>
+<rect class="green" x="613" y="466" width="233" height="28" rx="5"/>
+<text x="729.5" y="485" text-anchor="middle" class="ts">본문 728px</text>
+<text x="34" y="518" class="ts">카드 1열 (342px)</text>
+<rect class="box" x="34" y="528" width="104" height="24" rx="5"/>
+<rect class="box" x="34" y="558" width="104" height="24" rx="5"/>
+<rect class="box" x="34" y="588" width="104" height="24" rx="5"/>
+<text x="182" y="518" class="ts">카드 2열 (348px ×2)</text>
+<rect class="box" x="182.0" y="528" width="141.0" height="36" rx="5"/>
+<rect class="box" x="331.0" y="528" width="141.0" height="36" rx="5"/>
+<rect class="box" x="182.0" y="572" width="141.0" height="36" rx="5"/>
+<rect class="box" x="331.0" y="572" width="141.0" height="36" rx="5"/>
+<text x="516" y="518" class="ts">카드 3열 (336px ×3)</text>
+<rect class="box" x="516.0" y="528" width="104.7" height="36" rx="5"/>
+<rect class="box" x="628.7" y="528" width="104.7" height="36" rx="5"/>
+<rect class="box" x="741.3" y="528" width="104.7" height="36" rx="5"/>
+<rect class="box" x="516.0" y="572" width="104.7" height="36" rx="5"/>
+<rect class="box" x="628.7" y="572" width="104.7" height="36" rx="5"/>
+<rect class="box" x="741.3" y="572" width="104.7" height="36" rx="5"/>
+<text x="172" y="644" class="ts">경계 실측: 767px → ☰ / 768px → 메뉴</text>
+<text x="506" y="644" class="ts">container 최대 1120px · 안쪽 좌우 32px</text>
+<text x="24" y="672" class="ts">※ 카드 열 수(1 → 2 → 3)는 미디어 쿼리가 아니라 Grid 가 폭에 맞춰 계산한다 → 그림 6</text>
+</svg>

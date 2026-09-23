@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="800" viewBox="0 0 860 800" role="img" aria-labelledby="title desc">
+<title id="title">태그 구조와 스크린 리더가 보는 접근성 트리</title>
+<desc id="desc">왼쪽은 index.html 에 실제로 쓴 태그의 중첩 구조, 오른쪽은 Chromium 이 만든 접근성 트리다. header, nav, main, article, footer, label 은 banner, navigation, main, article, contentinfo, textbox 역할로 나타나고, 그중 banner·navigation·main·contentinfo 네 개만 랜드마크다. 이름 없는 section 5개는 region 이 되지 않고 섹션 안의 header 는 banner 가 되지 않는다.</desc>
+<style>
+  text{font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR","Noto Sans CJK KR",sans-serif;font-size:15px;fill:#1D1F23}
+  .bg{fill:#FFFFFF}
+  .ts{font-size:13px;fill:#5B6069}
+  .th{font-size:17px;font-weight:700}
+  .tb{font-weight:700}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,Menlo,Consolas,"Noto Sans Mono CJK KR",monospace;font-size:13.5px}
+  .box{fill:#F4F3EF;stroke:#9A9CA3;stroke-width:1.5}
+  .zone{fill:#FAF9F6;stroke:#C9C6BE;stroke-width:1.2;stroke-dasharray:5 4}
+  .blue{fill:#E7EFF9;stroke:#1F5FAD;stroke-width:1.6}
+  .green{fill:#E6F4EC;stroke:#1B7F4B;stroke-width:1.6}
+  .orange{fill:#FCEFE0;stroke:#B25E09;stroke-width:1.6}
+  .red{fill:#FCEBEA;stroke:#B42318;stroke-width:1.6}
+  .purple{fill:#F1EAFB;stroke:#6E3FB0;stroke-width:1.6}
+  .yellow{fill:#FFF3C4;stroke:#A07800;stroke-width:1.6}
+  .c-blue{fill:#1F5FAD}.c-green{fill:#1B7F4B}.c-orange{fill:#B25E09}.c-red{fill:#B42318}.c-purple{fill:#6E3FB0}.c-muted{fill:#5B6069}
+  .ln{stroke:#6B7078;stroke-width:1.6;fill:none}
+  .ln-blue{stroke:#1F5FAD}.ln-green{stroke:#1B7F4B}.ln-red{stroke:#B42318}.ln-orange{stroke:#B25E09}.ln-purple{stroke:#6E3FB0}
+  .dash{stroke-dasharray:6 5}
+  .ah{fill:#6B7078}.ah-blue{fill:#1F5FAD}.ah-green{fill:#1B7F4B}.ah-red{fill:#B42318}.ah-orange{fill:#B25E09}.ah-purple{fill:#6E3FB0}
+  @media (prefers-color-scheme:dark){
+    text{fill:#E8E6E1}
+    .bg{fill:#1A1C20}
+    .ts{fill:#A9A69F}
+    .box{fill:#24262B;stroke:#6B6E76}
+    .zone{fill:#1F2125;stroke:#43464D}
+    .blue{fill:#1B2940;stroke:#7FB0F0}
+    .green{fill:#16281E;stroke:#5FC98E}
+    .orange{fill:#2E2215;stroke:#E8A05A}
+    .red{fill:#301A18;stroke:#F08A80}
+    .purple{fill:#251C33;stroke:#C3A0F0}
+    .yellow{fill:#2E2812;stroke:#E3C45C}
+    .c-blue{fill:#9CC4F5}.c-green{fill:#7ED3A3}.c-orange{fill:#EDB27A}.c-red{fill:#F4A39B}.c-purple{fill:#D2B8F4}.c-muted{fill:#A9A69F}
+    .ln{stroke:#8D9098}
+    .ln-blue{stroke:#7FB0F0}.ln-green{stroke:#5FC98E}.ln-red{stroke:#F08A80}.ln-orange{stroke:#E8A05A}.ln-purple{stroke:#C3A0F0}
+    .ah{fill:#8D9098}.ah-blue{fill:#7FB0F0}.ah-green{fill:#5FC98E}.ah-red{fill:#F08A80}.ah-orange{fill:#E8A05A}.ah-purple{fill:#C3A0F0}
+  }
+</style>
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="ah" d="M0,0 L10,5 L0,10 z"/></marker>
+  <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="ah-blue" d="M0,0 L10,5 L0,10 z"/></marker>
+  <marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="ah-red" d="M0,0 L10,5 L0,10 z"/></marker>
+  <marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="ah-green" d="M0,0 L10,5 L0,10 z"/></marker>
+  <marker id="arrow-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="ah-orange" d="M0,0 L10,5 L0,10 z"/></marker>
+  <marker id="arrow-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="ah-purple" d="M0,0 L10,5 L0,10 z"/></marker>
+</defs>
+<rect class="bg" x="0" y="0" width="860" height="800"/>
+<text class="th" x="24" y="34">태그 구조와 스크린 리더가 보는 접근성 트리</text>
+<text class="ts" x="24" y="56"><tspan class="c-blue">파란 실선 = 접근성 트리에 역할로 나타남</tspan> · <tspan class="c-orange">주황 점선 = 나타나지 않음</tspan> · 주황 글씨 = 이름 없는 section</text>
+<text class="tb" x="24" y="86">index.html 의 태그 (실제)</text>
+<text class="tb" x="500" y="86">접근성 트리 (Chromium 실측)</text>
+<rect class="zone" x="24" y="98" width="392" height="104" rx="8"/>
+<text x="34" y="118" class="mono">header#header</text>
+<rect class="box" x="36" y="128" width="368" height="66" rx="6"/>
+<text x="46" y="148" class="mono">nav "주 메뉴"</text>
+<text x="46" y="167" class="ts">a.nav__logo · ul#navMenu 링크 5</text>
+<text x="46" y="185" class="ts">button#themeToggle · button#hamburger</text>
+<rect class="zone" x="24" y="212" width="392" height="456" rx="8"/>
+<text x="34" y="232" class="mono">main</text>
+<rect class="box" x="36" y="242" width="368" height="28" rx="6"/>
+<text x="46" y="261" class="mono c-orange">section#hero (h1)</text>
+<rect class="zone" x="36" y="276" width="368" height="100" rx="8"/>
+<text x="46" y="296" class="mono c-orange">section#about</text>
+<rect class="box" x="48" y="306" width="344" height="28" rx="6"/>
+<text x="58" y="325" class="mono">header.section__head</text>
+<rect class="box" x="48" y="340" width="344" height="28" rx="6"/>
+<text x="58" y="359" class="mono">article.about</text>
+<rect class="box" x="36" y="384" width="368" height="28" rx="6"/>
+<text x="46" y="403" class="mono c-orange">section#skills</text>
+<rect class="zone" x="36" y="418" width="368" height="132" rx="8"/>
+<text x="46" y="438" class="mono c-orange">section#projects</text>
+<rect class="box" x="48" y="448" width="344" height="28" rx="6"/>
+<text x="58" y="467" class="mono">div#filters role=tablist</text>
+<rect class="zone" x="48" y="482" width="344" height="60" rx="8"/>
+<text x="58" y="502" class="mono">div#projects-container</text>
+<text x="244" y="502" class="ts">aria-live=polite</text>
+<rect class="box" x="60" y="508" width="320" height="28" rx="6"/>
+<text x="70" y="527" class="mono">article.card ×12</text>
+<rect class="zone" x="36" y="558" width="368" height="102" rx="8"/>
+<text x="46" y="578" class="mono c-orange">section#contact</text>
+<rect class="zone" x="48" y="588" width="344" height="64" rx="8"/>
+<text x="58" y="608" class="mono">form#contactForm novalidate</text>
+<rect class="box" x="60" y="616" width="320" height="28" rx="6"/>
+<text x="70" y="635" class="mono">label for ×3</text>
+<rect class="box" x="24" y="678" width="392" height="28" rx="6"/>
+<text x="34" y="697" class="mono">footer.footer</text>
+<line class="ln ln-blue" x1="416" y1="112" x2="496" y2="112" marker-end="url(#arrow-blue)"/>
+<rect class="blue" x="500" y="98" width="336" height="28" rx="6"/>
+<text x="512" y="117" class="mono c-blue">banner</text>
+<text x="824" y="117" text-anchor="end" class="ts tb c-blue">랜드마크</text>
+<line class="ln ln-blue" x1="404" y1="161" x2="496" y2="161" marker-end="url(#arrow-blue)"/>
+<rect class="blue" x="500" y="147" width="336" height="28" rx="6"/>
+<text x="512" y="166" class="mono c-blue">navigation "주 메뉴"</text>
+<text x="824" y="166" text-anchor="end" class="ts tb c-blue">랜드마크</text>
+<line class="ln ln-blue" x1="416" y1="226" x2="496" y2="226" marker-end="url(#arrow-blue)"/>
+<rect class="blue" x="500" y="212" width="336" height="28" rx="6"/>
+<text x="512" y="231" class="mono c-blue">main</text>
+<text x="824" y="231" text-anchor="end" class="ts tb c-blue">랜드마크</text>
+<line class="ln ln-blue" x1="392" y1="354" x2="496" y2="354" marker-end="url(#arrow-blue)"/>
+<rect class="blue" x="500" y="340" width="336" height="28" rx="6"/>
+<text x="512" y="359" class="mono c-blue">article</text>
+<text x="575" y="359" class="ts">(소개)</text>
+<line class="ln ln-blue" x1="392" y1="462" x2="496" y2="462" marker-end="url(#arrow-blue)"/>
+<rect class="blue" x="500" y="448" width="336" height="28" rx="6"/>
+<text x="512" y="467" class="mono c-blue">tablist "언어 필터"</text>
+<line class="ln ln-blue" x1="380" y1="522" x2="496" y2="522" marker-end="url(#arrow-blue)"/>
+<rect class="blue" x="500" y="508" width="336" height="28" rx="6"/>
+<text x="512" y="527" class="mono c-blue">article ×12</text>
+<text x="606" y="527" class="ts">(카드 · 소개와 합쳐 13)</text>
+<line class="ln ln-blue" x1="380" y1="630" x2="496" y2="630" marker-end="url(#arrow-blue)"/>
+<rect class="blue" x="500" y="616" width="336" height="28" rx="6"/>
+<text x="512" y="635" class="mono c-blue">textbox "이름" / "이메일" / "메시지"</text>
+<line class="ln ln-blue" x1="416" y1="692" x2="496" y2="692" marker-end="url(#arrow-blue)"/>
+<rect class="blue" x="500" y="678" width="336" height="28" rx="6"/>
+<text x="512" y="697" class="mono c-blue">contentinfo</text>
+<text x="824" y="697" text-anchor="end" class="ts tb c-blue">랜드마크</text>
+<line class="ln ln-orange dash" x1="404" y1="256" x2="492" y2="256" marker-end="url(#arrow-orange)"/>
+<text x="500" y="261" class="ts c-orange">✕ region 아님 (section 5개 · 이름 없음)</text>
+<line class="ln ln-orange dash" x1="392" y1="320" x2="492" y2="320" marker-end="url(#arrow-orange)"/>
+<text x="500" y="325" class="ts c-orange">✕ banner 아님 (섹션 안의 header)</text>
+<text x="24" y="734" class="mono">header 5 · nav 1 · main 1 · section 5 · article 1(+카드 12) · footer 1 · img 0 · label 3</text>
+<text x="24" y="756" class="ts">위 숫자는 index.html 에 적힌 태그 수(카드 12장은 projects.js 가 실행 중에 추가)</text>
+<text x="24" y="780" class="ts">‘랜드마크’ 표시 4개만 스크린 리더의 랜드마크 목록에 들어간다 · article · tablist · textbox 는 일반 역할</text>
+
+</svg>
